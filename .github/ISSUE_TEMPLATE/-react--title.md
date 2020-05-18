@@ -1,6 +1,6 @@
 ---
-name: "BE 이슈 템플릿"
-about: BE 이슈 템플릿
+name: "React 이슈 템플릿"
+about: React 이슈 템플릿
 title: "[React] Title"
 labels: "React"
 assignees: "seungdeng17"
