@@ -2,7 +2,7 @@
 name: "BE 피쳐 개발 이슈 템플릿(Jay)"
 about: BE 피쳐 개발 이슈 템플릿
 title: "[BE] Title"
-labels: "enhancement"
+labels: ["enhancement" , "React"]
 assignees: "beginin15"
 ---
 
