@@ -2,7 +2,7 @@
 name: "Vue 이슈 템플릿"
 about: Vue 이슈 템플릿
 title: "[Vue] Title"
-labels: "enhancement", "Vue"
+labels: "Vue"
 assignees: "hu2y"
 ---
 
