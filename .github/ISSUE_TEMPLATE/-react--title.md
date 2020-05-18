@@ -1,9 +1,9 @@
 ---
-name: "React 이슈 템플릿"
-about: React 이슈 템플릿
-title: "[React] Title"
-labels: "enhancement", "React"
-assignees: "seungdeng17"
+name: "BE 피쳐 개발 이슈 템플릿(Jay)"
+about: BE 피쳐 개발 이슈 템플릿
+title: "[BE] Title"
+labels: "enhancement"
+assignees: "beginin15"
 ---
 
 ### 기능
