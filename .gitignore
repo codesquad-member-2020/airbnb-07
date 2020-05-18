@@ -129,5 +129,5 @@ BE/build/resources/ 제거할 예정
 BE/build/tmp/ 제거할 예정
 BE/src/main/resources/static/ 제거할 예정
 BE/src/main/resources/templates/ 제거할 예정
-React/ 제거할 예정
-Vue/ 제거할 예정
+FE/React/ 제거할 예정
+FE/Vue/ 제거할 예정
