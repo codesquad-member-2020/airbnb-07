@@ -1,9 +1,9 @@
 ---
-name: BE 이슈 템플릿
+name: "BE 이슈 템플릿"
 about: BE 이슈 템플릿
-title: [BE] Title
-labels: BE, React
-assignees: guswns1659
+title: "[BE] Title"
+labels: "BE"
+assignees: "guswns1659"
 ---
 
 ### 기능
