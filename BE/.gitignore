@@ -7,6 +7,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+.idea
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
@@ -131,3 +132,15 @@ hs_err_pid*
 .nfs*
 
 # End of https://www.gitignore.io/api/java,linux,intellij
+.gradle/ 제거할 예정
+.idea/compiler.xml 제거할 예정
+.idea/misc.xml 제거할 예정
+.idea/modules.xml 제거할 예정
+.idea/modules/ 제거할 예정
+HELP.md 제거할 예정
+build/generated/ 제거할 예정
+build/resources/ 제거할 예정
+build/tmp/ 제거할 예정
+src/main/java/com/codesquad/demo/domain/ 제거할 예정
+src/main/resources/static/ 제거할 예정
+src/main/resources/templates/ 제거할 예정
