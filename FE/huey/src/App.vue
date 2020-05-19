@@ -1,17 +1,11 @@
 <template>
   <div id="app">
-    <login-view></login-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import LoginView from '@/views/LoginView';
-
-export default {
-  components: {
-    LoginView,
-  },
-};
+export default {};
 </script>
 
 <style scoped>
