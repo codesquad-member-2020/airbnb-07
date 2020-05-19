@@ -8,7 +8,7 @@
 export default {};
 </script>
 
-<style scoped>
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,5 +16,17 @@ export default {};
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+}
+
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #fff;
+  background-color: #f59000;
 }
 </style>
