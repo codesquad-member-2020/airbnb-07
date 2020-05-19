@@ -18,6 +18,10 @@ const router = new VueRouter({
       path: '/main',
       component: () => import('@/views/MainView.vue'),
     },
+    {
+      path: '*',
+      component: () => import('@/views/NotFoundView.vue'),
+    },
   ],
 });
 
