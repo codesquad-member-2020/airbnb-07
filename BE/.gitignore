@@ -105,7 +105,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.nar
 *.ear
@@ -138,9 +138,10 @@ hs_err_pid*
 .idea/modules.xml 제거할 예정
 .idea/modules/ 제거할 예정
 HELP.md 제거할 예정
-build/generated/ 제거할 예정
-build/resources/ 제거할 예정
-build/tmp/ 제거할 예정
+#build/generated/ 제거할 예정
+#build/resources/ 제거할 예정
+#build/tmp/ 제거할 예정
 src/main/java/com/codesquad/demo/domain/ 제거할 예정
 src/main/resources/static/ 제거할 예정
 src/main/resources/templates/ 제거할 예정
+#build/libs/ 제거할 예정
