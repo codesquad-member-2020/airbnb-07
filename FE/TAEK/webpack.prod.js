@@ -16,11 +16,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(ts|tsx)$/,
                 use: ['babel-loader', 'ts-loader'],
             },
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)$/,
                 use: ['babel-loader'],
             },
             {
@@ -35,7 +35,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', 'jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
 
     plugins: [
