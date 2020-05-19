@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": false,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "esModuleInterop": true,
+  },
+  "exclude": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "node_modules",
+    "dist",
+    "public"
+  ]
+}
