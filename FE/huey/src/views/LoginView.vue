@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-wrap {
   margin: 0 auto;
   width: 1000px;
@@ -36,6 +36,18 @@ export default {
 
 .logo {
   margin-bottom: 100px;
+}
+
+.vue-logo {
+  animation-name: bingle;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  @keyframes bingle {
+    to {
+      transform: rotate3d(0, 1, 0, 360deg);
+    }
+  }
 }
 
 .airbnb-logo {

@@ -22,6 +22,10 @@ const router = new VueRouter({
       path: '*',
       component: () => import('@/views/NotFoundView.vue'),
     },
+    {
+      path: '/github/oauth/callback',
+      redirect: 'main',
+    },
   ],
 });
 
