@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
-import Login from './components/login/Login';
 import NotFound from './components/NotFound';
+import Login from './components/login/Login';
+import Main from './components/main/Main';
 
 const App = () => {
     return (
@@ -12,7 +13,8 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Route exact path='/' component={Login} />
+                    <Route exact path='/react' component={Login} />
+                    <Route path='/react/main' component={Main} />
                     <Route component={NotFound} />
                 </Switch>
             </Router>
