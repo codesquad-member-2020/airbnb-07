@@ -1,12 +1,18 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
+import Login from './components/login/Login';
+import NotFound from './components/NotFound';
 
 const App = () => {
     return (
-        <div>
+        <Router>
             <GlobalStyle />
-        </div>
+            <Switch>
+                <Route exact path='/' component={Login} />
+                <Route component={NotFound} />
+            </Switch>
+        </Router>
     )
 }
 
