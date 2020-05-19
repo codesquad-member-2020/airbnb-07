@@ -5,13 +5,14 @@ const fonts = css`
 
 `;
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
   ${reset}
   ${fonts}
 
   body {
-    font-family: -apple-system, sans-serif;
+    position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 `;
 
-export default GlobalStyle
+export default GlobalStyles
