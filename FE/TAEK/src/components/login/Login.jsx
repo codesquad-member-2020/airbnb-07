@@ -77,7 +77,7 @@ const Login = () => {
             </LogoWrap>
             <LoginBtn>
                 <Link to='/react/main'>
-                    <span>로그인</span>
+                    로그인
                 </Link>
             </LoginBtn>
         </LoginWrap>
