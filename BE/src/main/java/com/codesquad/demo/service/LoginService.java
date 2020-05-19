@@ -28,7 +28,7 @@ public class LoginService {
             String url = "https://github.com/login/oauth/access_token";
             String client_id = "8f285a7d51cbddc39104";
             String client_secret = "a25c4a9fab910f206855eea684be46f0bb457d60";
-            String redirect_url = "http://localhost:8080/github/oauth/callback";
+            String redirect_url = "http://15.164.35.235/api/github/oauth/callback";
 
             AccessTokenRequestDto accessTokenRequestDto
                     = getAccessToken(client_id, client_secret, code, redirect_url);
