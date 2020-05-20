@@ -7,6 +7,10 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
+      path: '/deployTest/vue/index.html',
+      redirect: '/',
+    },
+    {
       path: '/',
       redirect: '/login',
     },
