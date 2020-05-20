@@ -64,7 +64,7 @@ public class LoginService {
             userEmailCookie.setPath("/");
             response.addCookie(tokenCookie);
             response.addCookie(userEmailCookie);
-            response.setHeader("Location", "http://15.164.35.235/main");
+            response.setHeader("Location", "http://15.164.35.235/githublogin");
 
             return new ResponseEntity<>(HttpStatus.FOUND);
 
@@ -126,7 +126,7 @@ public class LoginService {
             userEmailCookie.setPath("/");
             response.addCookie(tokenCookie);
             response.addCookie(userEmailCookie);
-            response.setHeader("Location", "http://15.164.35.235/main");
+            response.setHeader("Location", "http://15.164.35.235/githublogin");
 
             return new ResponseEntity<>(HttpStatus.FOUND);
 
