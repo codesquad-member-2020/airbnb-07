@@ -13,7 +13,7 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Redirect exact from='/dist/react/index.html' to='/' />
+                    <Redirect exact from='/react/index.html' to='/' />
                     <Route exact path='/' component={Login} />
                     <Route path='/main' component={Main} />
                     <Route component={NotFound} />

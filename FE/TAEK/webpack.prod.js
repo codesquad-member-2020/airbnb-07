@@ -31,6 +31,10 @@ module.exports = {
                     name: "public/images/[name].[ext]?[hash]",
                 },
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
 
