@@ -1,15 +1,11 @@
 import React from 'react'
-import styled from 'styled-components';
-
-const MainWrap = styled.div`
-    
-`;
+import Header from './Header';
 
 const Main = () => {
     return (
-        <div style={{ fontSize: '100px' }}>
-            메인이지롱
-        </div>
+        <>
+            <Header />
+        </>
     )
 }
 

@@ -76,9 +76,7 @@ const Login = () => {
                 <AirbnbLogo />
             </LogoWrap>
             <LoginBtn>
-                <Link to='/react/main'>
-                    로그인
-                </Link>
+                <Link to='/main'>로그인</Link>
             </LoginBtn>
         </LoginWrap>
     )
