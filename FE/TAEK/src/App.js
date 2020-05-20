@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
@@ -13,8 +13,9 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Route exact path='/react' component={Login} />
-                    <Route path='/react/main' component={Main} />
+                    <Redirect exact from='/dist/react/index.html' to='/' />
+                    <Route exact path='/' component={Login} />
+                    <Route path='/main' component={Main} />
                     <Route component={NotFound} />
                 </Switch>
             </Router>

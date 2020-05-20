@@ -24,11 +24,11 @@ module.exports = {
                 use: ['babel-loader'],
             },
             {
-                test: /\.(jpg|png)$/,
+                test: /\.(jpg|png|svg)$/,
                 loader: "file-loader",
                 options: {
                     publicPath: "./",
-                    name: "[name].[ext]?[hash]",
+                    name: "public/images/[name].[ext]?[hash]",
                 },
             },
         ],
