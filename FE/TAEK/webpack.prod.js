@@ -25,11 +25,15 @@ module.exports = {
             },
             {
                 test: /\.(jpg|png|svg)$/,
-                loader: "file-loader",
+                use: ['file-loader'],
                 options: {
                     publicPath: "./",
                     name: "public/images/[name].[ext]?[hash]",
                 },
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
         ],
     },
