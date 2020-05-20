@@ -27,4 +27,10 @@ public class LoginController {
         return loginService.login(code, response);
     }
 
+    @GetMapping("/oauth/callback2")
+    public ResponseEntity<Void> login2(@RequestParam("code") String code,
+                                       HttpServletResponse response) {
+        return loginService.login2(code, response);
+    }
+
 }

@@ -64,7 +64,7 @@ public class LoginService {
             userEmailCookie.setPath("/");
             response.addCookie(tokenCookie);
             response.addCookie(userEmailCookie);
-            response.setHeader("Location", "http://15.164.35.235/");
+            response.setHeader("Location", "http://15.164.35.235/main");
 
             return new ResponseEntity<>(HttpStatus.OK);
 
@@ -81,5 +81,58 @@ public class LoginService {
                 .code(code)
                 .redirect_url(redirect_url)
                 .build();
+    }
+
+    public ResponseEntity<Void> login2(String code, HttpServletResponse response) {
+        logger.info("code : {}", code);
+
+        try {
+            String url = "https://github.com/login/oauth/access_token";
+            String client_id = "c2e25fe082feb25b3a02";
+            String client_secret = "849283d9227c9d35a9a6a6f82475bcb0d42eb549";
+            String redirect_url = "http://15.164.35.235/api/github/oauth/callback2";
+
+            AccessTokenRequestDto accessTokenRequestDto
+                    = getAccessToken(client_id, client_secret, code, redirect_url);
+
+            String accessToken = restTemplate.postForObject(url, accessTokenRequestDto, String.class);
+
+            String[] splitTokens = accessToken.split("&");
+            String[] splitTokens2 = splitTokens[0].split("=");
+            accessToken = splitTokens2[1];
+
+            String emailRequestUrl = "https://api.github.com/user/emails";
+
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set("Authorization", "token " +accessToken);
+
+            HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+
+            ResponseEntity<String> responseEntity
+                    = restTemplate.exchange(emailRequestUrl, HttpMethod.GET, entity, String.class);
+
+            String userDataList = responseEntity.getBody();
+            String[] split1 = userDataList.split(",");
+            String userEmail = split1[0].split(":")[1];
+
+            logger.info("userEmail : {}", userEmail);
+
+            String jwt = JwtUtils.jwtCreate(userEmail);
+
+            Cookie tokenCookie = new Cookie("token", jwt);
+            Cookie userEmailCookie = new Cookie("userEmail", userEmail);
+
+            tokenCookie.setPath("/");
+            userEmailCookie.setPath("/");
+            response.addCookie(tokenCookie);
+            response.addCookie(userEmailCookie);
+            response.setHeader("Location", "http://15.164.35.235/main");
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 }

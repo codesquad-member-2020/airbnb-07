@@ -18,7 +18,7 @@ public class JwtUtils {
         headers.put("alg", "HS256");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("userId", user);
+        payloads.put("userEmail", user);
 
         return Jwts.builder()
                 .setHeader(headers)
@@ -32,6 +32,6 @@ public class JwtUtils {
                 .setSigningKey(JWT_KEY.getBytes())
                 .parseClaimsJws(jwt)
                 .getBody();
-        return claims.get("userId", String.class);
+        return claims.get("userEmail", String.class);
     }
 }
