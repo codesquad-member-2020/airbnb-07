@@ -1,37 +1,33 @@
 <template>
-  <div class="app">
-    <div v-if="showDatepickers">
-      <div class="datepicker-container with-button">
-        <div class="datepicker-trigger">
-          <button id="datepicker-button-trigger">
-            {{
-              formatDates(buttonDateOne, buttonDateTwo) || '체크인 / 체크아웃'
-            }}
-          </button>
-          <airbnb-style-datepicker
-            :trigger-element-id="'datepicker-button-trigger'"
-            :mode="'range'"
-            :date-one="buttonDateOne"
-            :date-two="buttonDateTwo"
-            :min-date="'2018-04-18'"
-            :fullscreen-mobile="true"
-            :months-to-show="2"
-            :trigger="trigger"
-            :offset-y="10"
-            :close-after-select="true"
-            @date-one-selected="
-              val => {
-                buttonDateOne = val;
-              }
-            "
-            @date-two-selected="
-              val => {
-                buttonDateTwo = val;
-                trigger = false;
-              }
-            "
-          />
-        </div>
+  <div v-if="showDatepickers">
+    <div class="datepicker-container with-button">
+      <div class="datepicker-trigger">
+        <button id="datepicker-button-trigger">
+          {{ formatDates(buttonDateOne, buttonDateTwo) || '체크인 / 체크아웃' }}
+        </button>
+        <airbnb-style-datepicker
+          :trigger-element-id="'datepicker-button-trigger'"
+          :mode="'range'"
+          :date-one="buttonDateOne"
+          :date-two="buttonDateTwo"
+          :min-date="'2018-04-18'"
+          :fullscreen-mobile="true"
+          :months-to-show="2"
+          :trigger="trigger"
+          :offset-y="10"
+          :close-after-select="true"
+          @date-one-selected="
+            val => {
+              buttonDateOne = val;
+            }
+          "
+          @date-two-selected="
+            val => {
+              buttonDateTwo = val;
+              trigger = false;
+            }
+          "
+        />
       </div>
     </div>
   </div>
@@ -43,7 +39,7 @@ import format from 'date-fns/format';
 export default {
   data() {
     return {
-      dateFormat: 'YYYY-MM-DD', //'D MMM',
+      dateFormat: 'YYYY-MM-DD',
       buttonDateOne: '',
       buttonDateTwo: '',
       alignRight: false,
