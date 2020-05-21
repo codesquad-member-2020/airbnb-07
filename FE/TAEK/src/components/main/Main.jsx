@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import MainHeader from './MainHeader';
-import DatePicker from './DatePicker';
-import PersonFilter from './PersonFilter';
-import ChargeFilter from './ChargeFilter';
+import DatePicker from './date/DatePicker';
+import PersonFilter from './person/PersonFilter';
+import ChargeFilter from './charge/ChargeFilter';
 
 const MainContentsWrap = styled.div`
     padding: 30px 10%;
