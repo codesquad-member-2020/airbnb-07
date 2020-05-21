@@ -70,9 +70,10 @@ const PersonFilterModalWrap = styled.div`
             border-radius: 7px;
             padding: 5px 10px;
             cursor: pointer;
-            width: 90px;
+            width: 110px;
             height: 35px;
             box-shadow: ${(props) => props.theme.boxShadow};
+            font-family: 'Noto Sans KR', sans-serif;
             &.reset-btn {
                 color: #000;
                 background-color: #fff;
