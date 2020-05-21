@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { DateRangePicker } from 'react-dates';
+import moment from 'moment';
+import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
@@ -11,6 +13,8 @@ const DatePicker = () => {
         setStartDate(startDate);
         setEndDate(endDate);
     };
+
+    moment.locale('ko');
 
     return (
         <DateRangePicker
