@@ -1,0 +1,47 @@
+import React from 'react'
+import styled from 'styled-components';
+
+const MainHeaderWrap = styled.div`
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: #fff;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    & .main-airbnb-logo {
+        cursor: pointer;
+    }
+    & .main-header-menu {
+        display: flex;
+        font-size: 15px;
+        font-weight: 600;
+        color: #484848;
+        & li {
+            margin-right: 20px;
+            cursor: pointer;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+`;
+
+const MainHeader = () => {
+    return (
+        <MainHeaderWrap>
+            <img className='main-airbnb-logo' src="../../public/images/main-airbnb-logo.png" alt="airbnb-logo" />
+            <ul className='main-header-menu'>
+                <li>숙소 호스트 되기</li>
+                <li>체험 호스팅하기</li>
+                <li>도움말</li>
+                <li>마이페이지</li>
+                <li>로그아웃</li>
+            </ul>
+        </MainHeaderWrap>
+    )
+}
+
+export default MainHeader
