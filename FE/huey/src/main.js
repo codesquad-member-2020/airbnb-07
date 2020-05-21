@@ -3,9 +3,11 @@ import App from './App.vue';
 import router from '@/routes/index';
 import AirBnbStyleDatepicker from '@/utils/index';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import Trend from 'vuetrend';
 
 Vue.config.productionTip = false;
 
+Vue.use(Trend);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(AirBnbStyleDatepicker, {
