@@ -26,7 +26,7 @@ const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
     const handleSetOpen = () => setOpen(!isOpen);
     const { total, adult, child, baby } = useSelector(({ person }) => person);
-    let persons = total ? [] : ['인원'];
+    const persons = total ? [] : ['인원'];
     if (adult) persons.push(`어른 ${adult}명`);
     if (child) persons.push(`어린이 ${child}명`);
     if (baby) persons.push(`유아 ${baby}명`);
