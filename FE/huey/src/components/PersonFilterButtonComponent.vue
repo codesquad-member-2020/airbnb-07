@@ -1,8 +1,10 @@
 <template>
   <div>
-    <b-button v-b-modal.my-modal>{{
-      personData(adultConut, childrenCount, babyCount) || '인원 / 게스트 추가'
-    }}</b-button>
+    <b-button v-b-modal.my-modal>
+      {{
+        personData(adultConut, childrenCount, babyCount) || '인원 / 게스트 추가'
+      }}</b-button
+    >
     <b-modal id="my-modal">
       <div class="adult-wrap wrap">
         <div class="adult-title title">
