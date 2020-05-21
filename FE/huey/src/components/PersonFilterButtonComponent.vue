@@ -111,6 +111,7 @@ export default {
 
     increaseHandler(e) {
       const { name, value } = e.target;
+      if (this.adultConut + this.childrenCount + this.babyCount >= 8) return;
       switch (name) {
         case 'adultConut':
           this.adultConut++;
