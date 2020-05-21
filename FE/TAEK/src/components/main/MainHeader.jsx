@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 const MainHeaderWrap = styled.div`
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 6px #32325d1c, 0 1px 3px #00000014;
     width: 100%;
     height: 80px;
     line-height: 80px;

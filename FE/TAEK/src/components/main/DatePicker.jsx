@@ -8,7 +8,8 @@ import 'react-dates/lib/css/_datepicker.css';
 
 const DatePickerWrap = styled.div`
     & .DateRangePickerInput {
-        border: 1.15px solid #7f8c8d;
+        border: 1.15px solid #7f8c8d99;
+        box-shadow: ${(props) => props.theme.boxShadow};
         border-radius: 15px;
         & .DateInput_input__focused {
             border-bottom: none;
