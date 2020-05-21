@@ -40,6 +40,9 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        alias: {
+            'store': path.resolve(__dirname, "src/store/"),
+        }
     },
 
     plugins: [

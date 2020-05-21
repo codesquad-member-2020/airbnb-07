@@ -29,6 +29,10 @@ module.exports = {
             {
                 test: /\.(jpg|png|svg)$/,
                 loader: "file-loader",
+                options: {
+                    publicPath: "./",
+                    name: "public/images/[name].[ext]?[hash]",
+                },
             },
             {
                 test: /\.css$/,
@@ -39,6 +43,9 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        alias: {
+            'store': path.resolve(__dirname, "src/store/"),
+        }
     },
 
     plugins: [
