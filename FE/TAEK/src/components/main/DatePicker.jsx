@@ -1,14 +1,48 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import { checkIn, checkOut } from 'store/modules/date';
 
 const DatePickerWrap = styled.div`
+    & .DateRangePickerInput {
+        border: 1.15px solid #7f8c8d;
+        border-radius: 15px;
+        & .DateInput_input__focused {
+            border-bottom: none;
+        }
+        & .DateInput {
+            background: none;
+        }
+        & input {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+        & .DateInput_input {
+            padding: 10px 0;
+            font-weight: 400;
+            text-align: center;
+        }
+        .DateRangePickerInput_arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            color: #484848;
+            transform: translate(-50%, -50%);
+}
+    }
+    & .DayPickerNavigation_button__default {
+        border: none;
+        outline: none;
+    }
+    & .DayPicker_weekHeader {
+        color: #95a5a6;
+    }
     & .CalendarMonth_table {
         margin-top: 10px;
         & tr {
@@ -59,10 +93,8 @@ const DatePickerWrap = styled.div`
         &.CalendarDay__hovered_span, &.CalendarDay__selected_span {
             background-color: #ecf0f1;
             color: #484848;
+            outline: none;
         }
-    }
-    & .DayPickerKeyboardShortcuts_show__bottomRight {
-        display: none;
     }
 `;
 
@@ -79,6 +111,9 @@ const DatePicker = () => {
     return (
         <DatePickerWrap>
             <DateRangePicker
+                displayFormat="MMM D일"
+                startDatePlaceholderText='체크인'
+                endDatePlaceholderText='체크아웃'
                 startDate={startDate}
                 startDateId="airbnb-start-date"
                 endDate={endDate}
@@ -86,6 +121,7 @@ const DatePicker = () => {
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
                 onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                hideKeyboardShortcutsPanel readOnly noBorder small
             />
         </DatePickerWrap>
     )
