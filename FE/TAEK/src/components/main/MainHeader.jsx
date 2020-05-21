@@ -12,6 +12,10 @@ const MainHeaderWrap = styled.div`
     justify-content: space-between;
     box-sizing: border-box;
     & .main-airbnb-logo {
+        width: 102px;
+        height: 80px;
+        background: url('../public/images/main-airbnb-logo.png') no-repeat;
+        background-size: 100% 100%;
         cursor: pointer;
     }
     & .main-header-menu {
@@ -32,7 +36,7 @@ const MainHeaderWrap = styled.div`
 const MainHeader = () => {
     return (
         <MainHeaderWrap>
-            <img className='main-airbnb-logo' src="../../public/images/main-airbnb-logo.png" alt="airbnb-logo" />
+            <div className='main-airbnb-logo' />
             <ul className='main-header-menu'>
                 <li>숙소 호스트 되기</li>
                 <li>체험 호스팅하기</li>
