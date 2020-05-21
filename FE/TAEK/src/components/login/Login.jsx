@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import reactLogo from 'public/images/react-logo.png';
+import andLogo from 'public/images/and-logo.png';
+import airbnbLogo from 'public/images/airbnb-logo.svg';
 
 const LoginWrap = styled.div`
     width: 100%;
@@ -17,11 +20,9 @@ const LogoWrap = styled.div`
     margin-bottom: 130px;
 `;
 
-const ReactLogo = styled.div`
+const ReactLogo = styled.img`
     width: 200px;
     height: 200px;
-    background: url('../public/images/react-logo.png') no-repeat;
-    background-size: 100% 100%;
     animation-name: bingle;
     animation-duration: 6s;
     animation-timing-function:linear;
@@ -31,21 +32,17 @@ const ReactLogo = styled.div`
     }
 `;
 
-const AndLogo = styled.div`
+const AndLogo = styled.img`
     position: relative;
     margin: 0 45px;
     top: 30px;
     width: 85px;
     height: 85px;
-    background: url('../public/images/and-logo.png') no-repeat;
-    background-size: 100% 100%;
 `;
 
-const AirbnbLogo = styled.div`
+const AirbnbLogo = styled.img`
     width: 200px;
     height: 200px;
-    background: url('../public/images/airbnb-logo.svg') no-repeat;
-    background-size: 100% 100%;
 `;
 
 const LoginBtn = styled.div`
@@ -71,9 +68,9 @@ const Login = () => {
     return (
         <LoginWrap>
             <LogoWrap>
-                <ReactLogo />
-                <AndLogo />
-                <AirbnbLogo />
+                <ReactLogo src={reactLogo} alt='react-logo' />
+                <AndLogo src={andLogo} alt='and-logo' />
+                <AirbnbLogo src={airbnbLogo} alt='airbnb-logo' />
             </LogoWrap>
             <LoginBtn>
                 <Link to='/main'>로그인</Link>

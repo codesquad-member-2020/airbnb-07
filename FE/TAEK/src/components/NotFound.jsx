@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import bonobono from 'public/images/bonobono.jpg';
 
 const NotFoundWrap = styled.div`
     width : 100%;
     height : 100vh;
 `;
 
-const Background = styled.div`
+const Background = styled.img`
     position: absolute;
     top: 0;
     left: 0;
     z-index: -10;
     width : 100%;
     height : 100%;
-    background : url('../public/images/bonobono.jpg') no-repeat;
-    background-size : 100% 100%;
     filter: blur(5px);
     -webkit-filter: blur(5px);
 `;
@@ -52,7 +51,7 @@ const NotFound = () => {
             <NotFoundInner>
                 {wait ? <Title>존재하지 않는 페이지 입니다. 로그인 페이지로 이동 합니다.</Title> : <Redirect to='/' />}
             </NotFoundInner>
-            <Background />
+            <Background src={bonobono} alt='bonobono' />
         </NotFoundWrap>
     )
 }
