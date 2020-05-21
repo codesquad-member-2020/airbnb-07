@@ -34,7 +34,7 @@ const DatePickerWrap = styled.div`
             vertical-align: middle;
             color: #484848;
             transform: translate(-50%, -50%);
-}
+        }
     }
     & .DayPickerNavigation_button__default {
         border: none;
@@ -86,7 +86,6 @@ const DatePickerWrap = styled.div`
         }
         &.CalendarDay__selected_end {
             &::before {
-                
                 left: 0;
             }
         }
