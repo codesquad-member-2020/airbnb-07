@@ -26,6 +26,7 @@ const DatePickerWrap = styled.div`
             padding: 10px 0;
             font-weight: 400;
             text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
         }
         .DateRangePickerInput_arrow {
             position: absolute;
