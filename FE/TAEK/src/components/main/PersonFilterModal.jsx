@@ -1,6 +1,8 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
+import { resetCount, increaseCount, decreaseCount } from 'store/modules/person';
 
 const Background = styled.div`
     position: absolute;
@@ -88,6 +90,12 @@ const PersonFilterModalWrap = styled.div`
 
 
 const PersonFilterModal = ({ handleSetOpen }) => {
+    const dispatch = useDispatch();
+    const { adult, child, baby } = useSelector(({ person }) => person);
+    const handlePersonCountUp = (personType) => dispatch(increaseCount(personType));
+    const handlePersonCountDown = (personType) => dispatch(decreaseCount(personType));
+    const handlePersonCountReset = () => dispatch(resetCount());
+
     return (
         <>
             <ModalPortal>
@@ -100,9 +108,9 @@ const PersonFilterModal = ({ handleSetOpen }) => {
                         <div className='person-age'>만 13세 이상</div>
                     </div>
                     <div>
-                        <button className='person-count-btn'>➖</button>
-                        <span className='person-count'>0</span>
-                        <button className='person-count-btn'>➕</button>
+                        <button className='person-count-btn' onClick={() => handlePersonCountDown({ personType: 'adult' })}>➖</button>
+                        <span className='person-count'>{adult}</span>
+                        <button className='person-count-btn' onClick={() => handlePersonCountUp({ personType: 'adult' })}>➕</button>
                     </div>
                 </div>
                 <div className='modal-item-wrap'>
@@ -111,9 +119,9 @@ const PersonFilterModal = ({ handleSetOpen }) => {
                         <div className='person-age'>2 ~ 12세</div>
                     </div>
                     <div>
-                        <button className='person-count-btn'>➖</button>
-                        <span className='person-count'>0</span>
-                        <button className='person-count-btn'>➕</button>
+                        <button className='person-count-btn' onClick={() => handlePersonCountDown({ personType: 'child' })}>➖</button>
+                        <span className='person-count'>{child}</span>
+                        <button className='person-count-btn' onClick={() => handlePersonCountUp({ personType: 'child' })}>➕</button>
                     </div>
                 </div>
                 <div className='modal-item-wrap'>
@@ -122,14 +130,14 @@ const PersonFilterModal = ({ handleSetOpen }) => {
                         <div className='person-age'>2세 미만</div>
                     </div>
                     <div>
-                        <button className='person-count-btn'>➖</button>
-                        <span className='person-count'>0</span>
-                        <button className='person-count-btn'>➕</button>
+                        <button className='person-count-btn' onClick={() => handlePersonCountDown({ personType: 'baby' })}>➖</button>
+                        <span className='person-count'>{baby}</span>
+                        <button className='person-count-btn' onClick={() => handlePersonCountUp({ personType: 'baby' })}>➕</button>
                     </div>
                 </div>
                 <div className='modal-item-wrap'>
-                    <button className='modal-btn reset-btn'>지우기</button>
-                    <button className='modal-btn save-btn'>저장</button>
+                    <button className='modal-btn reset-btn' onClick={handlePersonCountReset}>지우기</button>
+                    <button className='modal-btn save-btn' onClick={handleSetOpen}>저장</button>
                 </div>
             </PersonFilterModalWrap>
         </>

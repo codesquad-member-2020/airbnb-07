@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PersonFilterModal from './PersonFilterModal';
 
@@ -24,10 +25,17 @@ const PersonFilterBtn = styled.div`
 const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
     const handleSetOpen = () => setOpen(!isOpen);
+    const { total, adult, child, baby } = useSelector(({ person }) => person);
+    let persons = total ? [] : ['인원'];
+    if (adult) persons.push(`어른 ${adult}명`);
+    if (child) persons.push(`어린이 ${child}명`);
+    if (baby) persons.push(`유아 ${baby}명`);
 
     return (
         <PersonFilterWrap>
-            <PersonFilterBtn onClick={handleSetOpen}>인원</PersonFilterBtn>
+            <PersonFilterBtn onClick={handleSetOpen}>
+                {persons.join(', ')}
+            </PersonFilterBtn>
             {isOpen && <PersonFilterModal {...{ handleSetOpen }} />}
         </PersonFilterWrap>
     )
