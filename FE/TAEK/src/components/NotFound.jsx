@@ -40,11 +40,11 @@ const Title = styled.div`
 const NotFound = () => {
     const [wait, setWait] = useState(true);
     const timeoutId = useRef();
-    timeoutId.current = setTimeout(() => setWait(false), 4000);
 
     useEffect(() => {
+        timeoutId.current = setTimeout(() => setWait(false), 4000);
         return () => clearTimeout(timeoutId.current);
-    })
+    }, [])
 
     return (
         <NotFoundWrap>
