@@ -91,7 +91,6 @@ const PersonFilterModalWrap = styled.div`
     }
 `;
 
-
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
     const { adult, child, baby } = useSelector(({ person }) => person);

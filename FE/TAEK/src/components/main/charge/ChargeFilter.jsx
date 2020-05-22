@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
+import ChargeFilterModal from './ChargeFilterModal';
 
 const ChargeFilterWrap = styled.div`
     position: relative;
@@ -21,9 +22,15 @@ const ChargeFilterBtn = styled.div`
 `;
 
 const ChargeFilter = () => {
+    const [isOpen, setOpen] = useState(true);
+    const handleSetOpen = () => setOpen(!isOpen);
+
     return (
         <ChargeFilterWrap>
-            <ChargeFilterBtn>요금</ChargeFilterBtn>
+            <ChargeFilterBtn onClick={handleSetOpen}>
+                요금
+            </ChargeFilterBtn>
+            {isOpen && <ChargeFilterModal {...{ handleSetOpen }} />}
         </ChargeFilterWrap>
     )
 }
