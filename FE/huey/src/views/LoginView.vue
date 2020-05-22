@@ -34,6 +34,11 @@ export default {
   left: 50%;
 }
 
+.img-wrap {
+  display: flex;
+  margin: 0 auto;
+}
+
 .logo {
   margin-bottom: 100px;
 }

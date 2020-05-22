@@ -23,12 +23,16 @@ const router = new VueRouter({
       component: () => import('@/views/MainView.vue'),
     },
     {
+      path: '/github/oauth/callback',
+      redirect: 'main',
+    },
+    {
       path: '*',
       component: () => import('@/views/NotFoundView.vue'),
     },
     {
-      path: '/github/oauth/callback',
-      redirect: 'main',
+      path: '/rooms',
+      component: () => import('@/views/SearchRoomsView.vue'),
     },
   ],
 });
