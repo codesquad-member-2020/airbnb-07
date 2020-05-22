@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import PersonFilterModalItem from './PersonFilterModalItem';
-import { resetCount } from 'store/modules/person';
+import { resetCount } from 'store/modules/person/personAction';
 
 const Background = styled.div`
     position: absolute;

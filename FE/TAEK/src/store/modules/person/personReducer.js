@@ -1,10 +1,4 @@
-const RESET_COUNT = 'person/RESET_COUNT';
-const INCREASE_COUNT = 'person/INCREASE';
-const DECREASE_COUNT = 'person/DECREASE_COUNT';
-
-export const resetCount = () => ({ type: RESET_COUNT });
-export const increaseCount = (data) => ({ type: INCREASE_COUNT, payload: data });
-export const decreaseCount = (data) => ({ type: DECREASE_COUNT, payload: data });
+import { RESET_COUNT, INCREASE_COUNT, DECREASE_COUNT } from './personAction';
 
 const initialState = {
     total: 0,
@@ -47,6 +41,6 @@ export default function date(state = initialState, action) {
                 }
             }
         default:
-            return { ...state }
+            return state
     }
 }

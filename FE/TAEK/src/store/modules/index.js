@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import date from './date';
-import person from './person';
+import date from './date/dateReducer';
+import person from './person/personReducer';
 
 export default combineReducers({
     date,

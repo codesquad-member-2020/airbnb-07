@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { increaseCount, decreaseCount } from 'store/modules/person';
+import { increaseCount, decreaseCount } from 'store/modules/person/personAction';
 
 const PersonFilterModalItem = ({ typeText, ageText, countText, personType, }) => {
     const dispatch = useDispatch();
