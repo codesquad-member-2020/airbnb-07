@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import DateFilterButtonComponent from '@/components/DateFilterButtonComponent';
-import PersonFilterButtonComponent from '@/components/PersonFilterButtonComponent';
-import PriceFilterButtonComponent from '@/components/PriceFilterButtonComponent';
+import DateFilterButtonComponent from '@/components/Datepicker/DateFilterButtonComponent';
+import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import PriceFilterButtonComponent from '@/components/PriceFilter/PriceFilterButtonComponent';
 import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponent';
 
 export default {

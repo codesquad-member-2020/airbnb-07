@@ -1,5 +1,5 @@
 import './polyfills';
-import AirbnbStyleDatepicker from '@/components/AirbnbStyleDatepicker';
+import AirbnbStyleDatepicker from '@/components/Datepicker/AirbnbStyleDatepicker';
 
 const AirbnbStyleDatepickerPlugin = {
   install(Vue, options) {

@@ -299,7 +299,7 @@ import {
   randomString,
 } from '@/utils/helpers.js';
 import vClickOutside from 'v-click-outside';
-import ResizeSelect from '../directives/ResizeSelect';
+import ResizeSelect from '@/directives/ResizeSelect';
 
 export default {
   name: 'AirbnbStyleDatepicker',
