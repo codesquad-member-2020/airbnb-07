@@ -7,22 +7,22 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 const DatePickerWrap = styled.div`
-    & .DateRangePickerInput {
+    .DateRangePickerInput {
         border: 1.19px solid #7f8c8d99;
         box-shadow: ${(props) => props.theme.boxShadow};
         border-radius: 15px;
-        & .DateInput_input__focused {
+        .DateInput_input__focused {
             border-bottom: none;
         }
-        & .DateInput {
+        .DateInput {
             background: none;
         }
-        & input {
+        input {
             border: none;
             background-color: transparent;
             cursor: pointer;
         }
-        & .DateInput_input {
+        .DateInput_input {
             padding: 10px 0;
             text-align: center;
             font-family: 'Noto Sans KR', sans-serif;
@@ -42,23 +42,23 @@ const DatePickerWrap = styled.div`
             transform: translate(-50%, -50%);
         }
     }
-    & .DayPickerNavigation_button__default {
+    .DayPickerNavigation_button__default {
         border: none;
         outline: none;
     }
-    & .DayPicker_weekHeader {
+    .DayPicker_weekHeader {
         color: #95a5a6;
     }
-    & .CalendarMonth_table {
+    .CalendarMonth_table {
         margin-top: 10px;
-        & tr {
+        tr {
             border: 1px solid #fff;
         }
     }
-    & .CalendarDay__default {
+    .CalendarDay__default {
         border: none;
     }
-    & .CalendarDay {
+    .CalendarDay {
         vertical-align: middle;
         position: relative;
         z-index: 0;

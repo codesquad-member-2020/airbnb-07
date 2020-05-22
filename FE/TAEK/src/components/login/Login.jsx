@@ -58,7 +58,7 @@ const LoginBtn = styled.div`
     &:hover {
         background-color: ${props => props.theme.subColor};
     }
-    & a {
+    a {
         text-decoration: none;
         color: #fff;
     }

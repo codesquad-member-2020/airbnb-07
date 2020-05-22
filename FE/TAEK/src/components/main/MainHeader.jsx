@@ -12,18 +12,18 @@ const MainHeaderWrap = styled.div`
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    & .main-airbnb-logo {
+    .main-airbnb-logo {
         cursor: pointer;
     }
-    & .main-header-menu {
+    .main-header-menu {
         display: flex;
         font-size: 15px;
         font-weight: 600;
         color: #484848;
-        & li {
+        li {
             margin-right: 20px;
             cursor: pointer;
-            &:last-child {
+            :last-child {
                 margin-right: 0;
             }
         }

@@ -33,25 +33,25 @@ const PersonFilterModalWrap = styled.div`
     box-shadow: ${props => props.theme.modalShadow};
     border-radius: 3px;
 
-    & .modal-item-wrap {
+    .modal-item-wrap {
         padding : 20px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        & .person-type {
+        .person-type {
             font-size: 16px;
             font-weight: 600;
         }
-        & .person-age {
+        .person-age {
             margin-top: 7px;
             font-size: 14px;
         }
-        & .person-count {
+        .person-count {
             margin: 0 20px;
             font-size: 18px;
             font-weight: 600;
         }
-        & .person-count-btn {
+        .person-count-btn {
             border-radius: 50%;
             background-color: #fff;
             outline: none;
@@ -64,7 +64,7 @@ const PersonFilterModalWrap = styled.div`
             cursor: pointer;
             box-shadow: ${(props) => props.theme.boxShadow};
         }
-        & .modal-btn {
+        .modal-btn {
             font-size: 16px;
             font-weight: 600;
             padding: 0;

@@ -21,7 +21,7 @@ const MainContentsTitleWrap = styled.div`
         top: calc(100% + 15px);
         left: 0;
     }
-    & > * {
+    > * {
        margin-right: 20px;
     }
 `;
