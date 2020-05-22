@@ -21,6 +21,7 @@ const PersonFilterModalWrap = styled.div`
     width: 350px;
     background-color: #fff;
     z-index: 10;
+    overflow: hidden;
     animation-name: modal;
     animation-duration: .2s;
     animation-timing-function:ease-in-out;
