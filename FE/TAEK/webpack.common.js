@@ -46,4 +46,6 @@ module.exports = {
             template: 'public/index.html',
         }),
     ],
+
+    devtool: 'cheap-eval-source-map',
 }
