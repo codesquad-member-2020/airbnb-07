@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import { MAIN } from 'constants/constant';
 
 const DatePickerWrap = styled.div`
     .DateRangePickerInput {
@@ -116,13 +117,13 @@ const DatePicker = () => {
     return (
         <DatePickerWrap>
             <DateRangePicker
-                displayFormat="MMM D일"
-                startDatePlaceholderText='체크인'
-                endDatePlaceholderText='체크아웃'
+                displayFormat={MAIN.DATE.DATE_FORMAT}
+                startDatePlaceholderText={MAIN.DATE.START_DATE_TEXT}
+                endDatePlaceholderText={MAIN.DATE.END_DATE_TEXT}
                 startDate={startDate}
-                startDateId="airbnb-start-date"
+                startDateId={MAIN.DATE.START_DATE_ID}
                 endDate={endDate}
-                endDateId="airbnb-end-date"
+                endDateId={MAIN.DATE.END_DATE_ID}
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
                 onFocusChange={focusedInput => setFocusedInput(focusedInput)}

@@ -74,7 +74,7 @@ const Login = () => {
             </LogoWrap>
             <LoginBtn>
                 <Link to='/main'>로그인</Link>
-                {/* <a href='https://github.com/login/oauth/authorize?client_id=c2e25fe082feb25b3a02&redirect_uri=http://15.164.35.235/api/github/oauth/callback2&scope=user'>로그인</a> */}
+                {/* <a href={process.env.OAUTH_URL}>로그인</a> */}
             </LoginBtn>
         </LoginWrap>
     )

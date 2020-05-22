@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PersonFilterModal from './PersonFilterModal';
+import { MAIN } from 'constants/constant';
 
 const PersonFilterWrap = styled.div`
     position: relative;
@@ -27,9 +28,9 @@ const PersonFilter = () => {
     const handleSetOpen = () => setOpen(!isOpen);
     const { total, adult, child, baby } = useSelector(({ person }) => person);
     const persons = total ? [] : ['인원'];
-    if (adult) persons.push(`어른 ${adult}명`);
-    if (child) persons.push(`어린이 ${child}명`);
-    if (baby) persons.push(`유아 ${baby}명`);
+    if (adult) persons.push(`${MAIN.PERSON.ADULT_TEXT} ${adult}명`);
+    if (child) persons.push(`${MAIN.PERSON.CHILD_TEXT} ${child}명`);
+    if (baby) persons.push(`${MAIN.PERSON.BABY_TEXT} ${baby}명`);
 
     return (
         <PersonFilterWrap>

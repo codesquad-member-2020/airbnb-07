@@ -35,6 +35,7 @@ module.exports = {
         alias: {
             'store': path.resolve(__dirname, "src/store/"),
             'utils': path.resolve(__dirname, "src/utils/"),
+            'constants': path.resolve(__dirname, "src/constants/"),
             'public': path.resolve(__dirname, "public/"),
         }
     },

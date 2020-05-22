@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import PersonFilterModalItem from './PersonFilterModalItem';
 import { resetCount } from 'store/modules/person/personAction';
+import { MAIN } from 'constants/constant';
 
 const Background = styled.div`
     position: absolute;
@@ -103,20 +104,20 @@ const PersonFilterModal = ({ handleSetOpen }) => {
             </ModalPortal>
             <PersonFilterModalWrap>
                 <PersonFilterModalItem
-                    typeText='어른'
-                    ageText='만 13세 이상'
+                    typeText={MAIN.PERSON.ADULT_TEXT}
+                    ageText={MAIN.PERSON.ADULT_AGE_TEXT}
                     countText={adult}
                     personType={{ personType: 'adult' }}
                 />
                 <PersonFilterModalItem
-                    typeText='어린이'
-                    ageText='2 ~ 12세'
+                    typeText={MAIN.PERSON.CHILD_TEXT}
+                    ageText={MAIN.PERSON.CHILD_AGE_TEXT}
                     countText={child}
                     personType={{ personType: 'child' }}
                 />
                 <PersonFilterModalItem
-                    typeText='유아'
-                    ageText='2세 미만'
+                    typeText={MAIN.PERSON.BABY_TEXT}
+                    ageText={MAIN.PERSON.BABY_AGE_TEXT}
                     countText={baby}
                     personType={{ personType: 'baby' }}
                 />
