@@ -1,0 +1,16 @@
+# dist
+dist
+
+# assets
+public/images
+
+# node_modules
+node_modules
+
+# env
+.env.development
+.env.production
+
+# lock
+package-lock.json
+yarn.lock
