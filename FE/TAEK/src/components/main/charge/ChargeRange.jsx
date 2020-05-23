@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { minCharge, maxCharge } from 'store/modules/charge/chargeAction';
 import styled from 'styled-components';
 import 'rheostat/css/rheostat.css';
 import 'react-dates/lib/css/_datepicker.css';
@@ -7,6 +9,7 @@ import cssInterface from 'react-with-styles-interface-css';
 import RheostatDefaultTheme from 'rheostat/lib/themes/DefaultTheme';
 import ReactDatesDefaultTheme from 'react-dates/lib/theme/DefaultTheme';
 import Rheostat from "rheostat";
+import { MAIN } from 'constants/constant';
 
 ThemedStyleSheet.registerInterface(cssInterface);
 ThemedStyleSheet.registerTheme({
@@ -29,6 +32,7 @@ const RheostatWrap = styled.div`
     }
     .DefaultHandle_handle {
         border-radius: 50%;
+        cursor: pointer;
     }
     .DefaultHandle_handle__horizontal {
         margin-left: -12px;
@@ -46,12 +50,15 @@ const RheostatWrap = styled.div`
     }
 `;
 
-function PitComponent({ style, children }) {
+const PitComponent = ({ style, children }) => {
+    const { min, max } = useSelector(({ charge }) => charge);
+    const background = children >= min && children <= max ? '#a2a2a2' : '#d8d8d8';
+
     return (
         <div
             style={{
                 ...style,
-                background: "#a2a2a2",
+                background: background,
                 width: 7,
                 height: children / 10000,
                 bottom: 2,
@@ -61,29 +68,24 @@ function PitComponent({ style, children }) {
 }
 
 const ChargeRange = () => {
-    const [min, setMin] = useState(12000);
-    const [max, setMax] = useState(1000000);
-
-    const handleChange = e => {
-
-    };
-
+    const { min, max } = useSelector(({ charge }) => charge);
+    const dispatch = useDispatch();
     const handleValuesUpdated = ({ values }) => {
-        setMin(values[0]);
-        setMax(values[1]);
+        const [updateMin, updateMax] = values;
+        dispatch(minCharge(updateMin));
+        dispatch(maxCharge(updateMax));
     };
 
     return (
         <RheostatWrap>
             <Rheostat
-                min={12000}
-                max={1000000}
-                values={[12000, 1000000]}
+                min={MAIN.CHARGE.MIN_CHARGE}
+                max={MAIN.CHARGE.MAX_CHARGE}
+                values={[MAIN.CHARGE.MIN_CHARGE, MAIN.CHARGE.MAX_CHARGE]}
                 pitComponent={PitComponent}
                 pitPoints={[
-                    50000, 80000, 300000, 560000, 700000, 900000
+                    50000, 200000, 300000, 500000, 700000, 900000
                 ]}
-                onChange={handleChange}
                 onValuesUpdated={handleValuesUpdated}
             />
             min: {min}, max: {max === 1000000 ? '1000000+' : max}
