@@ -3,6 +3,7 @@ import { MAIN } from 'constants/constant';
 
 const initialState = {
     isSave: false,
+    isChange: false,
     min: MAIN.CHARGE.MIN_CHARGE,
     max: MAIN.CHARGE.MAX_CHARGE,
 }
@@ -13,6 +14,7 @@ export default function chargeReducer(state = initialState, action) {
             return {
                 ...state,
                 isSave: true,
+                isChange: false,
             }
         case RESET_CHARGE:
             return {
@@ -24,12 +26,14 @@ export default function chargeReducer(state = initialState, action) {
                 ...state,
                 min: action.payload,
                 isSave: false,
+                isChange: true,
             }
         case MAX_CHARGE:
             return {
                 ...state,
                 max: action.payload,
                 isSave: false,
+                isChange: true,
             }
         default:
             return state
