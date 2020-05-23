@@ -7,6 +7,18 @@ const ChargeFilterWrap = styled.div`
     color: #484848;
 `;
 
+const HighlightBorder = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2.25px solid #000;
+    border-radius: 15px;
+    pointer-events: none;
+    box-sizing: border-box;
+`;
+
 const ChargeFilterBtn = styled.div`
     border: 1.19px solid #7f8c8d99;
     box-shadow: ${(props) => props.theme.boxShadow};
@@ -27,6 +39,7 @@ const ChargeFilter = () => {
 
     return (
         <ChargeFilterWrap>
+            {isOpen && <HighlightBorder />}
             <ChargeFilterBtn onClick={handleSetOpen}>
                 요금
             </ChargeFilterBtn>

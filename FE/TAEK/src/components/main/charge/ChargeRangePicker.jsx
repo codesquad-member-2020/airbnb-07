@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { minCharge, maxCharge } from 'store/modules/charge/chargeAction';
 import styled from 'styled-components';
 import 'rheostat/css/rheostat.css';
@@ -10,6 +10,7 @@ import RheostatDefaultTheme from 'rheostat/lib/themes/DefaultTheme';
 import ReactDatesDefaultTheme from 'react-dates/lib/theme/DefaultTheme';
 import Rheostat from "rheostat";
 import { MAIN } from 'constants/constant';
+import ChargeGraph from './ChargeGraph';
 
 ThemedStyleSheet.registerInterface(cssInterface);
 ThemedStyleSheet.registerTheme({
@@ -18,11 +19,7 @@ ThemedStyleSheet.registerTheme({
 });
 
 const RheostatWrap = styled.div`
-    position: relative;
-    top: 50%;
-    left: 50%;
-    width: 80%;
-    transform: translate(-50%, -50%);
+    width: 100%;
     .DefaultProgressBar_progressBar {
         background-color: #a2a2a2;
     }
@@ -50,25 +47,7 @@ const RheostatWrap = styled.div`
     }
 `;
 
-const PitComponent = ({ style, children }) => {
-    const { min, max } = useSelector(({ charge }) => charge);
-    const background = children >= min && children <= max ? '#a2a2a2' : '#d8d8d8';
-
-    return (
-        <div
-            style={{
-                ...style,
-                background: background,
-                width: 7,
-                height: children / 10000,
-                bottom: 2,
-            }}
-        />
-    );
-}
-
-const ChargeRange = () => {
-    const { min, max } = useSelector(({ charge }) => charge);
+const ChargeRangePicker = () => {
     const dispatch = useDispatch();
     const handleValuesUpdated = ({ values }) => {
         const [updateMin, updateMax] = values;
@@ -82,15 +61,14 @@ const ChargeRange = () => {
                 min={MAIN.CHARGE.MIN_CHARGE}
                 max={MAIN.CHARGE.MAX_CHARGE}
                 values={[MAIN.CHARGE.MIN_CHARGE, MAIN.CHARGE.MAX_CHARGE]}
-                pitComponent={PitComponent}
+                pitComponent={ChargeGraph}
                 pitPoints={[
                     50000, 200000, 300000, 500000, 700000, 900000
                 ]}
                 onValuesUpdated={handleValuesUpdated}
             />
-            min: {min}, max: {max === 1000000 ? '1000000+' : max}
         </RheostatWrap>
     )
 }
 
-export default ChargeRange
+export default ChargeRangePicker
