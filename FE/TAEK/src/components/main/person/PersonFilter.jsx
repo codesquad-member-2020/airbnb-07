@@ -9,6 +9,18 @@ const PersonFilterWrap = styled.div`
     color: #484848;
 `;
 
+const HighlightBorder = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2.5px solid #000;
+    border-radius: 15px;
+    pointer-events: none;
+    box-sizing: border-box;
+`;
+
 const PersonFilterBtn = styled.div`
     border: 1.19px solid #7f8c8d99;
     box-shadow: ${(props) => props.theme.boxShadow};
@@ -41,6 +53,7 @@ const PersonFilter = () => {
 
     return (
         <PersonFilterWrap>
+            {(isOpen || isSave) && <HighlightBorder />}
             <PersonFilterBtn onClick={handleSetOpen}>
                 {isSave ? persons.join(', ') : prevPersons}
             </PersonFilterBtn>
