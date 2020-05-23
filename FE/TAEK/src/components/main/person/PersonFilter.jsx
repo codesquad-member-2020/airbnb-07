@@ -26,12 +26,12 @@ const PersonFilterBtn = styled.div`
 const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
     const handleSetOpen = () => setOpen(!isOpen);
-    const { total, adult, child, baby } = useSelector(({ person }) => person);
+    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
-    const persons = total ? [] : ['인원'];
-    if (adult) persons.push(`${MAIN.PERSON.ADULT_TEXT} ${adult}명`);
-    if (child) persons.push(`${MAIN.PERSON.CHILD_TEXT} ${child}명`);
-    if (baby) persons.push(`${MAIN.PERSON.BABY_TEXT} ${baby}명`);
+    const persons = totalCount ? [] : ['인원'];
+    if (adultCount) persons.push(`${MAIN.PERSON.ADULT_TEXT} ${adultCount}명`);
+    if (childCount) persons.push(`${MAIN.PERSON.CHILD_TEXT} ${childCount}명`);
+    if (babyCount) persons.push(`${MAIN.PERSON.BABY_TEXT} ${babyCount}명`);
 
     return (
         <PersonFilterWrap>

@@ -93,7 +93,7 @@ const PersonFilterModalWrap = styled.div`
 
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
-    const { adult, child, baby } = useSelector(({ person }) => person);
+    const { adultCount, childCount, babyCount } = useSelector(({ person }) => person);
     const handlePersonCountReset = () => dispatch(resetCount());
 
     return (
@@ -105,20 +105,20 @@ const PersonFilterModal = ({ handleSetOpen }) => {
                 <PersonFilterModalItem
                     typeText={MAIN.PERSON.ADULT_TEXT}
                     ageText={MAIN.PERSON.ADULT_AGE_TEXT}
-                    countText={adult}
-                    personType={{ personType: 'adult' }}
+                    countText={adultCount}
+                    countType={{ countType: 'adultCount' }}
                 />
                 <PersonFilterModalItem
                     typeText={MAIN.PERSON.CHILD_TEXT}
                     ageText={MAIN.PERSON.CHILD_AGE_TEXT}
-                    countText={child}
-                    personType={{ personType: 'child' }}
+                    countText={childCount}
+                    countType={{ countType: 'childCount' }}
                 />
                 <PersonFilterModalItem
                     typeText={MAIN.PERSON.BABY_TEXT}
                     ageText={MAIN.PERSON.BABY_AGE_TEXT}
-                    countText={baby}
-                    personType={{ personType: 'baby' }}
+                    countText={babyCount}
+                    countType={{ countType: 'babyCount' }}
                 />
                 <div className='modal-item-wrap'>
                     <button className='modal-btn reset-btn' onClick={handlePersonCountReset}>지우기</button>
