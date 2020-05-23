@@ -20,13 +20,13 @@ const ChargeFilterModalWrap = styled.div`
     background-color: #fff;
     z-index: 10;
     overflow: hidden;
-    animation-name: modal;
+    animation-name: chargeModal;
     animation-duration: .2s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
-    @keyframes modal {
+    @keyframes chargeModal {
         0% { height: 0; }
-        100% { height: 300px;}
+        100% { height: 400px;}
     }
     box-shadow: ${props => props.theme.modalShadow};
     border-radius: 3px;
