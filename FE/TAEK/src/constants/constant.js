@@ -7,12 +7,21 @@ const MAIN = {
         END_DATE_ID: 'airbnb-end-date',
     },
     PERSON: {
-        ADULT_TEXT: '어른',
-        ADULT_AGE_TEXT: '만 13세 이상',
-        CHILD_TEXT: '어린이',
-        CHILD_AGE_TEXT: '2 ~ 12세',
-        BABY_TEXT: '유아',
-        BABY_AGE_TEXT: '2세 미만',
+        ADULT: {
+            TEXT: '어른',
+            DESC: '만 13세 이상',
+            COUNT_TYPE: { countType: 'adultCount' },
+        },
+        CHILD: {
+            TEXT: '어린이',
+            DESC: '2 ~ 12세',
+            COUNT_TYPE: { countType: 'childCount' },
+        },
+        BABY: {
+            TEXT: '유아',
+            DESC: '2세 미만',
+            COUNT_TYPE: { countType: 'babyCount' },
+        },
     },
     CHARGE: {
         MIN_CHARGE: 12000,

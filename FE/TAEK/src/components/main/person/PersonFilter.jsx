@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PersonFilterModal from './PersonFilterModal';
@@ -25,18 +25,24 @@ const PersonFilterBtn = styled.div`
 
 const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
-    const handleSetOpen = () => setOpen(!isOpen);
-    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+    const [prevPersons, setPrevPersons] = useState('');
+    const { isSave, totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
-    const persons = totalCount ? [] : ['인원'];
-    if (adultCount) persons.push(`${MAIN.PERSON.ADULT_TEXT} ${adultCount}명`);
-    if (childCount) persons.push(`${MAIN.PERSON.CHILD_TEXT} ${childCount}명`);
-    if (babyCount) persons.push(`${MAIN.PERSON.BABY_TEXT} ${babyCount}명`);
+    const handleSetOpen = () => setOpen(!isOpen);
+
+    const persons = isSave && totalCount ? [] : ['인원'];
+    if (isSave && adultCount) persons.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
+    if (isSave && childCount) persons.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
+    if (isSave && babyCount) persons.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+
+    useEffect(() => {
+        setPrevPersons(persons.join(', '));
+    }, [isOpen]);
 
     return (
         <PersonFilterWrap>
             <PersonFilterBtn onClick={handleSetOpen}>
-                {persons.join(', ')}
+                {isSave ? persons.join(', ') : prevPersons}
             </PersonFilterBtn>
             {isOpen && <PersonFilterModal {...{ handleSetOpen }} />}
         </PersonFilterWrap>

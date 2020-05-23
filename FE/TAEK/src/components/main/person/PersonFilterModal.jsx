@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import PersonFilterModalItem from './PersonFilterModalItem';
-import { resetCount } from 'store/modules/person/personAction';
+import { saveCount, resetCount } from 'store/modules/person/personAction';
 import { MAIN } from 'constants/constant';
 
 const Background = styled.div`
@@ -94,35 +94,40 @@ const PersonFilterModalWrap = styled.div`
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
     const { adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+
     const handlePersonCountReset = () => dispatch(resetCount());
+    const handlePersonCountSave = () => {
+        dispatch(saveCount());
+        handleSetOpen();
+    }
 
     return (
         <>
             <ModalPortal>
-                <Background onClick={handleSetOpen} />
+                <Background onClick={handlePersonCountSave} />
             </ModalPortal>
             <PersonFilterModalWrap>
                 <PersonFilterModalItem
-                    typeText={MAIN.PERSON.ADULT_TEXT}
-                    ageText={MAIN.PERSON.ADULT_AGE_TEXT}
+                    typeText={MAIN.PERSON.ADULT.TEXT}
+                    ageText={MAIN.PERSON.ADULT.DESC}
+                    countType={MAIN.PERSON.ADULT.COUNT_TYPE}
                     countText={adultCount}
-                    countType={{ countType: 'adultCount' }}
                 />
                 <PersonFilterModalItem
-                    typeText={MAIN.PERSON.CHILD_TEXT}
-                    ageText={MAIN.PERSON.CHILD_AGE_TEXT}
+                    typeText={MAIN.PERSON.CHILD.TEXT}
+                    ageText={MAIN.PERSON.CHILD.DESC}
+                    countType={MAIN.PERSON.CHILD.COUNT_TYPE}
                     countText={childCount}
-                    countType={{ countType: 'childCount' }}
                 />
                 <PersonFilterModalItem
-                    typeText={MAIN.PERSON.BABY_TEXT}
-                    ageText={MAIN.PERSON.BABY_AGE_TEXT}
+                    typeText={MAIN.PERSON.BABY.TEXT}
+                    ageText={MAIN.PERSON.BABY.DESC}
+                    countType={MAIN.PERSON.BABY.COUNT_TYPE}
                     countText={babyCount}
-                    countType={{ countType: 'babyCount' }}
                 />
                 <div className='modal-item-wrap'>
                     <button className='modal-btn reset-btn' onClick={handlePersonCountReset}>지우기</button>
-                    <button className='modal-btn save-btn' onClick={handleSetOpen}>저장</button>
+                    <button className='modal-btn save-btn' onClick={handlePersonCountSave}>저장</button>
                 </div>
             </PersonFilterModalWrap>
         </>

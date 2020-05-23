@@ -1,6 +1,7 @@
-import { RESET_COUNT, INCREASE_COUNT, DECREASE_COUNT } from './personAction';
+import { SAVE_COUNT, RESET_COUNT, INCREASE_COUNT, DECREASE_COUNT } from './personAction';
 
 const initialState = {
+    isSave: false,
     totalCount: 0,
     adultCount: 0,
     childCount: 0,
@@ -9,6 +10,11 @@ const initialState = {
 
 export default function personReducer(state = initialState, action) {
     switch (action.type) {
+        case SAVE_COUNT:
+            return {
+                ...state,
+                isSave: true,
+            }
         case RESET_COUNT:
             return {
                 ...state,
@@ -25,6 +31,7 @@ export default function personReducer(state = initialState, action) {
                     ...state,
                     ..._state,
                     totalCount: state.totalCount + 1,
+                    isSave: false,
                 }
             }
         case DECREASE_COUNT:
@@ -38,6 +45,7 @@ export default function personReducer(state = initialState, action) {
                     ...state,
                     ..._state,
                     totalCount: state.totalCount - 1,
+                    isSave: false,
                 }
             }
         default:
