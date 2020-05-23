@@ -7,7 +7,7 @@ const initialState = {
     babyCount: 0,
 }
 
-export default function date(state = initialState, action) {
+export default function personReducer(state = initialState, action) {
     switch (action.type) {
         case RESET_COUNT:
             return {
