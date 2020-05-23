@@ -37,25 +37,25 @@ const PersonFilterBtn = styled.div`
 
 const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
-    const [prevPersons, setPrevPersons] = useState('');
+    const [prevPersonBtnText, setPrevPersonBtnText] = useState('');
     const { isSave, totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
     const handleSetOpen = () => setOpen(!isOpen);
 
-    const persons = isSave && totalCount ? [] : ['인원'];
-    if (isSave && adultCount) persons.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
-    if (isSave && childCount) persons.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
-    if (isSave && babyCount) persons.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+    const personBtnText = isSave && totalCount ? [] : ['인원'];
+    if (isSave && adultCount) personBtnText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
+    if (isSave && childCount) personBtnText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
+    if (isSave && babyCount) personBtnText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
 
     useEffect(() => {
-        setPrevPersons(persons.join(', '));
+        setPrevPersonBtnText(personBtnText.join(', '));
     }, [isOpen]);
 
     return (
         <PersonFilterWrap>
             {(isOpen || isSave) && <HighlightBorder />}
             <PersonFilterBtn onClick={handleSetOpen}>
-                {isSave ? persons.join(', ') : prevPersons}
+                {isSave ? personBtnText.join(', ') : prevPersonBtnText}
             </PersonFilterBtn>
             {isOpen && <PersonFilterModal {...{ handleSetOpen }} />}
         </PersonFilterWrap>
