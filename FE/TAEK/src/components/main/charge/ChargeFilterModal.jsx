@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveCharge, resetCharge } from 'store/modules/charge/chargeAction';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
-import ChargeRangePicker from './ChargeRangePicker';
+import ChargePicker from './ChargePicker';
 import { MAIN } from 'constants/constant';
 import { numberComma } from 'utils/util';
 
@@ -125,7 +125,7 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
                     <AverageTitle>
                         평균 1박 요금은 &#8361; {numberComma(100000)} 입니다.
                     </AverageTitle>
-                    <ChargeRangePicker />
+                    <ChargePicker />
                     <ChargeRangeText>
                         <div className='charge-text'>
                             <div className='charge-desc'>최저 요금</div>

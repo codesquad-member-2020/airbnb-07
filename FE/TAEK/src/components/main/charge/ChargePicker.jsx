@@ -47,7 +47,7 @@ const RheostatWrap = styled.div`
     }
 `;
 
-const ChargeRangePicker = () => {
+const ChargePicker = () => {
     const dispatch = useDispatch();
     const handleValuesUpdated = ({ values }) => {
         const [updateMin, updateMax] = values;
@@ -72,4 +72,4 @@ const ChargeRangePicker = () => {
     )
 }
 
-export default ChargeRangePicker
+export default ChargePicker
