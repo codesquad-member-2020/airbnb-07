@@ -15,7 +15,7 @@ const HighlightBorder = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    border: 2.5px solid #000;
+    border: 2.25px solid #000;
     border-radius: 15px;
     pointer-events: none;
     box-sizing: border-box;
