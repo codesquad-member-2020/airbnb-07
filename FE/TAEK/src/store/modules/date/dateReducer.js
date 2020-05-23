@@ -5,7 +5,6 @@ const initialState = {
     checkOutDate: null,
 }
 
-// react-dates library api 확인 후 보완 할 것 
 export default function dateReducer(state = initialState, action) {
     switch (action.type) {
         case CHECK_IN:
