@@ -63,6 +63,7 @@ const ChargeRangePicker = () => {
                 values={[MAIN.CHARGE.MIN_CHARGE, MAIN.CHARGE.MAX_CHARGE]}
                 pitComponent={ChargeGraph}
                 pitPoints={[
+                    // 임시 가격 데이터
                     50000, 200000, 300000, 500000, 700000, 900000
                 ]}
                 onValuesUpdated={handleValuesUpdated}
