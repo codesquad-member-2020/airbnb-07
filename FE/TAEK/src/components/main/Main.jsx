@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import MainHeader from './MainHeader';
-import DatePicker from './date/DatePicker';
+import DateFilter from './date/DateFilter';
 import PersonFilter from './person/PersonFilter';
 import ChargeFilter from './charge/ChargeFilter';
 
@@ -9,7 +9,7 @@ const MainContentsWrap = styled.div`
     padding: 30px 10%;
 `;
 
-const MainContentsTitleWrap = styled.div`
+const FilterBtnWrap = styled.div`
     display: flex;
     position: relative;
     height: 39.98px;
@@ -31,11 +31,11 @@ const Main = () => {
         <>
             <MainHeader />
             <MainContentsWrap>
-                <MainContentsTitleWrap>
-                    <DatePicker />
+                <FilterBtnWrap>
+                    <DateFilter />
                     <PersonFilter />
                     <ChargeFilter />
-                </MainContentsTitleWrap>
+                </FilterBtnWrap>
             </MainContentsWrap>
         </>
     )
