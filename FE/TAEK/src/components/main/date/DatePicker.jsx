@@ -5,60 +5,64 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import { MAIN } from 'constants/constant';
 
 const DatePickerWrap = styled.div`
-    & .DateRangePickerInput {
-        border: 1.19px solid #7f8c8d99;
-        box-shadow: ${(props) => props.theme.boxShadow};
-        border-radius: 15px;
-        & .DateInput_input__focused {
-            border-bottom: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 5;
+    .DateRangePicker {
+        width: 100%;
+    }
+    .DateRangePickerInput {
+        display: flex;
+        background-color: transparent;
+        position: relative;
+        #airbnb-end-date {
+            display:none;
         }
-        & .DateInput {
-            background: none;
+        .DateInput {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
-        & input {
-            border: none;
-            background-color: transparent;
+        .DateInput_input {
             cursor: pointer;
+            opacity: 0;
         }
-        & .DateInput_input {
-            padding: 10px 0;
-            text-align: center;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            &::placeholder {
-                color: #484848;
-            }
+        .DateInput_fang {
+            display: none;
         }
         .DateRangePickerInput_arrow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            display: inline-block;
-            vertical-align: middle;
-            color: #484848;
-            transform: translate(-50%, -50%);
+            display: none;
         }
     }
-    & .DayPickerNavigation_button__default {
+    .DayPickerNavigation_button__default {
         border: none;
         outline: none;
     }
-    & .DayPicker_weekHeader {
+    .DayPicker_weekHeader {
         color: #95a5a6;
     }
-    & .CalendarMonth_table {
+    .CalendarMonth_table {
         margin-top: 10px;
-        & tr {
+        tr {
             border: 1px solid #fff;
         }
+        td {
+            outline: none;
+        }
     }
-    & .CalendarDay__default {
+    .CalendarDay__default {
         border: none;
     }
-    & .CalendarDay {
+    .CalendarDay {
         vertical-align: middle;
         position: relative;
         z-index: 0;
@@ -107,28 +111,42 @@ const DatePicker = () => {
     moment.locale('ko');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [focusedInput, setFocusedInput] = useState(null);
+    const [focusedInput, setFocusedInput] = useState('startDate');
     const handleDatesChange = ({ startDate, endDate }) => {
         setStartDate(startDate);
         setEndDate(endDate);
+        if (endDate) setFocusedInput('startDate');
     };
 
     return (
         <DatePickerWrap>
             <DateRangePicker
-                displayFormat="MMM D일"
-                startDatePlaceholderText='체크인'
-                endDatePlaceholderText='체크아웃'
+                startDatePlaceholderText=''
+                endDatePlaceholderText=''
                 startDate={startDate}
-                startDateId="airbnb-start-date"
+                startDateId={MAIN.DATE.START_DATE_ID}
                 endDate={endDate}
-                endDateId="airbnb-end-date"
+                endDateId={MAIN.DATE.END_DATE_ID}
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
-                onFocusChange={focusedInput => setFocusedInput(focusedInput)}
-                hideKeyboardShortcutsPanel readOnly noBorder small
+                onFocusChange={focusedInput => {
+                    setFocusedInput(focusedInput);
+                    if (focusedInput === 'endDate' && endDate) setEndDate(null);
+                }}
+                calendarInfoPosition='bottom'
+                renderCalendarInfo={DateFilterBtn}
+                hideKeyboardShortcutsPanel readOnly noBorder small keepOpenOnDateSelect
             />
         </DatePickerWrap>
+    )
+}
+
+const DateFilterBtn = () => {
+    return (
+        <>
+            <button>지우기</button>
+            <button>저장</button>
+        </>
     )
 }
 

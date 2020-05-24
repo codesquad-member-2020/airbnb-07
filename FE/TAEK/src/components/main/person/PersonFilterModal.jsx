@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import PersonFilterModalItem from './PersonFilterModalItem';
-import { resetCount } from 'store/modules/person';
+import { saveCount, resetCount } from 'store/modules/person/personAction';
+import { MAIN } from 'constants/constant';
 
 const Background = styled.div`
     position: absolute;
@@ -21,36 +22,37 @@ const PersonFilterModalWrap = styled.div`
     width: 350px;
     background-color: #fff;
     z-index: 10;
-    animation-name: modal;
+    overflow: hidden;
+    animation-name: personModal;
     animation-duration: .2s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
-    @keyframes modal {
+    @keyframes personModal {
         0% { height: 0; }
         100% { height: 300px;}
     }
     box-shadow: ${props => props.theme.modalShadow};
     border-radius: 3px;
 
-    & .modal-item-wrap {
+    .modal-item-wrap {
         padding : 20px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        & .person-type {
+        .person-type {
             font-size: 16px;
             font-weight: 600;
         }
-        & .person-age {
+        .person-age {
             margin-top: 7px;
             font-size: 14px;
         }
-        & .person-count {
+        .person-count {
             margin: 0 20px;
             font-size: 18px;
             font-weight: 600;
         }
-        & .person-count-btn {
+        .person-count-btn {
             border-radius: 50%;
             background-color: #fff;
             outline: none;
@@ -63,7 +65,7 @@ const PersonFilterModalWrap = styled.div`
             cursor: pointer;
             box-shadow: ${(props) => props.theme.boxShadow};
         }
-        & .modal-btn {
+        .modal-btn {
             font-size: 16px;
             font-weight: 600;
             padding: 0;
@@ -89,39 +91,43 @@ const PersonFilterModalWrap = styled.div`
     }
 `;
 
-
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
-    const { adult, child, baby } = useSelector(({ person }) => person);
+    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+
     const handlePersonCountReset = () => dispatch(resetCount());
+    const handlePersonCountSave = () => {
+        if (totalCount) dispatch(saveCount());
+        handleSetOpen();
+    }
 
     return (
         <>
             <ModalPortal>
-                <Background onClick={handleSetOpen} />
+                <Background onClick={handlePersonCountSave} />
             </ModalPortal>
             <PersonFilterModalWrap>
                 <PersonFilterModalItem
-                    typeText='어른'
-                    ageText='만 13세 이상'
-                    countText={adult}
-                    personType={{ personType: 'adult' }}
+                    typeText={MAIN.PERSON.ADULT.TEXT}
+                    ageText={MAIN.PERSON.ADULT.DESC}
+                    countType={MAIN.PERSON.ADULT.COUNT_TYPE}
+                    countText={adultCount}
                 />
                 <PersonFilterModalItem
-                    typeText='어린이'
-                    ageText='2 ~ 12세'
-                    countText={child}
-                    personType={{ personType: 'child' }}
+                    typeText={MAIN.PERSON.CHILD.TEXT}
+                    ageText={MAIN.PERSON.CHILD.DESC}
+                    countType={MAIN.PERSON.CHILD.COUNT_TYPE}
+                    countText={childCount}
                 />
                 <PersonFilterModalItem
-                    typeText='유아'
-                    ageText='2세 미만'
-                    countText={baby}
-                    personType={{ personType: 'baby' }}
+                    typeText={MAIN.PERSON.BABY.TEXT}
+                    ageText={MAIN.PERSON.BABY.DESC}
+                    countType={MAIN.PERSON.BABY.COUNT_TYPE}
+                    countText={babyCount}
                 />
                 <div className='modal-item-wrap'>
                     <button className='modal-btn reset-btn' onClick={handlePersonCountReset}>지우기</button>
-                    <button className='modal-btn save-btn' onClick={handleSetOpen}>저장</button>
+                    <button className='modal-btn save-btn' onClick={handlePersonCountSave}>저장</button>
                 </div>
             </PersonFilterModalWrap>
         </>

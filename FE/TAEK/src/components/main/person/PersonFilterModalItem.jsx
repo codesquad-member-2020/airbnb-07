@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { increaseCount, decreaseCount } from 'store/modules/person';
+import { increaseCount, decreaseCount } from 'store/modules/person/personAction';
 
-const PersonFilterModalItem = ({ typeText, ageText, countText, personType, }) => {
+const PersonFilterModalItem = ({ typeText, ageText, countText, countType, }) => {
     const dispatch = useDispatch();
-    const handlePersonCountUp = (personType) => dispatch(increaseCount(personType));
-    const handlePersonCountDown = (personType) => dispatch(decreaseCount(personType));
+    const handlePersonCountUp = (countType) => dispatch(increaseCount(countType));
+    const handlePersonCountDown = (countType) => dispatch(decreaseCount(countType));
 
     return (
         <div className='modal-item-wrap'>
@@ -16,12 +16,12 @@ const PersonFilterModalItem = ({ typeText, ageText, countText, personType, }) =>
             <div>
                 <button
                     className='person-count-btn'
-                    onClick={() => handlePersonCountDown(personType)}>➖
+                    onClick={() => handlePersonCountDown(countType)}>➖
                 </button>
                 <span className='person-count'>{countText}</span>
                 <button
                     className='person-count-btn'
-                    onClick={() => handlePersonCountUp(personType)}>➕
+                    onClick={() => handlePersonCountUp(countType)}>➕
                 </button>
             </div>
         </div>
