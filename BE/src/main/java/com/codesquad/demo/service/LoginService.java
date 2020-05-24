@@ -1,7 +1,9 @@
 package com.codesquad.demo.service;
 
+import com.codesquad.demo.utils.GithubProperties;
 import com.codesquad.demo.utils.JwtUtils;
 import com.codesquad.demo.web.dto.login.AccessTokenRequestDto;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -16,19 +18,21 @@ public class LoginService {
 
     private final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(LoginService.class);
+    private final GithubProperties githubProperties;
 
-    public LoginService(RestTemplate restTemplate) {
+    public LoginService(RestTemplate restTemplate, GithubProperties githubProperties) {
         this.restTemplate = restTemplate;
+        this.githubProperties = githubProperties;
     }
 
     public ResponseEntity<Void> login(String code, HttpServletResponse response) {
         logger.info("code : {}", code);
 
         try {
-            String url = "https://github.com/login/oauth/access_token";
-            String client_id = "8f285a7d51cbddc39104";
-            String client_secret = "a25c4a9fab910f206855eea684be46f0bb457d60";
-            String redirect_url = "http://15.164.35.235/api/github/oauth/callback";
+            String url = githubProperties.getUrl();
+            String client_id = githubProperties.getClient_id();
+            String client_secret = githubProperties.getClient_secret();
+            String redirect_url = githubProperties.getRedirect_url();
 
             AccessTokenRequestDto accessTokenRequestDto
                     = getAccessToken(client_id, client_secret, code, redirect_url);
@@ -87,10 +91,10 @@ public class LoginService {
         logger.info("code : {}", code);
 
         try {
-            String url = "https://github.com/login/oauth/access_token";
-            String client_id = "c2e25fe082feb25b3a02";
-            String client_secret = "849283d9227c9d35a9a6a6f82475bcb0d42eb549";
-            String redirect_url = "http://15.164.35.235/api/github/oauth/callback2";
+            String url = githubProperties.getUrl();
+            String client_id = githubProperties.getClient_id2();
+            String client_secret = githubProperties.getClient_secret2();
+            String redirect_url = githubProperties.getRedirect_url2();
 
             AccessTokenRequestDto accessTokenRequestDto
                     = getAccessToken(client_id, client_secret, code, redirect_url);

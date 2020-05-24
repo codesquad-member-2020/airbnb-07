@@ -150,3 +150,10 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/java,linux,gradle,intellij
+.idea/deployment.xml 제거할 예정
+.idea/modules/ 제거할 예정
+.idea/sqldialects.xml 제거할 예정
+.idea/sshConfigs.xml 제거할 예정
+.idea/webServers.xml 제거할 예정
+src/main/resources/static/ 제거할 예정
+src/main/resources/templates/ 제거할 예정
