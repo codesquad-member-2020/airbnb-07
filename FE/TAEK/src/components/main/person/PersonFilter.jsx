@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PersonFilterModal from './PersonFilterModal';
+import { MAIN } from 'constants/constant';
 
 const PersonFilterWrap = styled.div`
     position: relative;
     color: #484848;
+`;
+
+const HighlightBorder = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2.25px solid #000;
+    border-radius: 15px;
+    pointer-events: none;
+    box-sizing: border-box;
 `;
 
 const PersonFilterBtn = styled.div`
@@ -24,17 +37,25 @@ const PersonFilterBtn = styled.div`
 
 const PersonFilter = () => {
     const [isOpen, setOpen] = useState(false);
+    const [prevPersonBtnText, setPrevPersonBtnText] = useState('');
+    const { isSave, totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+
     const handleSetOpen = () => setOpen(!isOpen);
-    const { total, adult, child, baby } = useSelector(({ person }) => person);
-    const persons = total ? [] : ['인원'];
-    if (adult) persons.push(`어른 ${adult}명`);
-    if (child) persons.push(`어린이 ${child}명`);
-    if (baby) persons.push(`유아 ${baby}명`);
+
+    const personBtnText = isSave && totalCount ? [] : ['인원'];
+    if (isSave && adultCount) personBtnText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
+    if (isSave && childCount) personBtnText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
+    if (isSave && babyCount) personBtnText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+
+    useEffect(() => {
+        setPrevPersonBtnText(personBtnText.join(', '));
+    }, [isOpen]);
 
     return (
         <PersonFilterWrap>
+            {(isOpen || isSave) && <HighlightBorder />}
             <PersonFilterBtn onClick={handleSetOpen}>
-                {persons.join(', ')}
+                {isSave ? personBtnText.join(', ') : prevPersonBtnText}
             </PersonFilterBtn>
             {isOpen && <PersonFilterModal {...{ handleSetOpen }} />}
         </PersonFilterWrap>

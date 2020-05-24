@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import ChargeFilterModal from './ChargeFilterModal';
+import { numberComma } from 'utils/util';
+import { MAIN } from 'constants/constant';
 
 const ChargeFilterWrap = styled.div`
     position: relative;
     color: #484848;
+`;
+
+const HighlightBorder = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2.25px solid #000;
+    border-radius: 15px;
+    pointer-events: none;
+    box-sizing: border-box;
 `;
 
 const ChargeFilterBtn = styled.div`
@@ -21,9 +37,27 @@ const ChargeFilterBtn = styled.div`
 `;
 
 const ChargeFilter = () => {
+    const [isOpen, setOpen] = useState(false);
+    const [prevChargeBtnText, setPrevChargeBtnText] = useState('');
+    const { isSave, min, max } = useSelector(({ charge }) => charge);
+
+    const handleSetOpen = () => setOpen(!isOpen);
+
+    const minText = numberComma(min);
+    const maxText = max === MAIN.CHARGE.MAX_CHARGE ? '' : numberComma(max);
+    const chargeBtnText = isSave ? <span>￦ {minText}{maxText ? ` - ￦ ${maxText}` : '+'}</span> : '요금';
+
+    useEffect(() => {
+        setPrevChargeBtnText(chargeBtnText);
+    }, [isOpen]);
+
     return (
         <ChargeFilterWrap>
-            <ChargeFilterBtn>요금</ChargeFilterBtn>
+            {(isOpen || isSave) && <HighlightBorder />}
+            <ChargeFilterBtn onClick={handleSetOpen}>
+                {isSave ? chargeBtnText : prevChargeBtnText}
+            </ChargeFilterBtn>
+            {isOpen && <ChargeFilterModal {...{ handleSetOpen }} />}
         </ChargeFilterWrap>
     )
 }
