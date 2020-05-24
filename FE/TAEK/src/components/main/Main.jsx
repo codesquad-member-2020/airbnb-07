@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
-import MainHeader from './MainHeader';
-import DateFilter from './filterButtons/date/DateFilter';
-import PersonFilter from './filterButtons/person/PersonFilter';
-import ChargeFilter from './filterButtons/charge/ChargeFilter';
+import MainHeader from '@/components/main/MainHeader';
+import DateFilter from '@/components/main/filterButtons/date/DateFilter';
+import PersonFilter from '@/components/main/filterButtons/person/PersonFilter';
+import ChargeFilter from '@/components/main/filterButtons/charge/ChargeFilter';
 
 const MainContentsWrap = styled.div`
     padding: 30px 10%;
