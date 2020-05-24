@@ -46,8 +46,8 @@ const DateFilter = () => {
             {isOpen && <HighlightBorder />}
             <DateFilterBtn onClick={handleSetOpen}>
                 날짜
-                {isOpen && <DateFilterModal {...{ handleSetOpen }} />}
             </DateFilterBtn>
+            {isOpen && <DateFilterModal {...{ handleSetOpen }} />}
         </DateFilterWrap>
     )
 }

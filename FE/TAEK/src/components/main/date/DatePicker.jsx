@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { checkIn, checkOut } from 'store/modules/date/dateAction';
 import styled from 'styled-components';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
@@ -6,6 +8,9 @@ import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { MAIN } from 'constants/constant';
+import DateFilterModalBtn from './DateFilterModalBtn';
+
+moment.locale('ko');
 
 const DatePickerWrap = styled.div`
     position: absolute;
@@ -107,14 +112,14 @@ const DatePickerWrap = styled.div`
     }
 `;
 
-const DatePicker = () => {
-    moment.locale('ko');
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+const DatePicker = ({ dateFilterModalBtn }) => {
+    const dispatch = useDispatch();
+    const { checkInDate, checkOutDate } = useSelector(({ date }) => date);
     const [focusedInput, setFocusedInput] = useState('startDate');
+
     const handleDatesChange = ({ startDate, endDate }) => {
-        setStartDate(startDate);
-        setEndDate(endDate);
+        dispatch(checkIn(startDate));
+        dispatch(checkOut(endDate));
         if (endDate) setFocusedInput('startDate');
     };
 
@@ -123,30 +128,21 @@ const DatePicker = () => {
             <DateRangePicker
                 startDatePlaceholderText=''
                 endDatePlaceholderText=''
-                startDate={startDate}
                 startDateId={MAIN.DATE.START_DATE_ID}
-                endDate={endDate}
                 endDateId={MAIN.DATE.END_DATE_ID}
+                startDate={checkInDate}
+                endDate={checkOutDate}
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
                 onFocusChange={focusedInput => {
                     setFocusedInput(focusedInput);
-                    if (focusedInput === 'endDate' && endDate) setEndDate(null);
+                    if (focusedInput === 'endDate' && checkOutDate) dispatch(checkOut(null));
                 }}
                 calendarInfoPosition='bottom'
-                renderCalendarInfo={DateFilterBtn}
+                renderCalendarInfo={dateFilterModalBtn}
                 hideKeyboardShortcutsPanel readOnly noBorder small keepOpenOnDateSelect
             />
         </DatePickerWrap>
-    )
-}
-
-const DateFilterBtn = () => {
-    return (
-        <>
-            <button>지우기</button>
-            <button>저장</button>
-        </>
     )
 }
 
