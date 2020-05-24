@@ -28,6 +28,7 @@ const DateFilterModalWrap = styled.div`
             100% { height: 400px;}
         }
         box-shadow: ${props => props.theme.modalShadow};
+        border-radius: 3px;
     }
     .DayPicker__withBorder {
         box-shadow: none;

@@ -19,26 +19,26 @@ const PersonFilterModalWrap = styled.div`
     position: absolute;
     top: 52px;
     left: 0;
-    width: 350px;
+    width: 370px;
     background-color: #fff;
     z-index: 10;
     overflow: hidden;
     animation-name: personModal;
-    animation-duration: .2s;
+    animation-duration: .25s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
     @keyframes personModal {
         0% { height: 0; }
-        100% { height: 300px;}
+        100% { height: 305px;}
     }
     box-shadow: ${props => props.theme.modalShadow};
     border-radius: 3px;
-
     .modal-item-wrap {
-        padding : 20px 20px;
+        padding : 20px 25px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-sizing: border-box;
         .person-type {
             font-size: 16px;
             font-weight: 600;
