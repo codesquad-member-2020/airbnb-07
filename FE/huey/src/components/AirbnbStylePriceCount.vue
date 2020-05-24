@@ -20,7 +20,7 @@ import 'vue-slider-component/theme/default.css';
 export default {
   data() {
     return {
-      value: [312000, 1000000],
+      value: [120000, 1000000],
       options: {
         dotSize: 14,
         width: 'auto',
