@@ -33,6 +33,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
+            '@': path.resolve(__dirname, "src/"),
             'store': path.resolve(__dirname, "src/store/"),
             'utils': path.resolve(__dirname, "src/utils/"),
             'constants': path.resolve(__dirname, "src/constants/"),
