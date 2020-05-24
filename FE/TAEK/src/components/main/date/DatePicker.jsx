@@ -8,39 +8,38 @@ import 'react-dates/lib/css/_datepicker.css';
 import { MAIN } from 'constants/constant';
 
 const DatePickerWrap = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    .DateRangePicker {
+        width: 100%;
+    }
     .DateRangePickerInput {
-        border: 1.19px solid #7f8c8d99;
-        box-shadow: ${(props) => props.theme.boxShadow};
-        border-radius: 15px;
-        .DateInput_input__focused {
-            border-bottom: none;
+        display: flex;
+        background-color: transparent;
+        position: relative;
+        #airbnb-end-date {
+            display:none;
         }
         .DateInput {
-            background: none;
-        }
-        input {
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         .DateInput_input {
-            padding: 10px 0;
-            text-align: center;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            &::placeholder {
-                color: #484848;
-            }
+            cursor: pointer;
+            opacity: 0;
+        }
+        .DateInput_fang {
+            display: none;
         }
         .DateRangePickerInput_arrow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            display: inline-block;
-            vertical-align: middle;
-            color: #484848;
-            transform: translate(-50%, -50%);
+            display: none;
         }
     }
     .DayPickerNavigation_button__default {
@@ -117,9 +116,8 @@ const DatePicker = () => {
     return (
         <DatePickerWrap>
             <DateRangePicker
-                displayFormat={MAIN.DATE.DATE_FORMAT}
-                startDatePlaceholderText={MAIN.DATE.START_DATE_TEXT}
-                endDatePlaceholderText={MAIN.DATE.END_DATE_TEXT}
+                startDatePlaceholderText=''
+                endDatePlaceholderText=''
                 startDate={startDate}
                 startDateId={MAIN.DATE.START_DATE_ID}
                 endDate={endDate}
@@ -127,9 +125,20 @@ const DatePicker = () => {
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
                 onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                calendarInfoPosition='bottom'
+                renderCalendarInfo={DateFilterBtn}
                 hideKeyboardShortcutsPanel readOnly noBorder small
             />
         </DatePickerWrap>
+    )
+}
+
+const DateFilterBtn = () => {
+    return (
+        <>
+            <button>지우기</button>
+            <button>저장</button>
+        </>
     )
 }
 
