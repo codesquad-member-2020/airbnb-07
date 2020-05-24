@@ -1,9 +1,6 @@
 const MAIN = {
     DATE: {
-        DATE_FORMAT: 'MMM D일',
-        START_DATE_TEXT: '체크인',
         START_DATE_ID: 'airbnb-start-date',
-        END_DATE_TEXT: '체크아웃',
         END_DATE_ID: 'airbnb-end-date',
     },
     PERSON: {

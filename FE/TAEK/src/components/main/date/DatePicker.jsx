@@ -14,6 +14,7 @@ const DatePickerWrap = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    z-index: 5;
     .DateRangePicker {
         width: 100%;
     }
@@ -53,6 +54,9 @@ const DatePickerWrap = styled.div`
         margin-top: 10px;
         tr {
             border: 1px solid #fff;
+        }
+        td {
+            outline: none;
         }
     }
     .CalendarDay__default {
@@ -107,10 +111,11 @@ const DatePicker = () => {
     moment.locale('ko');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [focusedInput, setFocusedInput] = useState(null);
+    const [focusedInput, setFocusedInput] = useState('startDate');
     const handleDatesChange = ({ startDate, endDate }) => {
         setStartDate(startDate);
         setEndDate(endDate);
+        if (endDate) setFocusedInput('startDate');
     };
 
     return (
@@ -124,10 +129,13 @@ const DatePicker = () => {
                 endDateId={MAIN.DATE.END_DATE_ID}
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
-                onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                onFocusChange={focusedInput => {
+                    setFocusedInput(focusedInput);
+                    if (focusedInput === 'endDate' && endDate) setEndDate(null);
+                }}
                 calendarInfoPosition='bottom'
                 renderCalendarInfo={DateFilterBtn}
-                hideKeyboardShortcutsPanel readOnly noBorder small
+                hideKeyboardShortcutsPanel readOnly noBorder small keepOpenOnDateSelect
             />
         </DatePickerWrap>
     )

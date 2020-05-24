@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import DatePicker from './DatePicker';
+import DateFilterModal from './DateFilterModal';
 
 const DateFilterWrap = styled.div`
     position: relative;
     color: #484848;
+    cursor: pointer;
 `;
 
 const HighlightBorder = styled.div`
@@ -45,7 +46,7 @@ const DateFilter = () => {
             {isOpen && <HighlightBorder />}
             <DateFilterBtn onClick={handleSetOpen}>
                 날짜
-                <DatePicker />
+                {isOpen && <DateFilterModal {...{ handleSetOpen }} />}
             </DateFilterBtn>
         </DateFilterWrap>
     )
