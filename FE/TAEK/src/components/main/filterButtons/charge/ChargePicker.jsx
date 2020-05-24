@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { minCharge, maxCharge } from 'store/modules/charge/chargeAction';
 import styled from 'styled-components';
 import 'rheostat/css/rheostat.css';
@@ -49,6 +49,7 @@ const RheostatWrap = styled.div`
 
 const ChargePicker = () => {
     const dispatch = useDispatch();
+    const { min, max } = useSelector(({ charge }) => charge);
     const handleValuesUpdated = ({ values }) => {
         const [updateMin, updateMax] = values;
         dispatch(minCharge(updateMin));
@@ -60,7 +61,7 @@ const ChargePicker = () => {
             <Rheostat
                 min={MAIN.CHARGE.MIN_CHARGE}
                 max={MAIN.CHARGE.MAX_CHARGE}
-                values={[MAIN.CHARGE.MIN_CHARGE, MAIN.CHARGE.MAX_CHARGE]}
+                values={[min, max]}
                 pitComponent={ChargeGraph}
                 pitPoints={[
                     // 임시 가격 데이터
