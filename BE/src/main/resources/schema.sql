@@ -48,8 +48,8 @@ create table accommodation (
     longitude DOUBLE,
     available_guest INT,
     current_price INT,
-    previous_price TEXT,
-    discount_price TEXT,
+    previous_price INT,
+    discount_price INT,
     hotel_rating DOUBLE ,
     airbnb INT references airbnb(id),
     airbnb_key INT
