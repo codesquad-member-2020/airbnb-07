@@ -41,6 +41,7 @@ const RoomTextInfoWrap = styled.div`
             line-height: 20px;
             height: 22px;
             letter-spacing: -0.05rem;
+            cursor: help;
         }
         .previousPrice {
             color: #7f8c8d;
@@ -72,8 +73,8 @@ const RoomTextInfoWrap = styled.div`
         border-radius: 5px;
         font-size: 14px;
         font-weight: 600;
-        cursor: pointer;
         font-family: 'Noto Sans KR', sans-serif;
+        cursor: pointer;
     }
 `;
 

@@ -6,8 +6,8 @@ const RoomListWrap = styled.div`
     margin-top : 40px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-auto-rows: 330px;
-    grid-gap: 20px;
+    grid-auto-rows: 340px;
+    grid-gap: 35px;
 `;
 
 const RoomList = ({ allData }) => {
