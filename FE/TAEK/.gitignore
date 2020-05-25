@@ -4,6 +4,9 @@ dist
 # assets
 public/images
 
+# mockdata
+src/mock
+
 # node_modules
 node_modules
 
