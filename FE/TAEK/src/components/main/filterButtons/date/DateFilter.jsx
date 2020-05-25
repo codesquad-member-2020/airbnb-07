@@ -35,6 +35,7 @@ const DateFilterBtn = styled.div`
     line-height: 39.6px;
     text-align: center;
     box-sizing: border-box;
+    overflow: hidden;
 `;
 
 const DateFilter = () => {

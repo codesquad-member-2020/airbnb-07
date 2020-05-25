@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
+import miniMenu from 'public/images/mini-menu.svg';
 
 const MainHeaderWrap = styled.div`
     box-shadow: 0 4px 6px #32325d1c, 0 1px 3px #00000014;
@@ -8,7 +9,7 @@ const MainHeaderWrap = styled.div`
     height: 80px;
     line-height: 80px;
     background-color: #fff;
-    padding: 0 10%;
+    padding: 0 15%;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
@@ -27,6 +28,21 @@ const MainHeaderWrap = styled.div`
                 margin-right: 0;
             }
         }
+        @media (max-width: 1180px) { display: none; }
+        &.mini-menu {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            display: none;
+            align-self: center;
+            cursor: pointer;
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            @media (max-width: 1180px) { display: block; }
+        }
     }
 `;
 
@@ -41,6 +57,9 @@ const MainHeader = () => {
                 <li>마이페이지</li>
                 <li>로그아웃</li>
             </ul>
+            <div className='main-header-menu mini-menu'>
+                <img src={miniMenu} alt="mini-menu" />
+            </div>
         </MainHeaderWrap>
     )
 }
