@@ -1,6 +1,7 @@
 <template>
   <div class="img-list">
-    <ImageItem />
+    <ImageItem img-src="https://picsum.photos/id/1/600/600" />
+    <!-- 이미지 URL을 전달합니다 -->
   </div>
 </template>
 
@@ -11,9 +12,6 @@ export default {
   name: 'ImageList',
   components: {
     ImageItem,
-  },
-  props: {
-    msg: String,
   },
 };
 </script>
