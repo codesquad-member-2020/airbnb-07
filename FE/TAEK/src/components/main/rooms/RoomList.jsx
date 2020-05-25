@@ -9,9 +9,9 @@ const RoomListWrap = styled.div`
     grid-auto-rows: 340px;
     grid-gap: 35px;
 
-    @media ( max-width: 1600px ) { grid-template-columns: 1fr 1fr 1fr; }
-    @media ( max-width: 1200px ) { grid-template-columns: 1fr 1fr; }
-    @media ( max-width: 700px ) { grid-template-columns: 1fr; }
+    @media ( max-width: 1680px ) { grid-template-columns: 1fr 1fr 1fr; }
+    @media ( max-width: 1180px ) { grid-template-columns: 1fr 1fr; }
+    @media ( max-width: 680px ) { grid-template-columns: 1fr; }
 `;
 
 const RoomList = ({ allData }) => {
