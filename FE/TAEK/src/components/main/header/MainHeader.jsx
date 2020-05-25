@@ -8,7 +8,7 @@ const MainHeaderWrap = styled.div`
     height: 80px;
     line-height: 80px;
     background-color: #fff;
-    padding: 0 10%;
+    padding: 0 15%;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;

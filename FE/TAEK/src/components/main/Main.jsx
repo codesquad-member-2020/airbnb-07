@@ -5,7 +5,7 @@ import FilterButtons from './filterButtons/FilterButtons';
 import Rooms from './rooms/Rooms';
 
 const MainContentsWrap = styled.div`
-    padding: 30px 10%;
+    padding: 30px 15%;
     color: #484848;
 `;
 
