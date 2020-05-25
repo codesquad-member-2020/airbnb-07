@@ -18,6 +18,10 @@ const FilterButtonsWrap = styled.div`
     }
     > * {
        margin-right: 20px;
+       :last-child {
+           margin-right: 0;
+       }
+       @media (max-width: 680px) { margin-right: 8px; }
     }
 `;
 

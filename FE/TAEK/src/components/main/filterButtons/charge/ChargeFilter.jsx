@@ -34,6 +34,7 @@ const ChargeFilterBtn = styled.div`
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
+    overflow: hidden;
 `;
 
 const ChargeFilter = () => {

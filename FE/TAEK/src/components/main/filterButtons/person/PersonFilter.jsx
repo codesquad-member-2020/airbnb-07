@@ -33,6 +33,7 @@ const PersonFilterBtn = styled.div`
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
+    overflow: hidden;
 `;
 
 const PersonFilter = () => {
