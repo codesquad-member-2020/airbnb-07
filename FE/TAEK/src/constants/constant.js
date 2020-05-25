@@ -4,6 +4,7 @@ const MAIN = {
         END_DATE_ID: 'airbnb-end-date',
     },
     PERSON: {
+        LIMIT_COUNT: 8,
         ADULT: {
             TEXT: '어른',
             DESC: '만 13세 이상',
