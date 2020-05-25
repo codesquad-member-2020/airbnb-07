@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom';
+import useSetTimeout from 'hooks/useSetTimeout';
 import styled from 'styled-components';
 import bonobono from 'public/images/bonobono.jpg';
 
@@ -39,12 +40,9 @@ const Title = styled.div`
 
 const NotFound = () => {
     const [wait, setWait] = useState(true);
-    const timeoutId = useRef();
 
-    useEffect(() => {
-        timeoutId.current = setTimeout(() => setWait(false), 4000);
-        return () => clearTimeout(timeoutId.current);
-    }, [])
+    const timeoutCallback = () => setWait(false);
+    useSetTimeout(timeoutCallback, 4000);
 
     return (
         <NotFoundWrap>
