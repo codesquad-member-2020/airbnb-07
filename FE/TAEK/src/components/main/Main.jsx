@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components';
 import MainHeader from './header/MainHeader';
 import FilterButtons from './filterButtons/FilterButtons';
+import Rooms from './rooms/Rooms';
 
 const MainContentsWrap = styled.div`
     padding: 30px 10%;
+    color: #484848;
 `;
 
 const Main = () => {
@@ -13,6 +15,7 @@ const Main = () => {
             <MainHeader />
             <MainContentsWrap>
                 <FilterButtons />
+                <Rooms />
             </MainContentsWrap>
         </>
     )
