@@ -24,7 +24,7 @@ const PersonFilterModalWrap = styled.div`
     z-index: 10;
     overflow: hidden;
     animation-name: personModal;
-    animation-duration: .25s;
+    animation-duration: .2s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
     @keyframes personModal {
