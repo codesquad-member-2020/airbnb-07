@@ -8,7 +8,6 @@ import 'moment/locale/ko';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { MAIN } from 'constants/constant';
-import DateFilterModalBtn from './DateFilterModalBtn';
 
 moment.locale('ko');
 
