@@ -27,12 +27,16 @@ const router = new VueRouter({
       redirect: 'main',
     },
     {
-      path: '*',
-      component: () => import('@/views/NotFoundView.vue'),
-    },
-    {
       path: '/rooms',
       component: () => import('@/views/SearchRoomsView.vue'),
+    },
+    {
+      path: '/reservation',
+      component: () => import('@/views/ReservationView.vue'),
+    },
+    {
+      path: '*',
+      component: () => import('@/views/NotFoundView.vue'),
     },
   ],
 });
