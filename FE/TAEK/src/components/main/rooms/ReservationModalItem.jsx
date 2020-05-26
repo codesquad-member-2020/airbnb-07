@@ -16,7 +16,7 @@ const ReservationModalItemWrap = styled.div`
         }
     }
     .rating-wrap {
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 15px;
         padding-bottom: 15px;
         border-bottom: 1px solid #bdc3c7;

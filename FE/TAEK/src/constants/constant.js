@@ -24,6 +24,9 @@ const MAIN = {
     CHARGE: {
         MIN_CHARGE: 12000,
         MAX_CHARGE: 1000000,
+    },
+    RESERVATION: {
+        NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
     }
 }
 

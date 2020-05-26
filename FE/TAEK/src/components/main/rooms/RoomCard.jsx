@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
 import ReservationModal from './ReservationModal';
+import { MAIN } from 'constants/constant';
 
 const RoomCardWrap = styled.div`
     min-width: 300px;
@@ -91,7 +92,7 @@ const RoomCard = ({ roomData }) => {
     const [titleImgUrl] = urls;
 
     const handleSetOpen = () => {
-        if (!date.isSave || !person.isSave) return alert('날짜와 인원을 선택하세요.');
+        if (!date.isSave || !person.isSave) return alert(MAIN.RESERVATION.NOT_ENOUGH_CONDITION_MESSAGE);
         setOpen(!isOpen);
     }
 
