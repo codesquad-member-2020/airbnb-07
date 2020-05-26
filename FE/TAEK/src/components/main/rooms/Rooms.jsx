@@ -18,10 +18,12 @@ const Rooms = () => {
     const { allData } = roomsData;
 
     return (
-        <RoomsWrap>
-            <RoomsTitle>{allData.length}개 이상의 숙소</RoomsTitle>
-            <RoomList {...{ allData }} />
-        </RoomsWrap>
+        <>
+            <RoomsWrap>
+                <RoomsTitle>{allData.length}개 이상의 숙소</RoomsTitle>
+                <RoomList {...{ allData }} />
+            </RoomsWrap>
+        </>
     )
 }
 

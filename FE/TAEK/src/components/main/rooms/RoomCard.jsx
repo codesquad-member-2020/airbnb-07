@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
+import ReservationModal from './ReservationModal';
 
 const RoomCardWrap = styled.div`
     min-width: 300px;
@@ -80,34 +81,40 @@ const RoomTextInfoWrap = styled.div`
 `;
 
 const RoomCard = ({ roomData }) => {
+    const [isOpen, setOpen] = useState(false);
     const { hotelName, location, currentPrice, previousPrice, hotelRating, urls } = roomData;
     const [titleImgUrl] = urls;
 
+    const handleSetOpen = () => setOpen(!isOpen);
+
     return (
-        <RoomCardWrap>
-            <RoomImg src={titleImgUrl.url} alt="숙소 이미지" />
-            <RoomTextInfoWrap>
-                <div className='info-top'>
-                    <div className='location'>{location}</div>
-                    <div>
-                        <img className='rating-star-icon' src={ratingStar} alt="rating-star" />
-                        {hotelRating}
+        <>
+            {isOpen && <ReservationModal {...{ handleSetOpen, ratingStar, roomData }} />}
+            <RoomCardWrap>
+                <RoomImg src={titleImgUrl.url} alt='room-image' />
+                <RoomTextInfoWrap>
+                    <div className='info-top'>
+                        <div className='location'>{location}</div>
+                        <div>
+                            <img className='rating-star-icon' src={ratingStar} alt='rating-star' />
+                            {hotelRating}
+                        </div>
                     </div>
-                </div>
-                <div className='info-main'>
-                    <div className='hotelName' title={hotelName}>{hotelName}</div>
-                    <div>
-                        <span className='previousPrice'>&#8361; {numberComma(previousPrice)}</span>
-                        <span className='currentPrice'>&#8361; {numberComma(currentPrice)}</span>
-                        <span>/1박</span>
+                    <div className='info-main'>
+                        <div className='hotelName' title={hotelName}>{hotelName}</div>
+                        <div>
+                            <span className='previousPrice'>&#8361; {numberComma(previousPrice)}</span>
+                            <span className='currentPrice'>&#8361; {numberComma(currentPrice)}</span>
+                            <span>/1박</span>
+                        </div>
                     </div>
-                </div>
-                <div className='info-bottom'>
-                    <div className='total-charge'>총 요금: &#8361; {numberComma(currentPrice * 10)}</div>
-                    <button className='reserve-btn'>예 약</button>
-                </div>
-            </RoomTextInfoWrap>
-        </RoomCardWrap>
+                    <div className='info-bottom'>
+                        <div className='total-charge'>총 요금: &#8361; {numberComma(currentPrice * 10)}</div>
+                        <button className='reserve-btn' onClick={handleSetOpen}>예 약</button>
+                    </div>
+                </RoomTextInfoWrap>
+            </RoomCardWrap>
+        </>
     )
 }
 
