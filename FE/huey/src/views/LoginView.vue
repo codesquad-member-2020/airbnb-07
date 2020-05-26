@@ -36,7 +36,7 @@ export default {
 
 .img-wrap {
   display: flex;
-  margin: 0 auto;
+  justify-content: center;
 }
 
 .logo {
@@ -63,6 +63,6 @@ export default {
 .and-logo {
   width: 85px;
   height: 85px;
-  margin: 0px 45px 130px;
+  margin: 100px 45px 0px 45px;
 }
 </style>
