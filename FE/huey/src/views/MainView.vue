@@ -29,6 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .filter-wrap {
+  margin-top: 50px;
   display: flex;
   justify-content: space-around;
   width: 650px;
