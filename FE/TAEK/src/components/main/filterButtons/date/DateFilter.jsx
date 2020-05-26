@@ -41,12 +41,12 @@ const DateFilterBtn = styled.div`
 const DateFilter = () => {
     const [isOpen, setOpen] = useState(false);
     const [prevDateBtnText, setPrevDateBtnText] = useState('');
-    const { isSave, checkInDate, checkOutDate } = useSelector(({ date }) => date);
+    const { isSave, checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
 
     const handleSetOpen = () => setOpen(!isOpen);
 
-    const checkIn = checkInDate && `${checkInDate._d.getMonth() + 1}월 ${checkInDate._d.getDate()}일`;
-    const checkOut = checkOutDate && `${checkOutDate._d.getMonth() + 1}월 ${checkOutDate._d.getDate()}일`;
+    const checkIn = checkInDateInfo && `${checkInDateInfo.month}월 ${checkInDateInfo.day}일`;
+    const checkOut = checkOutDateInfo && `${checkOutDateInfo.month}월 ${checkOutDateInfo.day}일`;
     const dateBtnText = isSave ? <span>{checkIn}{checkOut ? ` - ${checkOut}` : ''}</span> : '날짜';
 
     useEffect(() => {
