@@ -1,4 +1,5 @@
 import { SAVE_COUNT, RESET_COUNT, INCREASE_COUNT, DECREASE_COUNT } from './personAction';
+import { MAIN } from 'constants/constant';
 
 const initialState = {
     isSave: false,
@@ -9,6 +10,7 @@ const initialState = {
 }
 
 export default function personReducer(state = initialState, action) {
+    const limitCount = MAIN.PERSON.LIMIT_COUNT;
     switch (action.type) {
         case SAVE_COUNT:
             return {
@@ -22,7 +24,7 @@ export default function personReducer(state = initialState, action) {
             }
         case INCREASE_COUNT:
             {
-                if (state.totalCount + 1 > 8) return { ...state };
+                if (state.totalCount + 1 > limitCount) return { ...state };
                 const _state = { ...state }
                 const countType = action.payload.countType;
                 const updateCount = ++_state[countType];

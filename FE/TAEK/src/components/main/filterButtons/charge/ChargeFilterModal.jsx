@@ -12,7 +12,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 5;
 `;
 
@@ -25,7 +25,7 @@ const ChargeFilterModalWrap = styled.div`
     z-index: 10;
     overflow: hidden;
     animation-name: chargeModal;
-    animation-duration: .25s;
+    animation-duration: .2s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
     @keyframes chargeModal {

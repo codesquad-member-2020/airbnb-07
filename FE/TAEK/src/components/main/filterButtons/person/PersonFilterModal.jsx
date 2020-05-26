@@ -11,7 +11,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 5;
 `;
 
@@ -24,7 +24,7 @@ const PersonFilterModalWrap = styled.div`
     z-index: 10;
     overflow: hidden;
     animation-name: personModal;
-    animation-duration: .25s;
+    animation-duration: .2s;
     animation-timing-function:ease-in-out;
     animation-fill-mode: both;
     @keyframes personModal {
@@ -64,6 +64,11 @@ const PersonFilterModalWrap = styled.div`
             font-size: 10px;
             cursor: pointer;
             box-shadow: ${(props) => props.theme.boxShadow};
+            :disabled {
+                box-shadow: none;
+                background-color: #7f8c8d50;
+                cursor: auto;
+            }
         }
         .modal-btn {
             font-size: 16px;
@@ -108,18 +113,21 @@ const PersonFilterModal = ({ handleSetOpen }) => {
             </ModalPortal>
             <PersonFilterModalWrap>
                 <PersonFilterModalItem
+                    totalCount={totalCount}
                     typeText={MAIN.PERSON.ADULT.TEXT}
                     ageText={MAIN.PERSON.ADULT.DESC}
                     countType={MAIN.PERSON.ADULT.COUNT_TYPE}
                     countText={adultCount}
                 />
                 <PersonFilterModalItem
+                    totalCount={totalCount}
                     typeText={MAIN.PERSON.CHILD.TEXT}
                     ageText={MAIN.PERSON.CHILD.DESC}
                     countType={MAIN.PERSON.CHILD.COUNT_TYPE}
                     countText={childCount}
                 />
                 <PersonFilterModalItem
+                    totalCount={totalCount}
                     typeText={MAIN.PERSON.BABY.TEXT}
                     ageText={MAIN.PERSON.BABY.DESC}
                     countType={MAIN.PERSON.BABY.COUNT_TYPE}

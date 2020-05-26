@@ -11,7 +11,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 5;
 `;
 
@@ -24,7 +24,7 @@ const DateFilterModalWrap = styled.div`
         font-weight: 600;
         overflow: hidden;
         animation-name: dateModal;
-        animation-duration: .25s;
+        animation-duration: .2s;
         animation-timing-function:ease-in-out;
         @keyframes dateModal {
             0% { height: 0; }

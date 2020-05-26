@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import DateFilter from './date/DateFilter';
 import PersonFilter from './person/PersonFilter';
 import ChargeFilter from './charge/ChargeFilter';
+import SearchButton from './SearchButton';
 
-const FilterButtonsWrap = styled.div`
+const ButtonsWrap = styled.div`
     display: flex;
+    justify-content: space-between;
     position: relative;
     height: 39.98px;
     &::after {
@@ -16,22 +18,27 @@ const FilterButtonsWrap = styled.div`
         top: calc(100% + 15px);
         left: 0;
     }
+`;
+
+const FilterButtonsWrap = styled.div`
+    display: flex;
+    position: relative;
     > * {
        margin-right: 20px;
-       :last-child {
-           margin-right: 0;
-       }
        @media (max-width: 680px) { margin-right: 8px; }
     }
 `;
 
 const FilterButtons = () => {
     return (
-        <FilterButtonsWrap>
-            <DateFilter />
-            <PersonFilter />
-            <ChargeFilter />
-        </FilterButtonsWrap>
+        <ButtonsWrap>
+            <FilterButtonsWrap>
+                <DateFilter />
+                <PersonFilter />
+                <ChargeFilter />
+            </FilterButtonsWrap>
+            <SearchButton />
+        </ButtonsWrap>
     )
 }
 
