@@ -5,30 +5,17 @@
     </div>
     <div class="filter-container">
       <div>Metropolitan City of Florence, 이탈리아</div>
-      <div>6월 16일 - 6월 17일</div>
-      <div>인원게스트 추가</div>
+      <div>
+        <DateFilterButtonComponent />
+      </div>
+      <div>
+        <PersonFilterButtonComponent />
+      </div>
+      <div class="header-price-btn">
+        <PriceFilterButtonComponent />
+      </div>
       <div class="header-search-btn">
-        <svg
-          style="
-            display: block;
-            fill: none;
-            height: 16px;
-            width: 16px;
-            stroke: currentColor;
-            stroke-width: 4;
-            overflow: visible;
-          "
-          aria-hidden="true"
-          role="presentation"
-          viewBox="0 0 32 32"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g fill="none">
-            <path
-              d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"
-            ></path>
-          </g>
-        </svg>
+        <FilterSearchButtonComponent />
       </div>
     </div>
     <div class="header-menu">
@@ -66,14 +53,26 @@
         <button class="help-btn">도움말</button>
       </div>
       <div class="sign-btn-container">
-        <button class="signup-btn">회원 가입</button>
+        <button class="signup-btn">로그아웃</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import DateFilterButtonComponent from '@/components/Datepicker/DateFilterButtonComponent';
+import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponent';
+import PriceFilterButtonComponent from '@/components/PriceFilter/PriceFilterButtonComponent';
+
+export default {
+  components: {
+    DateFilterButtonComponent,
+    PersonFilterButtonComponent,
+    FilterSearchButtonComponent,
+    PriceFilterButtonComponent,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -101,7 +100,7 @@ export default {};
     border-right: 1px solid rgb(247, 247, 247);
   }
   :last-child {
-    border-right: none;
+    // border-right: none;
   }
 }
 
