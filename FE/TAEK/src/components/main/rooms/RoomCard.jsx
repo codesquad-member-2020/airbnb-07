@@ -4,6 +4,7 @@ import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
 
 const RoomCardWrap = styled.div`
+    min-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     border-radius: 5px;
