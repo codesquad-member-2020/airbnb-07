@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="flex nav">
-      <div class="flex w-full bg-white search-container fixed items-center">
+      <div class="flex w-full bg-white search-container items-center">
         <div class="search-input lg:w-1/2 w-full">
           <address-autocomplete
             v-model="place"
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div
-      class="flex w-full p-6 items-center border-t border-b border-grey-light fixed filter-container"
+      class="flex w-full p-6 items-center border-t border-b border-grey-light filter-container"
     >
       <div class="flex items-center ml-auto">
         <span class="mr-2">Show Map</span>
@@ -180,7 +180,6 @@ export default {
   }
   .room-map-container {
     // overflow: hidden;
-    margin-top: 140px;
   }
   .map-before {
     position: absolute;
