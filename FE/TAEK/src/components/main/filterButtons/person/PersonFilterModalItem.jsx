@@ -17,11 +17,13 @@ const PersonFilterModalItem = ({ totalCount, typeText, ageText, countText, count
             </div>
             <div>
                 <button
-                    className={`person-count-btn ${countText === 0 && 'count-btn-disabled'}`}
+                    disabled={!countText}
+                    className={'person-count-btn'}
                     onClick={() => handlePersonCountDown(countType)}>➖
                 </button>
                 <span className='person-count'>{countText}</span>
                 <button
+                    disabled={limitCount === totalCount}
                     className={`person-count-btn ${limitCount === totalCount && 'count-btn-disabled'}`}
                     onClick={() => handlePersonCountUp(countType)}>➕
                 </button>

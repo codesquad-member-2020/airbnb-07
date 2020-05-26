@@ -64,8 +64,10 @@ const PersonFilterModalWrap = styled.div`
             font-size: 10px;
             cursor: pointer;
             box-shadow: ${(props) => props.theme.boxShadow};
-            &.count-btn-disabled {
+            :disabled {
+                box-shadow: none;
                 background-color: #7f8c8d50;
+                cursor: auto;
             }
         }
         .modal-btn {
