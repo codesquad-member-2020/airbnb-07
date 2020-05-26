@@ -38,7 +38,6 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.4",
     "url-loader": "^4.1.0",
