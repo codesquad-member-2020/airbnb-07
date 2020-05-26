@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col p-1">
-    <div class="slide-container" ref="slide">
+  <div class="flex p-1 w-full">
+    <div class="slide-container w-1/2" ref="slide">
       <div class="slide">
         <slot name="slide"></slot>
       </div>
