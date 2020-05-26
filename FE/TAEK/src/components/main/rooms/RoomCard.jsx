@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
@@ -82,10 +83,15 @@ const RoomTextInfoWrap = styled.div`
 
 const RoomCard = ({ roomData }) => {
     const [isOpen, setOpen] = useState(false);
+    const date = useSelector(({ date }) => date);
+    const person = useSelector(({ person }) => person);
     const { hotelName, location, currentPrice, previousPrice, hotelRating, urls } = roomData;
     const [titleImgUrl] = urls;
 
-    const handleSetOpen = () => setOpen(!isOpen);
+    const handleSetOpen = () => {
+        if (!date.isSave || !person.isSave) return alert('날짜와 인원을 선택하세요.');
+        setOpen(!isOpen);
+    }
 
     return (
         <>
