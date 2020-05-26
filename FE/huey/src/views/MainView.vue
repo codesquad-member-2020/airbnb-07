@@ -1,14 +1,5 @@
 <template>
-  <div class="filter-wrap">
-    <date-filter-button-component></date-filter-button-component>
-    <person-filter-button-component
-      class="person-container"
-    ></person-filter-button-component>
-    <price-filter-button-component
-      class="range-slider-container"
-    ></price-filter-button-component>
-    <filter-search-button-component></filter-search-button-component>
-  </div>
+  <div class="filter-wrap"></div>
 </template>
 
 <script>
@@ -19,10 +10,10 @@ import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponen
 
 export default {
   components: {
-    DateFilterButtonComponent,
-    PersonFilterButtonComponent,
-    PriceFilterButtonComponent,
-    FilterSearchButtonComponent,
+    // DateFilterButtonComponent,
+    // PersonFilterButtonComponent,
+    // PriceFilterButtonComponent,
+    // FilterSearchButtonComponent,
   },
 };
 </script>
