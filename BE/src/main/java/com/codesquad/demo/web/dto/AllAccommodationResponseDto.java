@@ -13,4 +13,5 @@ public class AllAccommodationResponseDto {
 
     private String status;
     private List<EachAccommodationResponseDto> allData;
+    private List<PriceRangeResponseDto> prices;
 }
