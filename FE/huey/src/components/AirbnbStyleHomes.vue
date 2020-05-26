@@ -29,7 +29,7 @@
           :rooms="rooms"
           @room:hovered="handleRoomHovered"
           @room:unhovered="handleRoomUnhovered"
-          :grid-class="showMap ? 'w-1/3' : 'w-1/5'"
+          :grid-class="showMap ? 'w-full' : 'w-1/2'"
         ></room-list>
         <div class="flex mt-4 h-32 justify-center">
           <simple-paginator
@@ -179,6 +179,7 @@ export default {
     z-index: 10;
   }
   .room-map-container {
+    // overflow: hidden;
     margin-top: 140px;
   }
   .map-before {
