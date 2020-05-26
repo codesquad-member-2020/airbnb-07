@@ -2,11 +2,9 @@ package com.codesquad.demo.web.controller;
 
 import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
-import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
+import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -18,5 +16,10 @@ public class MockController {
     @GetMapping("all")
     public AllAccommodationResponseDto getAll() {
         return mockService.getAll();
+    }
+
+    @PostMapping("filter")
+    public AllAccommodationResponseDto getFiltering(@RequestBody FilterRequestDto filterRequestDto) {
+        return mockService.getFiltering(filterRequestDto);
     }
 }

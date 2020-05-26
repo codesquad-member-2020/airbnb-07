@@ -2,6 +2,7 @@ package com.codesquad.demo.web;
 
 import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
+import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -44,6 +45,41 @@ public class MockControllerTest {
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
                 = restTemplate.getForEntity(url, AllAccommodationResponseDto.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getStatus()).isEqualTo(status);
+        assertThat(responseEntity.getBody().getAllData().get(0).getId()).isEqualTo(id);
+        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
+        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
+    }
+
+    @Test
+    public void getFiltering() {
+
+        // given
+        String url = "http://localhost:" + port + "/mock/filter";
+        Long id = 1L;
+        String hotelName = "Stylish Queen Anne Apartment";
+        String location = "Seattle";
+        String status = "200";
+        String startDate = "2020-05-25";
+        String endDate = "2020-05-27";
+        String people = "5";
+        String min = "100000";
+        String max = "100000";
+
+        FilterRequestDto filterRequestDto = FilterRequestDto.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .people(people)
+                .min(min)
+                .max(max)
+                .build();
+
+        // when
+        ResponseEntity<AllAccommodationResponseDto> responseEntity
+                = restTemplate.postForEntity(url, filterRequestDto, AllAccommodationResponseDto.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
