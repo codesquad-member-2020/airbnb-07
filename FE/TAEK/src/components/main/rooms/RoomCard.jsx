@@ -7,6 +7,7 @@ import ReservationModal from './ReservationModal';
 
 const RoomCardWrap = styled.div`
     min-width: 300px;
+    max-width: 360px;
     white-space: nowrap;
     overflow: hidden;
     border-radius: 5px;
@@ -77,6 +78,7 @@ const RoomTextInfoWrap = styled.div`
         font-size: 14px;
         font-weight: 600;
         font-family: 'Noto Sans KR', sans-serif;
+        box-shadow: ${(props) => props.theme.boxShadow};
         cursor: pointer;
     }
 `;
