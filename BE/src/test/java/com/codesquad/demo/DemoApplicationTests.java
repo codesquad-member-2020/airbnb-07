@@ -53,7 +53,7 @@ class DemoApplicationTests {
                 .discount_price(1000)
                 .current_price(9000)
                 .location("Seattle")
-                .availableGuest("4")
+                .availableGuest(4)
                 .hotelRating("3.4")
                 .description("Good Hotel")
                 .reservation(reservation)

@@ -59,14 +59,14 @@ public class MockControllerTest {
 
         // given
         String url = "http://localhost:" + port + "/mock/filter";
-        Long id = 1L;
-        String hotelName = "Stylish Queen Anne Apartment";
+        Long id = 3L;
+        String hotelName = "New Modern House-Amazing water view";
         String location = "Seattle";
         String status = "200";
-        String startDate = "2020-05-25";
-        String endDate = "2020-05-27";
-        String people = "5";
-        String min = "100000";
+        String startDate = "2020-05-20";
+        String endDate = "2020-05-24";
+        String people = "4";
+        String min = "30000";
         String max = "100000";
 
         FilterRequestDto filterRequestDto = FilterRequestDto.builder()

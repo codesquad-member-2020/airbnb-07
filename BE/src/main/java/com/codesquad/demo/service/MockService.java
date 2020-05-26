@@ -33,29 +33,14 @@ public class MockService {
         List<EachAccommodationResponseDto> eachAccommodationResponseDtos
                 = new ArrayList<>();
 
-//        List<Picture> urls = new ArrayList<>();
-
         for (int index = 0; index < 10; index++) {
             Accommodation accommodation = airbnb.getAccommodations().get(index);
-            List<Picture> urls = accommodation.getPictures();
 
-            EachAccommodationResponseDto each = EachAccommodationResponseDto.builder()
-                    .id(accommodation.getId())
-                    .hotelName(accommodation.getHotelName())
-                    .availableGuest(accommodation.getAvailableGuest())
-                    .currentPrice(accommodation.getCurrent_price())
-                    .previousPrice(accommodation.getPrevious_price())
-                    .description(accommodation.getDescription())
-                    .hotelRating(accommodation.getHotelRating())
-                    .latitude(accommodation.getLatitude())
-                    .longitude(accommodation.getLongitude())
-                    .location(accommodation.getLocation())
-                    .street(accommodation.getStreet())
-                    .urls(urls)
-                    .build();
+            EachAccommodationResponseDto each = new EachAccommodationResponseDto().toEntity(accommodation);
 
             eachAccommodationResponseDtos.add(each);
         }
+
         return AllAccommodationResponseDto.builder()
                 .status(status)
                 .allData(eachAccommodationResponseDtos)
@@ -64,21 +49,46 @@ public class MockService {
 
     public AllAccommodationResponseDto getFiltering(FilterRequestDto filterRequestDto) {
 
-        LocalDate requestStart = LocalDate.parse(filterRequestDto.getStartDate());
-        LocalDate requestEnd = LocalDate.parse(filterRequestDto.getEndDate());
-
-        logger.info("requestStart : {}", requestStart);
-        logger.info("requestEnd : {}", requestEnd);
-
-        String people = filterRequestDto.getPeople();
-        String min = filterRequestDto.getMin();
-        String max = filterRequestDto.getMax();
         String status = "200";
 
         Long id = 1L;
+        Airbnb airbnb = findAirbnbById(id);
 
-        Airbnb airbnb = airbnbRepository.findById(id).orElseThrow(() ->
+        List<Accommodation> reservableAccommodations
+                = filteringForReservation(filterRequestDto, airbnb);
+
+        List<EachAccommodationResponseDto> eachAccommodationResponseDtos
+                = getEachAccommodationResponseDtos(reservableAccommodations);
+
+        return AllAccommodationResponseDto.builder()
+                .status(status)
+                .allData(eachAccommodationResponseDtos)
+                .build();
+    }
+
+    private List<EachAccommodationResponseDto> getEachAccommodationResponseDtos(List<Accommodation> reservableAccommodations) {
+        List<EachAccommodationResponseDto> eachAccommodationResponseDtos = new ArrayList<>();
+
+        for (Accommodation accommodation : reservableAccommodations) {
+            EachAccommodationResponseDto each = new EachAccommodationResponseDto().toEntity(accommodation);
+            eachAccommodationResponseDtos.add(each);
+        }
+        return eachAccommodationResponseDtos;
+    }
+
+    private Airbnb findAirbnbById(Long id) {
+        return airbnbRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("No Airbnb, id = "+id));
+    }
+
+    private List<Accommodation> filteringForReservation(FilterRequestDto filterRequestDto, Airbnb airbnb) {
+
+        LocalDate requestStart = LocalDate.parse(filterRequestDto.getStartDate());
+        LocalDate requestEnd = LocalDate.parse(filterRequestDto.getEndDate());
+
+        String requestPeople = filterRequestDto.getPeople();
+        String requestMinPrice = filterRequestDto.getMin();
+        String requestMaxPrice = filterRequestDto.getMax();
 
         // 예약이 없는 숙박업소
         List<Accommodation> accommodations = airbnb.getAccommodations().stream()
@@ -98,56 +108,29 @@ public class MockService {
             boolean ok = true;
             for (ReservationDate each : accommodation.getReservationDates()) {
                 if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
-                    || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
+                        || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
                     ok = false;
                     break;
                 }
                 if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
-                || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
+                        || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
                     ok = false;
                     break;
                 }
             }
             if (ok) accommodations.add(accommodation);
-
-//            long count = accommodation.getReservationDates().stream()
-//                    .filter(each -> (each.getStartDate().isAfter(requestStart) && each.getEndDate().isBefore(requestStart)
-//                    ||
-//                            (each.getStartDate().isAfter(requestEnd) && each.getEndDate().isBefore(requestEnd))))
-//                    .count();
-
-//            if (count == 0) {
-//                accommodations.add(accommodation);
-//            }
         }
 
-        List<EachAccommodationResponseDto> eachAccommodationResponseDtos
-                = new ArrayList<>();
+        // 예약 인원보다 수용 인원이 큰 숙박 업소 추리기
+        accommodations = accommodations.stream()
+                .filter(each -> each.getAvailableGuest() >= Integer.parseInt(requestPeople))
+                .collect(Collectors.toList());
 
-        for (Accommodation accommodation : accommodations) {
-            List<Picture> urls = accommodation.getPictures();
+        // 예약 금액 사이에 있는 숙박 업소 추리기
+        accommodations = accommodations.stream()
+                .filter(each -> (each.getCurrent_price() >= Integer.parseInt(requestMinPrice) && each.getCurrent_price() <= Integer.parseInt(requestMaxPrice)))
+                .collect(Collectors.toList());
 
-            EachAccommodationResponseDto each = EachAccommodationResponseDto.builder()
-                    .id(accommodation.getId())
-                    .hotelName(accommodation.getHotelName())
-                    .availableGuest(accommodation.getAvailableGuest())
-                    .currentPrice(accommodation.getCurrent_price())
-                    .previousPrice(accommodation.getPrevious_price())
-                    .description(accommodation.getDescription())
-                    .hotelRating(accommodation.getHotelRating())
-                    .latitude(accommodation.getLatitude())
-                    .longitude(accommodation.getLongitude())
-                    .location(accommodation.getLocation())
-                    .street(accommodation.getStreet())
-                    .urls(urls)
-                    .build();
-
-            eachAccommodationResponseDtos.add(each);
-        }
-
-        return AllAccommodationResponseDto.builder()
-                .status(status)
-                .allData(eachAccommodationResponseDtos)
-                .build();
+        return accommodations;
     }
 }
