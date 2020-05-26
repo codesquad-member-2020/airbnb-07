@@ -203,14 +203,68 @@ export default {
 }
 
 .btn-secondary {
-  background: #41b883;
-  border: 1px solid #41b883;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  min-width: 160px;
+  // background: #41b883;
+  // border: 1px solid #41b883;
+  color: #2c3e50;
+  // padding: 6px 10px;
+  // border-radius: 4px;
+  // font-size: 15px;
+  // font-weight: bold;
+  // text-align: center;
+  // min-width: 160px;
+  border-color: white;
+  background-color: white;
+}
+
+.btn-secondary:hover {
+  color: #2c3e50;
+  background-color: #fff;
+  border-color: #fff;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-secondary:active {
+  color: #2c3e50;
+  background-color: #fff;
+  border-color: #fff;
+  box-shadow: none;
+  border: none;
+}
+
+.btn-secondary:visited {
+  color: #2c3e50;
+  background-color: #fff;
+  border-color: #fff;
+  box-shadow: none;
+  border: none;
+}
+
+.btn-secondary:focus {
+  color: #2c3e50;
+  background-color: #fff;
+  border-color: #fff;
+  box-shadow: none;
+  border: none;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active {
+  color: #2c3e50;
+  background-color: #fff;
+  border: none;
+  border-color: #fff;
+  box-shadow: none;
+}
+
+.btn {
+  font-size: 13px;
+  padding: 0;
+  border: 0;
+  vertical-align: initial;
+}
+
+.btn-primary {
+  width: 90px;
+  height: 30px;
 }
 </style>

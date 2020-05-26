@@ -4,6 +4,7 @@ import router from '@/routes/index';
 import AirBnbStyleDatepicker from '@/utils/index';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import Trend from 'vuetrend';
+require('./directives/Index.js');
 
 Vue.config.productionTip = false;
 

@@ -195,13 +195,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .map-container {
   width: 100%;
 }
 .map {
   width: 100%;
-  height: 550px;
+  height: 65vh;
   position: fixed;
 }
 .map-price-container {

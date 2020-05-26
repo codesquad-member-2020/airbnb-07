@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import AirbnbStyleChartCount from '@/components/AirbnbStyleChartCount';
-import AirbnbStylePriceCount from '@/components/AirbnbStylePriceCount';
+import AirbnbStyleChartCount from '@/components/PriceFilter/AirbnbStyleChartCount';
+import AirbnbStylePriceCount from '@/components/PriceFilter/AirbnbStylePriceCount';
 
 export default {
   data() {

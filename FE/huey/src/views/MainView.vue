@@ -1,34 +1,26 @@
 <template>
-  <div class="filter-wrap">
-    <date-filter-button-component></date-filter-button-component>
-    <person-filter-button-component
-      class="person-container"
-    ></person-filter-button-component>
-    <price-filter-button-component
-      class="range-slider-container"
-    ></price-filter-button-component>
-    <filter-search-button-component></filter-search-button-component>
-  </div>
+  <div class="filter-wrap"></div>
 </template>
 
 <script>
-import DateFilterButtonComponent from '@/components/DateFilterButtonComponent';
-import PersonFilterButtonComponent from '@/components/PersonFilterButtonComponent';
-import PriceFilterButtonComponent from '@/components/PriceFilterButtonComponent';
+import DateFilterButtonComponent from '@/components/Datepicker/DateFilterButtonComponent';
+import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import PriceFilterButtonComponent from '@/components/PriceFilter/PriceFilterButtonComponent';
 import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponent';
 
 export default {
   components: {
-    DateFilterButtonComponent,
-    PersonFilterButtonComponent,
-    PriceFilterButtonComponent,
-    FilterSearchButtonComponent,
+    // DateFilterButtonComponent,
+    // PersonFilterButtonComponent,
+    // PriceFilterButtonComponent,
+    // FilterSearchButtonComponent,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .filter-wrap {
+  margin-top: 50px;
   display: flex;
   justify-content: space-around;
   width: 650px;

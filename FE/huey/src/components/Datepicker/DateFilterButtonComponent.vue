@@ -73,15 +73,15 @@ export default {
 // }
 
 #datepicker-button-trigger {
-  background: #41b883;
-  border: 1px solid #41b883;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 15px;
-  font-weight: bold;
+  // background: #41b883;
+  // border: 1px solid #41b883;
+  // color: white;
+  // padding: 6px 10px;
+  // font-weight: bold;
+  // font-size: 15px;
+  // border-radius: 4px;
   text-align: center;
-  min-width: 160px;
+  // min-width: 160px;
 }
 
 .with-button {
