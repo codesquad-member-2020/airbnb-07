@@ -25,7 +25,7 @@ const ReactLogo = styled.img`
     height: 200px;
     animation-name: bingle;
     animation-duration: 6s;
-    animation-timing-function:linear;
+    animation-timing-function: linear;
     animation-iteration-count: infinite;
     @keyframes bingle{
         to { transform: rotate3d(0,0,1,360deg) }
