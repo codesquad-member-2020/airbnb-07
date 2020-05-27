@@ -1,7 +1,10 @@
 package com.codesquad.demo.config;
 
+import com.codesquad.demo.utils.LoginIntercepter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -18,15 +21,15 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(MAX_AGE_SECS);
     }
 
-//    @Bean
-//    public LoginIntercepter loginInterceptor() {
-//        return new LoginIntercepter();
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(loginInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/api/github/**");
-//    }
+    @Bean
+    public LoginIntercepter loginInterceptor() {
+        return new LoginIntercepter();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/api/github/**");
+    }
 }

@@ -7,6 +7,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.3.0.RELEASE/a641a8edacbdcce7c10f4979df62446f0b895769/spring-boot-configuration-processor-2.3.0.RELEASE.jar" />
         </processorPath>
         <module name="demo.main" />
       </profile>
