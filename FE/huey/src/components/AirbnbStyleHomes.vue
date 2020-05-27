@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="flex nav">
+    <!-- <div class="flex nav">
       <div class="flex w-full bg-white search-container items-center">
         <div class="search-input lg:w-1/2 w-full">
           <address-autocomplete
@@ -9,7 +9,7 @@
           ></address-autocomplete>
         </div>
       </div>
-    </div>
+    </div> -->
     <div
       class="flex w-full p-6 items-center border-t border-b border-grey-light filter-container"
     >
@@ -69,7 +69,7 @@ export default {
     RoomList,
     ToggleSwitch,
     SimplePaginator,
-    AddressAutocomplete,
+    // AddressAutocomplete,
   },
   props: {
     defaultLat: {
