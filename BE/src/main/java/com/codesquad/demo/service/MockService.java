@@ -5,11 +5,15 @@ import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
+import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -225,5 +229,58 @@ public class MockService {
         }
 
         return init;
+    }
+
+    public ReservationResponseDto reserve(ReservationRequestDto reservationRequestDto,
+                                          HttpServletRequest request) {
+
+        try {
+//            String userEmail = (String) request.getAttribute("userEmail");
+            String userEmail = "guswns1659@gmail.com";
+            Long id = 1L;
+
+            Long accommodationId = reservationRequestDto.getId();
+            LocalDate startDate = reservationRequestDto.getStartDate();
+            LocalDate endDate = reservationRequestDto.getEndDate();
+
+            Airbnb airbnb = findAirbnbById(id);
+
+            User user = User.builder()
+                    .email("zmdk1127@naver.com")
+                    .build();
+
+            airbnb.getUsers().add(user);
+
+//            User user = airbnb.getUsers().stream()
+//                    .filter(each -> each.getEmail().equals(userEmail))
+//                    .findFirst()
+//                    .orElseThrow(() -> new IllegalStateException("해당 user는 없습니다. id = "+ id));
+//
+//            Accommodation accommodation = airbnb.getAccommodations().stream()
+//                    .filter(each -> each.getId().equals(accommodationId))
+//                    .findFirst()
+//                    .orElseThrow(() -> new IllegalStateException("해당 accommodation은 없습니다. id = " + id));
+
+//            Reservation reservation = new Reservation();
+
+//            user.addReservation(reservation);
+//            accommodation.addReservationDate(startDate, endDate);
+//            accommodation.addReservation(reservation);
+
+            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate);
+
+            airbnbRepository.save(airbnb);
+
+            return ReservationResponseDto.builder()
+                    .status("200")
+                    .build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ReservationResponseDto.builder()
+                    .status("404")
+                    .build();
+        }
     }
 }

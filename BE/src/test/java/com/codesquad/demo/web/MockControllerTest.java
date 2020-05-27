@@ -3,6 +3,8 @@ package com.codesquad.demo.web;
 import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
+import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -94,5 +98,30 @@ public class MockControllerTest {
         assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
         assertThat(responseEntity.getBody().getPrices().get(0).getTotal()).isEqualTo(1);
         assertThat(responseEntity.getBody().getPrices().get(1).getTotal()).isEqualTo(1);
+    }
+
+    @Test
+    public void reserveTest() {
+
+        // given
+        String url = "http://localhost:" + port +  "/mock/reservation";
+        Long id = 1L;
+        LocalDate startDate = LocalDate.parse("2020-06-01");
+        LocalDate endDate = LocalDate.parse("2020-06-03");
+        String ok = "200";
+
+        ReservationRequestDto reservationRequestDto = ReservationRequestDto.builder()
+                .id(id)
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+
+        // when
+        ResponseEntity<ReservationResponseDto> responseEntity
+                = restTemplate.postForEntity(url, reservationRequestDto ,ReservationResponseDto.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
     }
 }
