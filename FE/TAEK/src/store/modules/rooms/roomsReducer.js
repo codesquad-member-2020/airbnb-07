@@ -2,7 +2,7 @@ import { GET_ROOMS, GET_ROOMS_SUCCESS } from './roomsAction';
 
 const initialState = {
     loading: true,
-    data: null,
+    roomsData: null,
 };
 
 export default function roomsReducer(state = initialState, action) {
@@ -11,13 +11,13 @@ export default function roomsReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
-                data: null,
+                roomsData: null,
             };
         case GET_ROOMS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                data: action.payload,
+                roomsData: action.payload,
             };
         default:
             return state;

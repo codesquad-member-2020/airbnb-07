@@ -23,7 +23,7 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const { data, loading } = useSelector(({ rooms }) => rooms);
+    const { roomsData, loading } = useSelector(({ rooms }) => rooms);
 
     useEffect(() => {
         dispatch(getRooms());
@@ -34,8 +34,8 @@ const Rooms = () => {
             {loading ?
                 <Loading /> :
                 <>
-                    <RoomsTitle>{data.allData.length}개 이상의 숙소</RoomsTitle>
-                    <RoomList allData={data.allData} />
+                    <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
+                    <RoomList allData={roomsData.allData} />
                 </>}
         </RoomsWrap>
     )
