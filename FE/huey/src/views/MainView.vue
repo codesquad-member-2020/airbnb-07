@@ -1,19 +1,19 @@
 <template>
-  <div class="filter-wrap"></div>
+  <div>
+    <HeaderComponent />
+    <Rooms />
+    <div class="filter-wrap"></div>
+  </div>
 </template>
 
 <script>
-import DateFilterButtonComponent from '@/components/Datepicker/DateFilterButtonComponent';
-import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
-import PriceFilterButtonComponent from '@/components/PriceFilter/PriceFilterButtonComponent';
-import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponent';
+import HeaderComponent from '@/components/HeaderComponent';
+import Rooms from '@/components/main/Rooms';
 
 export default {
   components: {
-    // DateFilterButtonComponent,
-    // PersonFilterButtonComponent,
-    // PriceFilterButtonComponent,
-    // FilterSearchButtonComponent,
+    HeaderComponent,
+    Rooms,
   },
 };
 </script>
@@ -24,13 +24,5 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 650px;
-}
-
-.person-container {
-  margin: 0px 0px 0px 20px;
-}
-
-.range-slider-container {
-  width: 200px;
 }
 </style>
