@@ -12,21 +12,20 @@ export default function roomsReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
-                roomsData: null,
-            };
+            }
         case GET_ROOMS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 roomsData: action.payload,
-            };
+            }
         case GET_ROOMS_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
-            };
+            }
         default:
-            return state;
+            return state
     }
 }
