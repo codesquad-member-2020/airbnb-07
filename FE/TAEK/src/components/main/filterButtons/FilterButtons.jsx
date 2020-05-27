@@ -31,14 +31,12 @@ const FilterButtonsWrap = styled.div`
 `;
 
 const FilterButtons = () => {
-    const { roomsData } = useSelector(({ rooms }) => rooms);
-
     return (
         <ButtonsWrap>
             <FilterButtonsWrap>
                 <DateFilter />
                 <PersonFilter />
-                {roomsData && <ChargeFilter />}
+                <ChargeFilter />
             </FilterButtonsWrap>
             <SearchButton />
         </ButtonsWrap>
