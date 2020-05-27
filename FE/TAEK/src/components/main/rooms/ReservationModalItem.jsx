@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { numberComma } from 'utils/util';
+import { numberComma, dayCounter } from 'utils/util';
 import { MAIN } from 'constants/constant';
 
 const ReservationModalItemWrap = styled.div`
@@ -94,9 +94,6 @@ const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
     const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
     const { currentPrice, hotelRating } = roomData;
 
-    const totalRoomCharge = numberComma(currentPrice * 10 * totalCount);
-    const totalCharge = totalRoomCharge;
-
     const checkInDateInfoText = `${checkInDateInfo.year}. ${checkInDateInfo.month}. ${checkInDateInfo.day}.`;
     const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${checkOutDateInfo.year}. ${checkOutDateInfo.month}. ${checkOutDateInfo.day}.`;
 
@@ -104,6 +101,13 @@ const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
     if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
     if (childCount) personInfoText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
     if (babyCount) personInfoText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+
+    const dayCount = dayCounter(checkInDateInfo, checkOutDateInfo);
+    const totalRoomCharge = currentPrice * dayCount * totalCount;
+    const cleanUpCost = MAIN.RESERVATION.CLEAN_UP_COST;
+    const serviceCost = MAIN.RESERVATION.SERVICE_COST;
+    const tax = Math.floor(totalRoomCharge * MAIN.RESERVATION.TAX_RATE);
+    const totalCharge = totalRoomCharge + cleanUpCost + serviceCost + tax;
 
     return (
         <>
@@ -127,24 +131,24 @@ const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
                 </div>
                 <div className='charge-info-wrap'>
                     <div className='charge-info-item'>
-                        <span>숙박비 (10박 x {totalCount}인)</span>
-                        <span>&#8361; {totalRoomCharge}</span>
+                        <span>숙박비 ({dayCount}박 x {totalCount}인)</span>
+                        <span>&#8361; {numberComma(totalRoomCharge)}</span>
                     </div>
                     <div className='charge-info-item'>
                         <span>청소비</span>
-                        <span>&#8361; 0</span>
+                        <span>&#8361; {numberComma(cleanUpCost)}</span>
                     </div>
                     <div className='charge-info-item'>
                         <span>서비스 수수료</span>
-                        <span>&#8361; 0</span>
+                        <span>&#8361; {numberComma(serviceCost)}</span>
                     </div>
                     <div className='charge-info-item'>
                         <span>숙박세와 수수료</span>
-                        <span>&#8361; 0</span>
+                        <span>&#8361; {numberComma(tax)}</span>
                     </div>
                     <div className='charge-info-item'>
                         <span>합계</span>
-                        <span>&#8361; {totalCharge}</span>
+                        <span>&#8361; {numberComma(totalCharge)}</span>
                     </div>
                 </div>
                 <button className='reservation-btn'>예약하기</button>
