@@ -97,8 +97,8 @@ const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
     const totalRoomCharge = numberComma(currentPrice * 10 * totalCount);
     const totalCharge = totalRoomCharge;
 
-    const checkInDateInfoText = `${checkInDateInfo.year}. ${checkInDateInfo.month}. ${checkInDateInfo.day}.`
-    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${checkOutDateInfo.year}. ${checkOutDateInfo.month}. ${checkOutDateInfo.day}.`
+    const checkInDateInfoText = `${checkInDateInfo.year}. ${checkInDateInfo.month}. ${checkInDateInfo.day}.`;
+    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${checkOutDateInfo.year}. ${checkOutDateInfo.month}. ${checkOutDateInfo.day}.`;
 
     const personInfoText = [];
     if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);

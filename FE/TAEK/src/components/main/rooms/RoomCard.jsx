@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
@@ -86,6 +86,7 @@ const RoomTextInfoWrap = styled.div`
 
 const RoomCard = ({ roomData }) => {
     const [isOpen, setOpen] = useState(false);
+    const [totalCharge, setTotalCharge] = useState(0);
     const date = useSelector(({ date }) => date);
     const person = useSelector(({ person }) => person);
     const { hotelName, location, currentPrice, previousPrice, hotelRating, urls } = roomData;
@@ -95,6 +96,10 @@ const RoomCard = ({ roomData }) => {
         if (!date.isSave || !person.isSave) return alert(MAIN.RESERVATION.NOT_ENOUGH_CONDITION_MESSAGE);
         setOpen(!isOpen);
     }
+
+    useEffect(() => {
+        if (person.isSave) setTotalCharge(currentPrice * (person.totalCount || 1));
+    }, [person.isSave]);
 
     return (
         <>
@@ -118,7 +123,10 @@ const RoomCard = ({ roomData }) => {
                         </div>
                     </div>
                     <div className='info-bottom'>
-                        <div className='total-charge'>총 요금: &#8361; {numberComma(currentPrice * 10)}</div>
+                        <div className='total-charge'>
+                            <span>총 요금: &#8361; {totalCharge ? numberComma(totalCharge) : numberComma(currentPrice)}</span>
+                            <span>/1박</span>
+                        </div>
                         <button className='reserve-btn' onClick={handleSetOpen}>예 약</button>
                     </div>
                 </RoomTextInfoWrap>

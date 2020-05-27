@@ -98,11 +98,11 @@ const PersonFilterModalWrap = styled.div`
 
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
-    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+    const { isChange, totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
     const handlePersonCountReset = () => dispatch(resetCount());
     const handlePersonCountSave = () => {
-        if (totalCount) dispatch(saveCount());
+        if (isChange) dispatch(saveCount());
         handleSetOpen();
     }
 

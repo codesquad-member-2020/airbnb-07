@@ -26,6 +26,9 @@ const MAIN = {
         MAX_CHARGE: 1000000,
     },
     RESERVATION: {
+        CLEAN_UP_COST: 15000,
+        SERVICE_COST: 2000,
+        TAX_RATE: 0.05,
         NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
     }
 }
