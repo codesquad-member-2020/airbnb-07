@@ -5,13 +5,17 @@ drop table if exists picture;
 drop table if exists reservation;
 drop table if exists user;
 
+drop table if exists test;
+drop table if exists data;
+
 
 create table airbnb (
-    id int not null auto_increment primary key
+    id int not null auto_increment primary key,
+    jack TEXT
 );
 
 create table reservation (
-    accommodation int primary key references accommodation(id),
+    accommodation int references accommodation(id),
     user int references user(id),
     user_key int
 );
@@ -48,23 +52,21 @@ create table accommodation (
     longitude DOUBLE,
     available_guest INT,
     current_price INT,
-    previous_price TEXT,
-    discount_price TEXT,
+    previous_price INT,
+    discount_price INT,
     hotel_rating DOUBLE ,
     airbnb INT references airbnb(id),
     airbnb_key INT
 );
 
--- datagrip에 csv 파일 넣을 때 테이블 형
--- create table picture
--- (
--- 	id INT not null primary key,
--- 	url TEXT null,
--- 	accommodation INT references test_seattle_accommodation(id),
--- 	accommodation_key INT
--- );
+create table test (
+    id INT not null auto_increment primary key,
+    temperary varchar (45)
+);
 
-
-
-
-
+create table data (
+    id INT not null auto_increment primary key,
+    value varchar (45),
+    test INT references test(id),
+    test_key INT
+);
