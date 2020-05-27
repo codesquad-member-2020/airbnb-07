@@ -1,6 +1,8 @@
 <template>
   <div class="room-list-wrap">
-    <div v-if="this.isRenderData">loading....</div>
+    <div v-if="this.isRenderData" class="loading-container">
+      <LoadingSpinner />
+    </div>
     <div v-else v-for="data in this.initRenderRooms.allData" :key="data.index">
       <RoomCard :propsData="data" />
     </div>
@@ -9,11 +11,13 @@
 
 <script>
 import RoomCard from '@/components/main/RoomCard';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     RoomCard,
+    LoadingSpinner,
   },
   computed: {
     ...mapState(['initRenderRooms']),
@@ -26,6 +30,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .room-list-wrap {
   margin-top: 40px;
   display: grid;
