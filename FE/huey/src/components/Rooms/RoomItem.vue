@@ -11,7 +11,7 @@
         </a>
       </template>
 
-      <div slot="info">
+      <div slot="info" class="w-1/2">
         <div class="font-semibold py-1">{{ room.name }}</div>
         <div class="text-sm">${{ room.price }} CAD per month</div>
         <div class="py-2">

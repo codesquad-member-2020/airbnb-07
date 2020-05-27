@@ -31,3 +31,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.room-list {
+  overflow-y: scroll;
+  height: 60vh;
+}
+</style>

@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
-import NotFound from './components/NotFound';
-import Login from './components/login/Login';
-import Main from './components/main/Main';
+import NotFound from '@/components/errorPage/NotFound';
+import Login from '@/components/login/Login';
+import Main from '@/components/main/Main';
 
 const App = () => {
     return (

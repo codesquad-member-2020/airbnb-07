@@ -4,6 +4,7 @@ const MAIN = {
         END_DATE_ID: 'airbnb-end-date',
     },
     PERSON: {
+        LIMIT_COUNT: 8,
         ADULT: {
             TEXT: '어른',
             DESC: '만 13세 이상',
@@ -23,6 +24,9 @@ const MAIN = {
     CHARGE: {
         MIN_CHARGE: 12000,
         MAX_CHARGE: 1000000,
+    },
+    RESERVATION: {
+        NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
     }
 }
 
