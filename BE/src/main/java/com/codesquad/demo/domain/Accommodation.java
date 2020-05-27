@@ -28,20 +28,10 @@ public class Accommodation {
     private Integer previous_price;
     private Integer discount_price;
     private String hotelRating;
-    private Reservation reservation;
-    private List<ReservationDate> reservationDates;
+    private List<Reservation> reservations;
     private List<Picture> pictures;
 
-    public void addReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-
-    public void addReservationDate(LocalDate startDate, LocalDate endDate) {
-        ReservationDate reservationDate = ReservationDate.builder()
-                .startDate(startDate)
-                .endDate(endDate)
-                .build();
-
-        this.getReservationDates().add(reservationDate);
+    public void addReservationDate(Reservation reservation) {
+        this.getReservations().add(reservation);
     }
 }

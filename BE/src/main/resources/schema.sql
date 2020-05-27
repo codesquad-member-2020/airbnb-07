@@ -5,19 +5,9 @@ drop table if exists picture;
 drop table if exists reservation;
 drop table if exists user;
 
-drop table if exists test;
-drop table if exists data;
-
-
 create table airbnb (
     id int not null auto_increment primary key,
     jack TEXT
-);
-
-create table reservation (
-    accommodation int references accommodation(id),
-    user int references user(id),
-    user_key int
 );
 
 create table user (
@@ -27,12 +17,15 @@ create table user (
     airbnb_key int
 );
 
-create table reservation_date (
+create table reservation (
     id int not null auto_increment primary key,
     start_date date,
     end_date date,
+    people int,
     accommodation int references accommodation(id),
-    accommodation_key int
+    accommodation_key int,
+    user int references user (id),
+    user_key int
 );
 
 create table picture (
@@ -59,14 +52,3 @@ create table accommodation (
     airbnb_key INT
 );
 
-create table test (
-    id INT not null auto_increment primary key,
-    temperary varchar (45)
-);
-
-create table data (
-    id INT not null auto_increment primary key,
-    value varchar (45),
-    test INT references test(id),
-    test_key INT
-);

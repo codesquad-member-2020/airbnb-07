@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,19 +117,19 @@ public class MockService {
 
         // 예약이 없는 숙박업소
         List<Accommodation> accommodations = airbnb.getAccommodations().stream()
-                .filter(each -> each.getReservationDates().size() == 0)
+                .filter(each -> each.getReservations().size() == 0)
                 .collect(Collectors.toList());
 
         // 예약이 있는 숙박업소
         List<Accommodation> reservedAccommodations = airbnb.getAccommodations().stream()
-                .filter(each -> each.getReservationDates().size() != 0)
+                .filter(each -> each.getReservations().size() != 0)
                 .collect(Collectors.toList());
 
         // 예약이 있는 숙박업소에서 사용자의 예약에 맞는 숙박업소를 찾는 과정
         for (Accommodation accommodation : reservedAccommodations) {
 
             boolean ok = true;
-            for (ReservationDate each : accommodation.getReservationDates()) {
+            for (Reservation each : accommodation.getReservations()) {
                 if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
                         || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
                     ok = false;
@@ -242,6 +241,7 @@ public class MockService {
             Long accommodationId = reservationRequestDto.getId();
             LocalDate startDate = reservationRequestDto.getStartDate();
             LocalDate endDate = reservationRequestDto.getEndDate();
+            Integer people = reservationRequestDto.getPeople();
 
             Airbnb airbnb = findAirbnbById(id);
 
@@ -251,23 +251,7 @@ public class MockService {
 
             airbnb.getUsers().add(user);
 
-//            User user = airbnb.getUsers().stream()
-//                    .filter(each -> each.getEmail().equals(userEmail))
-//                    .findFirst()
-//                    .orElseThrow(() -> new IllegalStateException("해당 user는 없습니다. id = "+ id));
-//
-//            Accommodation accommodation = airbnb.getAccommodations().stream()
-//                    .filter(each -> each.getId().equals(accommodationId))
-//                    .findFirst()
-//                    .orElseThrow(() -> new IllegalStateException("해당 accommodation은 없습니다. id = " + id));
-
-//            Reservation reservation = new Reservation();
-
-//            user.addReservation(reservation);
-//            accommodation.addReservationDate(startDate, endDate);
-//            accommodation.addReservation(reservation);
-
-            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate);
+            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate, people);
 
             airbnbRepository.save(airbnb);
 

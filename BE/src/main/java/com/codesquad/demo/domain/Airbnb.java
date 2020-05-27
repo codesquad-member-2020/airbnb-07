@@ -21,9 +21,14 @@ public class Airbnb {
     List<Accommodation> accommodations;
     List<User> users;
 
-    public void reservationSave(String userEmail, Long accommodationId, LocalDate startDate, LocalDate endDate) {
+    public void reservationSave(String userEmail, Long accommodationId,
+                                LocalDate startDate, LocalDate endDate, Integer people) {
 
-        Reservation reservation = new Reservation();
+        Reservation reservation = Reservation.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .people(people)
+                .build();
 
         for (User each : users) {
             if (each.getEmail().equals(userEmail)) {
@@ -33,8 +38,7 @@ public class Airbnb {
 
         for (Accommodation each : accommodations) {
             if (each.getId().equals(accommodationId)) {
-                each.addReservationDate(startDate, endDate);
-                each.setReservation(reservation);
+                each.addReservationDate(reservation);
             }
         }
 

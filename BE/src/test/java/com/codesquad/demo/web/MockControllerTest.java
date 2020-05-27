@@ -108,12 +108,14 @@ public class MockControllerTest {
         Long id = 1L;
         LocalDate startDate = LocalDate.parse("2020-06-01");
         LocalDate endDate = LocalDate.parse("2020-06-03");
+        Integer people = 5;
         String ok = "200";
 
         ReservationRequestDto reservationRequestDto = ReservationRequestDto.builder()
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
+                .people(people)
                 .build();
 
         // when
