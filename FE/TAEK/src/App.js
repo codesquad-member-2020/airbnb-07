@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
-import NotFound from '@/components/errorPage/NotFound';
+import NotFound from '@/components/error/NotFound';
 import Login from '@/components/login/Login';
 import Main from '@/components/main/Main';
 
