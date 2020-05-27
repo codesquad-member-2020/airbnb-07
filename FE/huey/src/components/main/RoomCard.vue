@@ -5,22 +5,28 @@
       <div class="info-top">
         <!-- <div class="location">{location}</div> -->
         <div class="location">{{ propsData.location }}</div>
-        <div class="street">{{ propsData.street }}</div>
-        <div>
-          <!-- <img
+        <span class="person-number"
+          >최대 인원수: {{ propsData.availableGuest }}명</span
+        >
+        <div class="rating-wrap">
+          <img
             class="rating-star-icon"
-            src="{ratingStar}"
+            src="../../assets/rating-star.svg"
             alt="rating-star"
-          /> -->
+          />
           {{ propsData.hotelRating }}
         </div>
       </div>
       <div class="info-main">
-        <div class="guestNumber">
-          최대 인원수: {{ propsData.availableGuest }}명
+        <div class="detail-adress">
+          <div class="street" :title="`${propsData.street}`">
+            {{ propsData.street }}
+          </div>
         </div>
-        <div class="hotelName" title="">{{ propsData.hotelName }}</div>
-        <div>
+        <div class="hotelName" :title="`${propsData.hotelName}`">
+          {{ propsData.hotelName }}
+        </div>
+        <div class="price-container">
           <span class="previousPrice"
             >&#8361; {{ propsData.previousPrice }}</span
           >
@@ -51,7 +57,15 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: '0 1px 3px #32325a1a, 0 1px 3px #0000000d';
+  box-shadow: 0 1px 3px #32325a1a, 0 1px 3px #0000000d;
+}
+
+.rating-wrap {
+  width: 50px;
+}
+
+.price-container {
+  text-align: left;
 }
 
 .room-img {
@@ -60,8 +74,16 @@ export default {
   border-radius: 5px;
 }
 
+.person-number {
+  font-size: 12px;
+  line-height: 0px;
+}
+
 .street {
-  font-size: 1px;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
 }
 
 .room-text-info-wrap {
@@ -70,6 +92,7 @@ export default {
   .info-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
     font-size: 15px;
     .location {
@@ -79,17 +102,19 @@ export default {
       width: 13px;
       height: 13px;
       margin-right: 3px;
+      display: inline-block;
     }
   }
   .info-main {
     .hotelName {
       text-overflow: ellipsis;
       overflow: hidden;
-      margin-bottom: 5px;
+      margin: 2px 0px;
       line-height: 20px;
       height: 22px;
       letter-spacing: -0.05rem;
       cursor: help;
+      text-align: left;
     }
     .previousPrice {
       color: #7f8c8d;
