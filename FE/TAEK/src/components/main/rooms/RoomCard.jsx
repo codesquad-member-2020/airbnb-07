@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
-import ReservationModal from './ReservationModal';
+import ReservationModal from './reservation/ReservationModal';
 import { MAIN } from 'constants/constant';
 
 const RoomCardWrap = styled.div`
