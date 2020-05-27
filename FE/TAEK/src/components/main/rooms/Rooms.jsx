@@ -7,12 +7,6 @@ import { getRooms } from 'store/modules/rooms/roomsAction';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
-    .loading-spiner {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
 `;
 
 const RoomsTitle = styled.h2`
@@ -23,16 +17,21 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const { roomsData, loading } = useSelector(({ rooms }) => rooms);
+    const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
 
     useEffect(() => {
         dispatch(getRooms());
     }, [dispatch]);
 
+    if (loading) return (<Loading />);
+
     return (
         <RoomsWrap>
-            {loading ?
-                <Loading /> :
+            {error ?
+                <>
+                    {error}
+                    (<Loading />
+                </> :
                 <>
                     <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
                     <RoomList allData={roomsData.allData} />

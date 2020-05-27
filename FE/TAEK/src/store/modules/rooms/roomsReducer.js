@@ -1,8 +1,9 @@
-import { GET_ROOMS, GET_ROOMS_SUCCESS } from './roomsAction';
+import { GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR } from './roomsAction';
 
 const initialState = {
     loading: true,
     roomsData: null,
+    error: null,
 };
 
 export default function roomsReducer(state = initialState, action) {
@@ -18,6 +19,12 @@ export default function roomsReducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 roomsData: action.payload,
+            };
+        case GET_ROOMS_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
             };
         default:
             return state;
