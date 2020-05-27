@@ -1,7 +1,7 @@
 import { GET_ROOMS, GET_ROOMS_SUCCESS } from './roomsAction';
 
 const initialState = {
-    loading: false,
+    loading: true,
     data: null,
 };
 

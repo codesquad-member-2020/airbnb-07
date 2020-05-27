@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import RoomList from './RoomList';
-
-import { roomsData } from 'mock/mockData';
+import Loading from '@/components/common/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRooms } from 'store/modules/rooms/roomsAction';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
+    .loading-spiner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 `;
 
 const RoomsTitle = styled.h2`
@@ -15,15 +22,22 @@ const RoomsTitle = styled.h2`
 `;
 
 const Rooms = () => {
-    const { allData } = roomsData;
+    const dispatch = useDispatch();
+    const { data, loading } = useSelector(({ rooms }) => rooms);
+
+    useEffect(() => {
+        dispatch(getRooms());
+    }, [dispatch]);
 
     return (
-        <>
-            <RoomsWrap>
-                <RoomsTitle>{allData.length}개 이상의 숙소</RoomsTitle>
-                <RoomList {...{ allData }} />
-            </RoomsWrap>
-        </>
+        <RoomsWrap>
+            {loading ?
+                <Loading /> :
+                <>
+                    <RoomsTitle>{data.allData.length}개 이상의 숙소</RoomsTitle>
+                    <RoomList allData={data.allData} />
+                </>}
+        </RoomsWrap>
     )
 }
 
