@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "github",
+      "type": "com.codesquad.demo.utils.GithubProperties",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "github.client-id",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.client-id2",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.client-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.client-secret2",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.redirect-url",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.redirect-url2",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    },
+    {
+      "name": "github.url",
+      "type": "java.lang.String",
+      "sourceType": "com.codesquad.demo.utils.GithubProperties"
+    }
+  ],
+  "hints": []
+}
