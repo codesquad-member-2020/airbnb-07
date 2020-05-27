@@ -1,6 +1,5 @@
 <template>
   <div class="img-item">
-    <!-- <img :src="imgSrc" v-img-lazy-loading />  전달 받은 이미지 URL을 바인딩 -->
     <div class="conatiner" v-img-lazy-loading="imgSrc"></div>
   </div>
 </template>
