@@ -55,7 +55,7 @@
         >
       </div>
     </div>
-    <button class="reservation-btn">예약하기</button>
+    <button class="reservation-btn" @click="onReservation">예약하기</button>
     <div class="reservation-info-text">
       예약 확정 전에는 요금이 청구되지 않습니다.
     </div>
@@ -74,6 +74,19 @@ export default {
       let result = this.$store.getters.sumPrice;
       result += 0.05 * result;
       return Math.floor(result);
+    },
+  },
+
+  methods: {
+    onReservation() {
+      var result = confirm(
+        '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+      );
+      if (result) {
+        this.$router.push('/reservation');
+      } else {
+        return;
+      }
     },
   },
 };
