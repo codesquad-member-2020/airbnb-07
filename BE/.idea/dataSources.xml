@@ -7,5 +7,14 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://airbnb-07.csjhbz8c8oyh.ap-northeast-2.rds.amazonaws.com :3306</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="localAirbnb" uuid="a6c67297-3411-4705-8fed-c316a9d6c958">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

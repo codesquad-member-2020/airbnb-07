@@ -4,6 +4,7 @@ import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,14 +39,16 @@ public class MockControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getAllTest() {
+    public void getInitTest() {
 
         // given
-        String url = "http://localhost:" + port + "/mock/all";
+        String url = "http://localhost:" + port + "/mock/init";
         Long id = 1L;
+        int size = 30;
         String hotelName = "Stylish Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
+        int total = 140;
 
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
@@ -53,9 +57,11 @@ public class MockControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(status);
+        assertThat(responseEntity.getBody().getAllData().size()).isEqualTo(size);
         assertThat(responseEntity.getBody().getAllData().get(0).getId()).isEqualTo(id);
         assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
         assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
+        assertThat(responseEntity.getBody().getPrices().get(0).getTotal()).isEqualTo(total);
     }
 
     @Test
@@ -121,6 +127,26 @@ public class MockControllerTest {
         // when
         ResponseEntity<ReservationResponseDto> responseEntity
                 = restTemplate.postForEntity(url, reservationRequestDto ,ReservationResponseDto.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
+    }
+
+    @Test
+    public void deleteTest() {
+
+        // given
+        long accommodationId = 1L;
+        long reservationId = 2L;
+        String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId;
+        String ok = "200";
+
+        // when
+//        restTemplate.delete(url);
+
+        ResponseEntity<DeleteReservationResponseDto> responseEntity =
+                restTemplate.exchange(url, HttpMethod.DELETE, null , DeleteReservationResponseDto.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);

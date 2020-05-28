@@ -6,6 +6,7 @@ import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,18 +28,17 @@ public class MockService {
 
     private final Logger logger = LoggerFactory.getLogger(MockService.class);
 
-    public AllAccommodationResponseDto getAll() {
+    public AllAccommodationResponseDto getInit() {
 
         Long id = 1L;
         String status = "200";
 
-        Airbnb airbnb = airbnbRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("No Airbnb, id = "+id));
+        Airbnb airbnb = findAirbnbById(id);
 
         List<EachAccommodationResponseDto> eachAccommodationResponseDtos
                 = new ArrayList<>();
 
-        for (int index = 0; index < 10; index++) {
+        for (int index = 0; index < 30; index++) {
             Accommodation accommodation = airbnb.getAccommodations().get(index);
 
             EachAccommodationResponseDto each = new EachAccommodationResponseDto().toEntity(accommodation);
@@ -46,9 +46,12 @@ public class MockService {
             eachAccommodationResponseDtos.add(each);
         }
 
+        List<PriceRangeResponseDto> prices = getPrices(airbnb.getAccommodations());
+
         return AllAccommodationResponseDto.builder()
                 .status(status)
                 .allData(eachAccommodationResponseDtos)
+                .prices(prices)
                 .build();
     }
 
@@ -266,5 +269,32 @@ public class MockService {
                     .status("404")
                     .build();
         }
+    }
+
+    public DeleteReservationResponseDto delete(Long accommodationId, Long reservationId, HttpServletRequest request) {
+
+        try {
+//        String userEmail = request.getAttribute("userEmail");
+            String userEmail = "guswns1659@gmail.com";
+
+            Airbnb airbnb = findAirbnbById(1L);
+
+            airbnb.deleteReservation(accommodationId, reservationId, userEmail);
+
+            airbnbRepository.save(airbnb);
+
+            return DeleteReservationResponseDto.builder()
+                    .status("200")
+                    .build();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return DeleteReservationResponseDto.builder()
+                    .status("500")
+                    .build();
+        }
+
     }
 }

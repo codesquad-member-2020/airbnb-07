@@ -22,4 +22,13 @@ public class User {
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
     }
+
+    public void deleteReservation(Long reservationId) {
+        Reservation willDelete = this.reservations.stream()
+                .filter(reservation -> reservation.getId().equals(reservationId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("해당 reservation이 없습니다. reservationId = " + reservationId));
+
+        this.reservations.remove(willDelete);
+    }
 }
