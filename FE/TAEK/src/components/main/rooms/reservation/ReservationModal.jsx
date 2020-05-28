@@ -1,14 +1,16 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import ReservationModalItem from './ReservationModalItem';
+import { modalToggle } from 'store/modules/reservation/reservationAction';
 
 const Background = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 5;
     background-color: #00000080;
 `;
@@ -33,13 +35,17 @@ const ReservationModalWrap = styled.div`
     }
 `;
 
-const ReservationModal = ({ handleSetOpen, ratingStar, roomData }) => {
+const ReservationModal = ({ roomData }) => {
+    const dispatch = useDispatch();
+
+    const handleModalToggle = () => dispatch(modalToggle());
+
     return (
         <>
             <ModalPortal>
-                <Background onClick={handleSetOpen} />
+                <Background onClick={handleModalToggle} />
                 <ReservationModalWrap>
-                    <ReservationModalItem {...{ handleSetOpen, ratingStar, roomData }} />
+                    <ReservationModalItem {...{ handleModalToggle, roomData }} />
                 </ReservationModalWrap>
             </ModalPortal>
         </>

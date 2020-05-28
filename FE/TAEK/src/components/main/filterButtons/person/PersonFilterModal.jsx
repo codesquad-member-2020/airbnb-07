@@ -7,11 +7,11 @@ import { saveCount, resetCount } from 'store/modules/person/personAction';
 import { MAIN } from 'constants/constant';
 
 const Background = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 5;
 `;
 
@@ -98,11 +98,11 @@ const PersonFilterModalWrap = styled.div`
 
 const PersonFilterModal = ({ handleSetOpen }) => {
     const dispatch = useDispatch();
-    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+    const { isChange, totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
     const handlePersonCountReset = () => dispatch(resetCount());
     const handlePersonCountSave = () => {
-        if (totalCount) dispatch(saveCount());
+        if (isChange) dispatch(saveCount());
         handleSetOpen();
     }
 
