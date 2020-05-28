@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <div>
+    <div @click="toMainPage">
       <img class="air_logo_title" src="../assets/airbnb-logo.png" alt="" />
     </div>
     <div class="filter-container">
@@ -76,6 +76,13 @@ export default {
     toReservationPage() {
       this.$router.push('/reservation');
     },
+
+    toMainPage() {
+      if (this.$route.path !== '/main') {
+        this.$router.push('/main');
+        this.$store.commit('setOpenModal');
+      }
+    },
   },
 };
 </script>
@@ -120,6 +127,7 @@ export default {
 .air_logo_title {
   width: 180px;
   margin-left: -35px;
+  cursor: pointer;
 }
 
 .signup-btn {
