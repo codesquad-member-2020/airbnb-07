@@ -13,41 +13,44 @@
         src="../../assets/rating-star.svg"
         alt="rating-star"
       />
-      <!-- {hotelRating} -->
       {{ this.$store.state.payloadDate.hotelRating }}
     </div>
     <div class="date-info-wrap">
-      <div>날짜</div>
+      <div class="date-title">날짜</div>
       <div class="date-info">
-        <!-- {checkInDateInfoText}{checkOutDateInfoText} -->
-        test
+        {{ this.$store.state.checkinDate }} -
+        {{ this.$store.state.checkoutDate }}
       </div>
     </div>
     <div class="person-info-wrap">
-      <div>인원</div>
-      <!-- <div class="person-info">{personInfoText.join(', ')}</div> -->
+      <div class="person-title">인원</div>
+      <div class="person-info">
+        총 인원수 : {{ this.$store.state.guestNumber }}명
+      </div>
     </div>
     <div class="charge-info-wrap">
       <div class="charge-info-item">
-        <span>숙박비 (10박 x 2인)</span>
-        <span>&#8361; 123123</span>
+        <span
+          >숙박비 ({{ this.$store.getters.dateCount }}박 x
+          {{ this.$store.state.guestNumber }}명)</span
+        >
+        <span>&#8361; {{ this.$store.getters.sumPrice }}</span>
       </div>
       <div class="charge-info-item">
-        <span>청소비</span>
-        <span>&#8361; 0</span>
+        <span>① 청소비</span>
+        <span>&#8361; 15000</span>
       </div>
       <div class="charge-info-item">
-        <span>서비스 수수료</span>
-        <span>&#8361; 0</span>
+        <span>② 서비스 수수료</span>
+        <span>&#8361; 2000</span>
       </div>
       <div class="charge-info-item">
-        <span>숙박세와 수수료</span>
-        <span>&#8361; 0</span>
+        <span>③ 숙박세와 수수료(0.05%)</span>
+        <span>&#8361; {{ this.setTaxPrice }}</span>
       </div>
       <div class="charge-info-item">
-        <span>합계</span>
-        <!-- <span>&#8361; {totalCharge}</span> -->
-        <span>&#8361; 123123</span>
+        <span>합계(①+②+③)</span>
+        <span>&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span>
       </div>
     </div>
     <button class="reservation-btn">예약하기</button>
@@ -58,10 +61,33 @@
 </template>
 
 <script>
-export default {};
+// import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+
+export default {
+  components: {
+    // PersonFilterButtonComponent,
+  },
+  computed: {
+    setTaxPrice() {
+      let result = this.$store.getters.sumPrice;
+      result += 0.05 * result;
+      return Math.floor(result);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+.date-title {
+  text-align: left;
+  text-indent: 15px;
+}
+
+.person-title {
+  text-align: left;
+  text-indent: 15px;
+}
+
 .reservation-modal-item-wrap {
   padding: 25px 30px;
   color: #000;
