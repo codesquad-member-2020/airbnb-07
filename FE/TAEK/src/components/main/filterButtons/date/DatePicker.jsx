@@ -122,21 +122,21 @@ const DatePicker = ({ dateFilterModalBtn }) => {
         if (endDate) setFocusedInput('startDate');
     };
 
+    const handleOnFocusChange = focusedInput => {
+        setFocusedInput(focusedInput);
+        if (focusedInput === 'endDate' && checkOutDate) dispatch(checkOut(null));
+    }
+
     return (
         <DatePickerWrap>
             <DateRangePicker
-                startDatePlaceholderText=''
-                endDatePlaceholderText=''
                 startDateId={MAIN.DATE.START_DATE_ID}
                 endDateId={MAIN.DATE.END_DATE_ID}
                 startDate={checkInDate}
                 endDate={checkOutDate}
                 onDatesChange={handleDatesChange}
                 focusedInput={focusedInput}
-                onFocusChange={focusedInput => {
-                    setFocusedInput(focusedInput);
-                    if (focusedInput === 'endDate' && checkOutDate) dispatch(checkOut(null));
-                }}
+                onFocusChange={handleOnFocusChange}
                 calendarInfoPosition='bottom'
                 renderCalendarInfo={dateFilterModalBtn}
                 hideKeyboardShortcutsPanel readOnly noBorder small keepOpenOnDateSelect
