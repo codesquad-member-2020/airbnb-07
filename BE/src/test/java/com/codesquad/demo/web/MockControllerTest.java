@@ -109,18 +109,21 @@ public class MockControllerTest {
     public void reserveTest() {
 
         // given
-        String url = "http://localhost:" + port +  "/mock/reservation";
         Long id = 1L;
+        String userEmail = "guswns1659@gmail.com";
+        String url = "http://localhost:" + port +  "/mock/" + "1/" + userEmail;
         LocalDate startDate = LocalDate.parse("2020-06-01");
         LocalDate endDate = LocalDate.parse("2020-06-03");
-        Integer people = 5;
+        int people = 5;
+        int totalPrice = 100000;
         String ok = "200";
+        String successMessage = "예약에 성공했습니다.";
 
         ReservationRequestDto reservationRequestDto = ReservationRequestDto.builder()
-                .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
                 .people(people)
+                .totalPrice(totalPrice)
                 .build();
 
         // when
@@ -130,6 +133,7 @@ public class MockControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
+        assertThat(responseEntity.getBody().getMessage()).isEqualTo(successMessage);
     }
 
     @Test

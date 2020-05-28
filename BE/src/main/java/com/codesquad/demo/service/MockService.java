@@ -229,39 +229,39 @@ public class MockService {
     }
 
     public ReservationResponseDto reserve(ReservationRequestDto reservationRequestDto,
+                                          Long accommodationId,
+                                          String userEmail,
                                           HttpServletRequest request) {
 
         try {
+            String successMessage = "예약에 성공했습니다.";
 //            String userEmail = (String) request.getAttribute("userEmail");
-            String userEmail = "guswns1659@gmail.com";
             Long id = 1L;
 
-            Long accommodationId = reservationRequestDto.getId();
             LocalDate startDate = reservationRequestDto.getStartDate();
             LocalDate endDate = reservationRequestDto.getEndDate();
-            Integer people = reservationRequestDto.getPeople();
+            int people = reservationRequestDto.getPeople();
+            int totalPrice = reservationRequestDto.getTotalPrice();
 
             Airbnb airbnb = findAirbnbById(id);
 
-            User user = User.builder()
-                    .email("zmdk1127@naver.com")
-                    .build();
-
-            airbnb.getUsers().add(user);
-
-            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate, people);
+            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate, people, totalPrice);
 
             airbnbRepository.save(airbnb);
 
             return ReservationResponseDto.builder()
                     .status("200")
+                    .message(successMessage)
                     .build();
 
         } catch (Exception e) {
+            String failMessage = "예약에 실패했습니다.";
+
             e.printStackTrace();
 
             return ReservationResponseDto.builder()
-                    .status("404")
+                    .status("202")
+                    .message(failMessage)
                     .build();
         }
     }

@@ -22,6 +22,7 @@ create table reservation (
     start_date date,
     end_date date,
     people int,
+    total_price int,
     accommodation int references accommodation(id),
     accommodation_key int,
     user int references user (id),

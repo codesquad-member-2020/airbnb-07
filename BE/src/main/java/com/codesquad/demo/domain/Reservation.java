@@ -18,4 +18,5 @@ public class Reservation {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer people;
+    private Integer totalPrice;
 }

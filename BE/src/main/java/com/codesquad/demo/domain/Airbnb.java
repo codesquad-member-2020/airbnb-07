@@ -22,12 +22,13 @@ public class Airbnb {
     List<User> users;
 
     public void reservationSave(String userEmail, Long accommodationId,
-                                LocalDate startDate, LocalDate endDate, Integer people) {
+                                LocalDate startDate, LocalDate endDate, int people, int totalPrice) {
 
         Reservation reservation = Reservation.builder()
                 .startDate(startDate)
                 .endDate(endDate)
                 .people(people)
+                .totalPrice(totalPrice)
                 .build();
 
         for (User each : users) {

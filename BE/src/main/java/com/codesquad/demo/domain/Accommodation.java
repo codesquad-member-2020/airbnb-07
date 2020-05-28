@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,8 +29,8 @@ public class Accommodation {
     private Integer previous_price;
     private Integer discount_price;
     private String hotelRating;
-    private List<Reservation> reservations;
-    private List<Picture> pictures;
+    private List<Reservation> reservations = new ArrayList<>();
+    private List<Picture> pictures = new ArrayList<>();
 
     public void addReservationDate(Reservation reservation) {
         this.getReservations().add(reservation);

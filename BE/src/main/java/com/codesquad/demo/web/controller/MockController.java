@@ -28,10 +28,12 @@ public class MockController {
         return mockService.getFiltering(filterRequestDto);
     }
 
-    @PostMapping("reservation")
+    @PostMapping("{accommodationId}/{userEmail}")
     public ReservationResponseDto reserve(@RequestBody ReservationRequestDto reservationRequestDto,
+                                          @PathVariable Long accommodationId,
+                                          @PathVariable String userEmail,
                                           HttpServletRequest request) {
-        return mockService.reserve(reservationRequestDto, request);
+        return mockService.reserve(reservationRequestDto, accommodationId, userEmail, request);
     }
 
     @DeleteMapping("{accommodationId}/{reservationId}")
