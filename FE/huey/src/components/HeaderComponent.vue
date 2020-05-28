@@ -80,7 +80,6 @@ export default {
     toMainPage() {
       if (this.$route.path !== '/main') {
         this.$router.push('/main');
-        this.$store.commit('setOpenModal');
       }
     },
   },
