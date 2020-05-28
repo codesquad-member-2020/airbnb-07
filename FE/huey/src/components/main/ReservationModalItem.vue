@@ -1,7 +1,6 @@
 <template>
   <div class="reservation-modal-item-wrap">
     <div class="currentPrice-wrap">
-      <!-- <span v-if="!this.$store.getters.isPayloadData">&#8361; 0원</span> -->
       <span class="currentPrice"
         >&#8361; {{ this.$store.state.payloadDate.currentPrice }}</span
       >
@@ -26,6 +25,7 @@
       <div class="person-title">인원</div>
       <div class="person-info">
         총 인원수 : {{ this.$store.state.guestNumber }}명
+        <!-- <PersonFilterButtonComponent /> -->
       </div>
     </div>
     <div class="charge-info-wrap">
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-// import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
 
 export default {
   components: {
@@ -83,9 +83,10 @@ export default {
         '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
       );
       if (result) {
+        this.$store.commit('setOpenModal');
         this.$router.push('/reservation');
       } else {
-        return;
+        this.$store.commit('setOpenModal');
       }
     },
   },
