@@ -50,7 +50,9 @@
       </div>
       <div class="charge-info-item">
         <span>합계(①+②+③)</span>
-        <span>&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span>
+        <span class="final-price"
+          >&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span
+        >
       </div>
     </div>
     <button class="reservation-btn">예약하기</button>
@@ -167,5 +169,9 @@ export default {
     text-align: center;
     color: #95a5a6;
   }
+}
+
+.final-price {
+  color: #ff385c;
 }
 </style>
