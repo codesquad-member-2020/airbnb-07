@@ -4,7 +4,7 @@ const GET_ROOMS = 'rooms/GET_ROOMS';
 const GET_ROOMS_SUCCESS = 'rooms/GET_ROOMS_SUCCESS';
 const GET_ROOMS_ERROR = 'rooms/GET_ROOMS_ERROR';
 
-const getRooms = () => async dispatch => {
+const getRooms = () => dispatch => {
     dispatch({ type: GET_ROOMS });
     fetch(URL.ROOMS_ALL)
         .then(res => res.json())
