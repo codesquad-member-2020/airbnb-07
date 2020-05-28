@@ -89,7 +89,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%) scale(0.5);
   width: 450px !important;
-  height: 690px;
+  height: 750px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
