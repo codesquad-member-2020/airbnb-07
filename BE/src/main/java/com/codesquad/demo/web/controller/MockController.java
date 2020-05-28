@@ -43,10 +43,11 @@ public class MockController {
         return mockService.getReservationInfo(userEmail, request);
     }
 
-    @DeleteMapping("{accommodationId}/{reservationId}")
+    @DeleteMapping("{accommodationId}/{reservationId}/{userEmail}")
     public DeleteReservationResponseDto delete(@PathVariable Long accommodationId,
                                                @PathVariable Long reservationId,
+                                               @PathVariable String userEmail,
                                                HttpServletRequest request) {
-        return mockService.delete(accommodationId, reservationId, request);
+        return mockService.delete(accommodationId, reservationId, userEmail, request);
     }
 }

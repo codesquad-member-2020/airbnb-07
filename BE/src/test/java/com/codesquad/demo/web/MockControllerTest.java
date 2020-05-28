@@ -162,9 +162,10 @@ public class MockControllerTest {
 
         // given
         long accommodationId = 1L;
-        long reservationId = 2L;
-        String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId;
+        long reservationId = 1L;
+        String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId + "/guswns1659@gmail.com";
         String ok = "200";
+        String successMessage = "예약 삭제에 성공했습니다.";
 
         // when
 //        restTemplate.delete(url);
@@ -175,5 +176,6 @@ public class MockControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
+        assertThat(responseEntity.getBody().getMessage()).isEqualTo(successMessage);
     }
 }

@@ -267,11 +267,12 @@ public class MockService {
         }
     }
 
-    public DeleteReservationResponseDto delete(Long accommodationId, Long reservationId, HttpServletRequest request) {
+    public DeleteReservationResponseDto delete(Long accommodationId, Long reservationId, String userEmail, HttpServletRequest request) {
 
         try {
 //        String userEmail = request.getAttribute("userEmail");
-            String userEmail = "guswns1659@gmail.com";
+
+            String successMessage = "예약 삭제에 성공했습니다.";
 
             Airbnb airbnb = findAirbnbById(1L);
 
@@ -281,14 +282,17 @@ public class MockService {
 
             return DeleteReservationResponseDto.builder()
                     .status("200")
+                    .message(successMessage)
                     .build();
 
-
         } catch (Exception e) {
+            String failMessage = "예약에 실패했습니다.";
+
             e.printStackTrace();
 
             return DeleteReservationResponseDto.builder()
-                    .status("500")
+                    .status("202")
+                    .message(failMessage)
                     .build();
         }
 

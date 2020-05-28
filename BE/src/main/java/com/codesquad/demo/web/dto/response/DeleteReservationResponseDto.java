@@ -10,5 +10,6 @@ import lombok.*;
 public class DeleteReservationResponseDto {
 
     private String status;
+    private String message;
 
 }
