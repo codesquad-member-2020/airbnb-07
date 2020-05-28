@@ -69,15 +69,15 @@ public class MockControllerTest {
 
         // given
         String url = "http://localhost:" + port + "/mock/filter";
-        Long id = 2L;
+        Long id = 81L;
         String hotelName = "Bright & Airy Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
         String startDate = "2020-05-20";
         String endDate = "2020-05-24";
         String people = "4";
-//        String min = null;
-//        String max = "100000";
+        String min = "10000";
+        String max = "30000";
         String zero = "0";
         String man = "10000";
         String eman = "20000";
@@ -88,8 +88,8 @@ public class MockControllerTest {
                 .startDate(startDate)
                 .endDate(endDate)
                 .people(people)
-//                .min(min)
-//                .max(max)
+                .min(min)
+                .max(max)
                 .build();
 
         // when
@@ -100,10 +100,9 @@ public class MockControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(status);
         assertThat(responseEntity.getBody().getAllData().get(0).getId()).isEqualTo(id);
-        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
-        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
-        assertThat(responseEntity.getBody().getPrices().get(0).getTotal()).isEqualTo(1);
-        assertThat(responseEntity.getBody().getPrices().get(1).getTotal()).isEqualTo(1);
+//        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
+//        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
+        assertThat(responseEntity.getBody().getPrices()).isNull();
     }
 
     @Test

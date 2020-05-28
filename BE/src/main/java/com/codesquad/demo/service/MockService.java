@@ -65,19 +65,14 @@ public class MockService {
         List<Accommodation> reservableAccommodations
                 = filteringForReservation(filterRequestDto, airbnb);
 
-        List<PriceRangeResponseDto> prices = getPrices(reservableAccommodations);
-
         List<EachAccommodationResponseDto> eachAccommodationResponseDtos
                 = getEachAccommodationResponseDtos(reservableAccommodations);
 
         return AllAccommodationResponseDto.builder()
                 .status(status)
                 .allData(eachAccommodationResponseDtos)
-                .prices(prices)
                 .build();
     }
-
-
 
     private List<PriceRangeResponseDto> initPriceRangeResponseDto() {
         List<PriceRangeResponseDto> priceRangeResponseDtos = new ArrayList<>();
