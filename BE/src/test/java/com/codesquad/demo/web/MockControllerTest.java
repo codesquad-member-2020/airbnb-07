@@ -4,6 +4,7 @@ import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
 import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.junit.Test;
@@ -134,6 +135,26 @@ public class MockControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
         assertThat(responseEntity.getBody().getMessage()).isEqualTo(successMessage);
+    }
+
+    @Test
+    public void getReservationInfo() {
+
+        // given
+        String url = "http://localhost:" + port + "/mock/reservationInfo" + "/guswns1659@gmail.com";
+        String ok = "200";
+        long id = 1L;
+
+        // when
+        ResponseEntity<AllReservationInfoResponseDto> responseEntity
+                = restTemplate.getForEntity(url, AllReservationInfoResponseDto.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
+        assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(id);
+        assertThat(responseEntity.getBody().getAllData().get(0).getUrls()).isNotNull();
+        assertThat(responseEntity.getBody().getAllData().get(0).getReservation()).isNotNull();
     }
 
     @Test

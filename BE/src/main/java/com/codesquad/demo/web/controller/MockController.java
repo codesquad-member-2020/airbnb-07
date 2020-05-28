@@ -4,6 +4,7 @@ import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
 import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,12 @@ public class MockController {
                                           @PathVariable String userEmail,
                                           HttpServletRequest request) {
         return mockService.reserve(reservationRequestDto, accommodationId, userEmail, request);
+    }
+
+    @GetMapping("reservationInfo/{userEmail}")
+    public AllReservationInfoResponseDto getReservationInfo(@PathVariable String userEmail,
+                                                            HttpServletRequest request) {
+        return mockService.getReservationInfo(userEmail, request);
     }
 
     @DeleteMapping("{accommodationId}/{reservationId}")

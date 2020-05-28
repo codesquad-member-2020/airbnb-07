@@ -6,6 +6,7 @@ import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
 import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -291,5 +292,14 @@ public class MockService {
                     .build();
         }
 
+    }
+
+    public AllReservationInfoResponseDto getReservationInfo(String userEmail, HttpServletRequest request) {
+
+        Airbnb airbnb = findAirbnbById(1L);
+
+        User user = airbnb.findUserByUserEmail(userEmail);
+
+        return user.showReservationInfos(airbnb.getAccommodations());
     }
 }

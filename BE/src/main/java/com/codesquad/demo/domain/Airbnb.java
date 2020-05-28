@@ -62,4 +62,11 @@ public class Airbnb {
         accommodation.deleteReservation(reservationId);
 
     }
+
+    public User findUserByUserEmail(String userEmail) {
+        return this.users.stream()
+                .filter(each -> each.getEmail().equals(userEmail))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("해당 user가 없습니다. userEmail = "+ userEmail));
+    }
 }
