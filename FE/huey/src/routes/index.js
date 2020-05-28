@@ -23,7 +23,7 @@ const router = new VueRouter({
       component: () => import('@/views/MainView.vue'),
     },
     {
-      path: '/github/oauth/callback',
+      path: '/githublogin',
       redirect: 'main',
     },
     {

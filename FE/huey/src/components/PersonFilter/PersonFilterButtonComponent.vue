@@ -94,8 +94,16 @@ export default {
       babyCount: 0,
     };
   },
+
+  computed: {
+    totalGuest() {
+      return this.adultConut + this.childrenCount + this.babyCount;
+    },
+  },
+
   methods: {
     personData(adultConut, childrenCount, babyCount) {
+      this.$store.commit('setGuestNumber', this.totalGuest);
       let result = '';
       if (adultConut + childrenCount > 0 && babyCount > 0) {
         return `게스트 ${adultConut + childrenCount}명, 유아 ${babyCount}명`;
