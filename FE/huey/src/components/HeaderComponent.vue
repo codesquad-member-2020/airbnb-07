@@ -50,7 +50,7 @@
         </svg>
       </div>
       <div>
-        <button class="help-btn">도움말</button>
+        <button class="help-btn" @click="toReservationPage">마이 페이지</button>
       </div>
       <div class="sign-btn-container">
         <button class="signup-btn">로그아웃</button>
@@ -71,6 +71,11 @@ export default {
     PersonFilterButtonComponent,
     FilterSearchButtonComponent,
     PriceFilterButtonComponent,
+  },
+  methods: {
+    toReservationPage() {
+      this.$router.push('/reservation');
+    },
   },
 };
 </script>
@@ -128,6 +133,7 @@ export default {
 }
 
 .help-btn {
+  color: #ff385c;
   margin-left: 20px;
 }
 
