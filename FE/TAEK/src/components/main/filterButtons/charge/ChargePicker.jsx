@@ -12,6 +12,8 @@ import Rheostat from "rheostat";
 import { MAIN } from 'constants/constant';
 import ChargeGraph from './ChargeGraph';
 
+import { prices } from 'mock/mockData';
+
 ThemedStyleSheet.registerInterface(cssInterface);
 ThemedStyleSheet.registerTheme({
     ...RheostatDefaultTheme,
@@ -56,6 +58,8 @@ const ChargePicker = () => {
         dispatch(maxCharge(updateMax));
     };
 
+    const pitPoints = prices.map(data => data.price);
+
     return (
         <RheostatWrap>
             <Rheostat
@@ -63,10 +67,7 @@ const ChargePicker = () => {
                 max={MAIN.CHARGE.MAX_CHARGE}
                 values={[min, max]}
                 pitComponent={ChargeGraph}
-                pitPoints={[
-                    // 임시 가격 데이터
-                    50000, 200000, 300000, 500000, 700000, 900000
-                ]}
+                pitPoints={pitPoints}
                 onValuesUpdated={handleValuesUpdated}
             />
         </RheostatWrap>

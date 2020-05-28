@@ -22,7 +22,7 @@ const MAIN = {
         },
     },
     CHARGE: {
-        MIN_CHARGE: 12000,
+        MIN_CHARGE: 10000,
         MAX_CHARGE: 1000000,
     },
     RESERVATION: {
