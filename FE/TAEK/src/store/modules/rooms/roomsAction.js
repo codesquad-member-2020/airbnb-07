@@ -6,10 +6,12 @@ const GET_ROOMS_ERROR = 'rooms/GET_ROOMS_ERROR';
 
 const getRooms = () => async dispatch => {
     dispatch({ type: GET_ROOMS });
-    const response = await fetch(URL.ROOMS_ALL);
-    const data = await response.json();
-    if (response.status === 200) dispatch({ type: GET_ROOMS_SUCCESS, payload: data });
-    else dispatch({ type: GET_ROOMS_ERROR, payload: data.error });
+    fetch(URL.ROOMS_ALL)
+        .then(res => res.json())
+        .then(json => dispatch({ type: GET_ROOMS_SUCCESS, payload: json }))
+        .catch(e => {
+            dispatch({ type: GET_ROOMS_ERROR, payload: e });
+        });
 };
 
 export {

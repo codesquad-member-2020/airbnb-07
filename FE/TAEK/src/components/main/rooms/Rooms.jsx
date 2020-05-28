@@ -23,14 +23,13 @@ const Rooms = () => {
         dispatch(getRooms());
     }, [dispatch]);
 
-    if (loading) return (<Loading />);
+    if (loading) return <Loading />;
 
     return (
         <RoomsWrap>
             {error ?
                 <>
                     {error}
-                    (<Loading />
                 </> :
                 <>
                     <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
