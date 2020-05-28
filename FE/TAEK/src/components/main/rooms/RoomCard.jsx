@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
-import ReservationModal from './reservation/ReservationModal';
 import { MAIN } from 'constants/constant';
+import { modalToggle, selectedRoom } from 'store/modules/reservation/reservationAction';
 
 const RoomCardWrap = styled.div`
     min-width: 300px;
@@ -85,16 +85,17 @@ const RoomTextInfoWrap = styled.div`
 `;
 
 const RoomCard = ({ roomData }) => {
-    const [isOpen, setOpen] = useState(false);
+    const dispatch = useDispatch();
     const [totalCharge, setTotalCharge] = useState(0);
     const date = useSelector(({ date }) => date);
     const person = useSelector(({ person }) => person);
-    const { hotelName, location, currentPrice, previousPrice, hotelRating, urls } = roomData;
+    const { hotelName, location, currentPrice, previousPrice, hotelRating, street, urls } = roomData;
     const [titleImgUrl] = urls;
 
-    const handleSetOpen = () => {
+    const handleReservationClick = () => {
         if (!date.isSave || !person.isSave) return alert(MAIN.RESERVATION.NOT_ENOUGH_CONDITION_MESSAGE);
-        setOpen(!isOpen);
+        dispatch(modalToggle());
+        dispatch(selectedRoom(roomData));
     }
 
     useEffect(() => {
@@ -103,7 +104,6 @@ const RoomCard = ({ roomData }) => {
 
     return (
         <>
-            {isOpen && <ReservationModal {...{ handleSetOpen, ratingStar, roomData }} />}
             <RoomCardWrap>
                 <RoomImg src={titleImgUrl.url} alt='room-image' />
                 <RoomTextInfoWrap>
@@ -115,7 +115,7 @@ const RoomCard = ({ roomData }) => {
                         </div>
                     </div>
                     <div className='info-main'>
-                        <div className='hotelName' title={hotelName}>{hotelName}</div>
+                        <div className='hotelName' title={street}>{hotelName}</div>
                         <div>
                             <span className='previousPrice'>&#8361; {numberComma(previousPrice)}</span>
                             <span className='currentPrice'>&#8361; {numberComma(currentPrice)}</span>
@@ -127,7 +127,7 @@ const RoomCard = ({ roomData }) => {
                             <span>총 요금: &#8361; {totalCharge ? numberComma(totalCharge) : numberComma(currentPrice)}</span>
                             <span>/1박</span>
                         </div>
-                        <button className='reserve-btn' onClick={handleSetOpen}>예 약</button>
+                        <button className='reserve-btn' onClick={handleReservationClick}>예 약</button>
                     </div>
                 </RoomTextInfoWrap>
             </RoomCardWrap>

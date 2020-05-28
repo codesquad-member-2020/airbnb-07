@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { numberComma, dayCounter } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
 import ReservationChargeInfo from './ReservationChargeInfo';
+import ratingStar from 'public/images/rating-star.svg';
 
 const ReservationModalItemWrap = styled.div`
     padding: 30px 30px;
@@ -89,12 +90,12 @@ const CloseButton = styled.div`
     cursor: pointer;
 `;
 
-const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
+const ReservationModalItem = ({ handleModalToggle, roomData }) => {
     const { currentPrice, hotelRating } = roomData;
 
     return (
         <>
-            <CloseButton onClick={handleSetOpen}>❌</CloseButton>
+            <CloseButton onClick={handleModalToggle}>❌</CloseButton>
             <ReservationModalItemWrap>
                 <div className='currentPrice-wrap'>
                     <span className='currentPrice'>&#8361; {numberComma(currentPrice)}</span>
