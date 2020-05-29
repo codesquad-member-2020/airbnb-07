@@ -25,6 +25,9 @@ const MAIN = {
         MIN_CHARGE: 10000,
         MAX_CHARGE: 1000000,
     },
+    ROOMS: {
+        GET_ROOMS_ERROR: '조회에 실패했습니다. 다시 시도해주세요.',
+    },
     RESERVATION: {
         CLEAN_UP_COST: 15000,
         SERVICE_COST: 2000,
