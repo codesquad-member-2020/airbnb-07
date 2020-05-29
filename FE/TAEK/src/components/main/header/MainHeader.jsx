@@ -43,38 +43,38 @@ const MainHeaderWrap = styled.div`
             right: 0;
             cursor: pointer;
         }
-        @media (max-width: 1180px) { display: block; }
-            .main-header-menu {
-                position: absolute;
-                top: 30px;
-                right: 0;
+        .main-header-menu {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            display: block;
+            width: 200px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #484848;
+            background-color: #fff;
+            z-index: 7;
+            overflow: hidden;
+            animation-name: miniMenu;
+            animation-duration: .3s;
+            animation-timing-function:ease-in-out;
+            animation-fill-mode: both;
+            @keyframes miniMenu {
+                0% { height: 0; }
+                100% { height: 250px;}
+            }
+            border-radius: 5px;
+            box-shadow: ${props => props.theme.modalShadow};
+            box-sizing: border-box;
+            li {
                 display: block;
-                width: 200px;
-                font-size: 15px;
-                font-weight: 600;
-                color: #484848;
-                background-color: #fff;
-                z-index: 7;
-                overflow: hidden;
-                animation-name: miniMenu;
-                animation-duration: .3s;
-                animation-timing-function:ease-in-out;
-                animation-fill-mode: both;
-                @keyframes miniMenu {
-                    0% { height: 0; }
-                    100% { height: 250px;}
-                }
-                border-radius: 5px;
-                box-shadow: ${props => props.theme.modalShadow};
-                box-sizing: border-box;
-                li {
-                    display: block;
-                    line-height: 30px;
-                    padding: 10px 20px;
-                    margin-right: 0;
-                    cursor: pointer;
-                }
+                line-height: 30px;
+                padding: 10px 20px;
+                margin-right: 0;
+                cursor: pointer;
+            }
         }
+        @media (max-width: 1180px) { display: block; }
     }
 `;
 

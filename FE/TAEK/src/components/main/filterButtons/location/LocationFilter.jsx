@@ -30,6 +30,8 @@ const LocationFilterBtn = styled.div`
     line-height: 39.6px;
     box-sizing: border-box;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     select {
         color: #484848;
         font-size: 14px;

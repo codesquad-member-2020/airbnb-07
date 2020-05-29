@@ -15,6 +15,7 @@ const PageTopWrap = styled.div`
         line-height: 28px;
         color: #c2c2c2;
         transform: rotate(-90deg);
+        cursor: pointer;
     }
 `;
 
