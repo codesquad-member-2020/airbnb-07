@@ -25,26 +25,27 @@ const LocationFilterBtn = styled.div`
     border: 1.19px solid #7f8c8d99;
     box-shadow: ${(props) => props.theme.boxShadow};
     border-radius: 15px;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 0 25px;
+    padding: 0 10px;
     width: 100%;
     height: 100%;
     line-height: 39.6px;
-    text-align: center;
     box-sizing: border-box;
     overflow: hidden;
+    select {
+        color: #484848;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: 'Noto Sans KR', sans-serif;
+        border: none;
+        outline: none;
+    }
 `;
 
 const LocationFilter = () => {
-    const [isOpen, setOpen] = useState(false);
-
-    const handleSetOpen = () => setOpen(!isOpen);
-
     return (
         <LocationFilterWrap>
-            {(isOpen) && <HighlightBorder />}
-            <LocationFilterBtn onClick={handleSetOpen}>
+            <HighlightBorder />
+            <LocationFilterBtn>
                 <select name='지역'>
                     <option value='Seattle'>Seattle</option>
                 </select>
