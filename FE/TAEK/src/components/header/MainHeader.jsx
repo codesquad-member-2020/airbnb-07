@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import miniMenu from 'public/images/mini-menu.svg';
-import MenuList from './MenuList';
+import MainHeaderMenu from './MainHeaderMenu';
 
 const MainHeaderWrap = styled.div`
     box-shadow: 0 4px 6px #32325d1c, 0 1px 3px #00000014;
@@ -83,13 +84,16 @@ const MainHeader = () => {
     const handleMiniMenuOpen = () => setOpen(!isOpen);
     const handleMiniMenuLeave = () => setOpen(false);
 
+    let history = useHistory();
+    const handleLogoClick = () => history.push('/main');
+
     return (
         <MainHeaderWrap>
-            <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" />
-            <MenuList />
+            <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
+            <MainHeaderMenu />
             <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
                 <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
-                {isOpen && <MenuList />}
+                {isOpen && <MainHeaderMenu />}
             </div>
         </MainHeaderWrap>
     )
