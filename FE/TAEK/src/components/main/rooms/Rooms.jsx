@@ -6,6 +6,7 @@ import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRooms } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
+import { MAIN } from 'constants/constant';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
@@ -19,11 +20,12 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
+    const charge = useSelector(({ charge }) => charge);
     const { loading, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
     const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRooms());
+        dispatch(getRooms(charge.min, charge.max));
     }, [dispatch]);
 
     if (loading) return <Loading />;
@@ -36,7 +38,7 @@ const Rooms = () => {
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
-                    <RoomsTitle>{filterRoomsData.allData.length}개 이상의 숙소</RoomsTitle>
+                    <RoomsTitle>{filterRoomsData.allData.length ? `적절한 ${filterRoomsData.allData.length}개의 숙소` : `${MAIN.ROOMS.NOT_RESULT}`} </RoomsTitle>
                     <RoomList allData={filterRoomsData.allData} />
                     <PageTop />
                 </>}

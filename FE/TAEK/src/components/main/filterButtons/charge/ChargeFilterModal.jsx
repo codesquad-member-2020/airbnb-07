@@ -114,7 +114,7 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
     const handleChargeInfoReset = () => dispatch(resetCharge());
     const handleChargeInfoSave = () => {
         if (isChange) dispatch(saveCharge());
-        dispatch(applyChargeFilter(min, max));
+        if (roomsData) dispatch(applyChargeFilter(min, max));
         handleSetOpen();
     }
 
