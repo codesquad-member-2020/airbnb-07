@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import RoomList from './RoomList';
-import Loading from '@/components/common/Loading';
+import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoomsData } from 'store/modules/rooms/roomsAction';
@@ -28,7 +28,7 @@ const Rooms = () => {
         dispatch(getRoomsData(charge.min, charge.max));
     }, [dispatch]);
 
-    if (loading) return <Loading />;
+    if (loading) return <LoadingSpiner />;
 
     return (
         <RoomsWrap>

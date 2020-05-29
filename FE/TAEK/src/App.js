@@ -14,7 +14,6 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Redirect exact from='/react/index.html' to='/' />
                     <Redirect from='/githublogin' to='/main' />
                     <Route exact path='/' component={Login} />
                     <Route path='/main' component={Main} />
