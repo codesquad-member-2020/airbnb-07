@@ -32,7 +32,7 @@ const Rooms = () => {
         <RoomsWrap>
             {error ?
                 <>
-                    {error}
+                    <span>{error}</span>
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
