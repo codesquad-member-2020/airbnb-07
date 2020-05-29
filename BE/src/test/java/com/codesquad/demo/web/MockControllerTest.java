@@ -69,16 +69,18 @@ public class MockControllerTest {
     public void getFiltering() {
 
         // given
-        String url = "http://localhost:" + port + "/mock/filter";
-        Long id = 81L;
-        String hotelName = "Bright & Airy Queen Anne Apartment";
+//        String localUrl = "http://localhost:" + port + "/mock/filter";
+        String realUrl = "http://15.164.35.235/api/mock/filter";
+        Long id = 1L;
+        String hotelName = "Stylish Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
-        String startDate = "2020-05-20";
-        String endDate = "2020-05-24";
-        String people = "4";
-        String min = "10000";
-        String max = "30000";
+        LocalDate startDate = LocalDate.parse("2020-08-07");
+        LocalDate endDate = LocalDate.parse("2020-08-08");
+//        String endDate = "2020-06-08";
+        int people = 3;
+        Integer min = 50000;
+        Integer max = 200000;
         String zero = "0";
         String man = "10000";
         String eman = "20000";
@@ -95,14 +97,14 @@ public class MockControllerTest {
 
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
-                = restTemplate.postForEntity(url, filterRequestDto, AllAccommodationResponseDto.class);
+                = restTemplate.postForEntity(realUrl, filterRequestDto, AllAccommodationResponseDto.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(status);
         assertThat(responseEntity.getBody().getAllData().get(0).getId()).isEqualTo(id);
-//        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
-//        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
+        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
+        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
         assertThat(responseEntity.getBody().getPrices()).isNull();
     }
 

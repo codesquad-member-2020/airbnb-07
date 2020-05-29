@@ -26,13 +26,13 @@ public class LoginService {
     }
 
     public ResponseEntity<Void> login(String code, HttpServletResponse response) {
-        logger.info("code : {}", code);
 
         try {
             String url = githubProperties.getUrl();
             String client_id = githubProperties.getClient_id();
             String client_secret = githubProperties.getClient_secret();
             String redirect_url = githubProperties.getRedirect_url();
+
 
             AccessTokenRequestDto accessTokenRequestDto
                     = getAccessToken(client_id, client_secret, code, redirect_url);
@@ -47,6 +47,8 @@ public class LoginService {
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("Authorization", "token " +accessToken);
+
+            logger.info("accessToken : {}", accessToken);
 
             HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
 
@@ -88,7 +90,6 @@ public class LoginService {
     }
 
     public ResponseEntity<Void> login2(String code, HttpServletResponse response) {
-        logger.info("code : {}", code);
 
         try {
             String url = githubProperties.getUrl();
@@ -118,8 +119,6 @@ public class LoginService {
             String userDataList = responseEntity.getBody();
             String[] split1 = userDataList.split(",");
             String userEmail = split1[0].split(":")[1];
-
-            logger.info("userEmail : {}", userEmail);
 
             String jwt = JwtUtils.jwtCreate(userEmail);
 
