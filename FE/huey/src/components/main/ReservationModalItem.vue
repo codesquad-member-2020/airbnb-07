@@ -24,8 +24,8 @@
     <div class="person-info-wrap">
       <div class="person-title">인원</div>
       <div class="person-info">
-        총 인원수 : {{ this.$store.state.guestNumber }}명
-        <!-- <PersonFilterButtonComponent /> -->
+        <!-- 총 인원수 : {{ this.$store.state.guestNumber }}명 -->
+        <PersonFilterButtonComponent />
       </div>
     </div>
     <div class="charge-info-wrap">
@@ -67,7 +67,7 @@ import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterB
 
 export default {
   components: {
-    // PersonFilterButtonComponent,
+    PersonFilterButtonComponent,
   },
   computed: {
     setTaxPrice() {
@@ -84,6 +84,7 @@ export default {
       );
       if (result) {
         this.$store.commit('setOpenModal');
+        this.$store.commit('initState');
         this.$router.push('/reservation');
       } else {
         this.$store.commit('setOpenModal');
