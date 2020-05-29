@@ -26,9 +26,9 @@ export default function personReducer(state = initialState, action) {
             }
         case INCREASE_COUNT:
             {
-                if (state.totalCount + 1 > limitCount) return { ...state };
                 const _state = { ...state }
                 const countType = action.payload.countType;
+                if (state[countType] + 1 > limitCount) return { ...state };
                 const updateCount = ++_state[countType];
                 _state[countType] = updateCount;
                 return {

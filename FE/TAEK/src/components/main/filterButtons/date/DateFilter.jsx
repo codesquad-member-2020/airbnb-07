@@ -19,7 +19,6 @@ const HighlightBorder = styled.div`
     border-radius: 15px;
     pointer-events: none;
     box-sizing: border-box;
-    z-index: 10;
 `;
 
 const DateFilterBtn = styled.div`
@@ -36,6 +35,8 @@ const DateFilterBtn = styled.div`
     text-align: center;
     box-sizing: border-box;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const DateFilter = () => {

@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import miniMenu from 'public/images/mini-menu.svg';
+import MenuList from './MenuList';
 
 const MainHeaderWrap = styled.div`
     box-shadow: 0 4px 6px #32325d1c, 0 1px 3px #00000014;
     width: 100%;
     height: 80px;
-    line-height: 80px;
     background-color: #fff;
     padding: 0 15%;
     display: flex;
@@ -18,6 +18,7 @@ const MainHeaderWrap = styled.div`
     }
     .main-header-menu {
         display: flex;
+        align-items: center;
         font-size: 15px;
         font-weight: 600;
         color: #484848;
@@ -29,36 +30,66 @@ const MainHeaderWrap = styled.div`
             }
         }
         @media (max-width: 1180px) { display: none; }
-        &.mini-menu {
-            position: relative;
-            width: 30px;
-            height: 30px;
-            display: none;
-            align-self: center;
+    }
+    .mini-menu {
+        position: relative;
+        width: 200px;
+        height: 30px;
+        display: none;
+        align-self: center;
+        img {
+            position: absolute;
+            top: 0;
+            right: 0;
             cursor: pointer;
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-            @media (max-width: 1180px) { display: block; }
         }
+        .main-header-menu {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            display: block;
+            width: 200px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #484848;
+            background-color: #fff;
+            z-index: 7;
+            overflow: hidden;
+            animation-name: miniMenu;
+            animation-duration: .3s;
+            animation-timing-function:ease-in-out;
+            animation-fill-mode: both;
+            @keyframes miniMenu {
+                0% { height: 0; }
+                100% { height: 250px;}
+            }
+            border-radius: 5px;
+            box-shadow: ${props => props.theme.modalShadow};
+            box-sizing: border-box;
+            li {
+                display: block;
+                line-height: 30px;
+                padding: 10px 20px;
+                margin-right: 0;
+                cursor: pointer;
+            }
+        }
+        @media (max-width: 1180px) { display: block; }
     }
 `;
 
 const MainHeader = () => {
+    const [isOpen, setOpen] = useState(false);
+    const handleMiniMenuOpen = () => setOpen(!isOpen);
+    const handleMiniMenuLeave = () => setOpen(false);
+
     return (
         <MainHeaderWrap>
             <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" />
-            <ul className='main-header-menu'>
-                <li>숙소 호스트 되기</li>
-                <li>체험 호스팅하기</li>
-                <li>도움말</li>
-                <li>마이페이지</li>
-                <li>로그아웃</li>
-            </ul>
-            <div className='main-header-menu mini-menu'>
-                <img src={miniMenu} alt="mini-menu" />
+            <MenuList />
+            <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
+                <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
+                {isOpen && <MenuList />}
             </div>
         </MainHeaderWrap>
     )

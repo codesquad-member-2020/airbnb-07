@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import RoomList from './RoomList';
 import Loading from '@/components/common/Loading';
+import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRooms } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
@@ -31,12 +32,13 @@ const Rooms = () => {
         <RoomsWrap>
             {error ?
                 <>
-                    {error}
+                    <span>{error}</span>
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
                     <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
                     <RoomList allData={roomsData.allData} />
+                    <PageTop />
                 </>}
         </RoomsWrap>
     )

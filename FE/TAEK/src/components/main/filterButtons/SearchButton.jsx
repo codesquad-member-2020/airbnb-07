@@ -12,12 +12,12 @@ const SearchButtonWrap = styled.div`
     padding: 0 25px;
     height: 100%;
     line-height: 39.6px;
-    text-align: center;
     cursor: pointer;
     box-sizing: border-box;
-    overflow: hidden;
     width: 100px;
     text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const SearchButton = () => {
