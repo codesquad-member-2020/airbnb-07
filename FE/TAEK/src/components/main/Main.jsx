@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import MainHeader from './header/MainHeader';
+import MainHeader from '@/components/header/MainHeader';
 import FilterButtons from './filterButtons/FilterButtons';
 import Rooms from './rooms/Rooms';
 
