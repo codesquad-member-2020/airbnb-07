@@ -12,9 +12,13 @@ export default new Vuex.Store({
     isPayload: false,
     checkinDate: '',
     checkoutDate: '',
+    adultCount: 0,
+    childrenCount: 0,
+    babyCount: 0,
     guestNumber: 0,
     minPirce: 0,
     maxPrice: 0,
+    selectGuestInfo: '',
   },
   getters: {
     isPayloadData(state) {
@@ -54,6 +58,64 @@ export default new Vuex.Store({
     },
     setGuestNumber(state, number) {
       state.guestNumber = number;
+    },
+    personData(state) {
+      this._mutations.setGuestNumber[0](
+        state.adultCount + state.childrenCount + state.babyCount,
+      );
+      let result = '';
+      if (state.adultCount + state.childrenCount > 0 && state.babyCount > 0) {
+        return (state.selectGuestInfo = `게스트 ${
+          state.adultCount + state.childrenCount
+        }명, 유아 ${state.babyCount}명`);
+      }
+      if (state.adultCount + state.childrenCount > 0) {
+        let guest = state.adultCount + state.childrenCount;
+        result += `게스트 ${guest}명`;
+        return (state.selectGuestInfo = result);
+      }
+      if (state.babyCount > 0) {
+        return (state.selectGuestInfo = `유아 ${state.babyCount}명`);
+      }
+      return '';
+    },
+    increaseEvent(state, payload) {
+      if (state.adultCount + state.childrenCount + state.babyCount >= 8) return;
+      switch (payload) {
+        case 'adultCount':
+          state.adultCount++;
+          break;
+        case 'childrenCount':
+          state.childrenCount++;
+          break;
+        case 'babyCount':
+          state.babyCount++;
+          break;
+      }
+    },
+    decreaseEvent(state, payload) {
+      if (payload.value <= 0) return;
+      switch (payload.name) {
+        case 'adultCount':
+          --state.adultCount;
+          break;
+        case 'childrenCount':
+          --state.childrenCount;
+          break;
+        case 'babyCount':
+          --state.babyCount;
+          break;
+      }
+    },
+    initState(state) {
+      state.adultCount = 0;
+      state.babyCount = 0;
+      state.childrenCount = 0;
+      state.checkinDate = '';
+      state.checkoutDate = '';
+      state.minPirce = 0;
+      state.maxPrice = 0;
+      state.selectGuestInfo = '';
     },
   },
 
