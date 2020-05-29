@@ -4,7 +4,7 @@ import RoomList from './RoomList';
 import Loading from '@/components/common/Loading';
 import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRooms } from 'store/modules/rooms/roomsAction';
+import { getRoomsData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
 import { MAIN } from 'constants/constant';
 
@@ -25,7 +25,7 @@ const Rooms = () => {
     const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRooms(charge.min, charge.max));
+        dispatch(getRoomsData(charge.min, charge.max));
     }, [dispatch]);
 
     if (loading) return <Loading />;

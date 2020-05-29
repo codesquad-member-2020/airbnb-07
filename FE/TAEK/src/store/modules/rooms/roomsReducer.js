@@ -1,4 +1,4 @@
-import { GET_ROOMS, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR, APPLY_CHARGE_FILTER } from './roomsAction';
+import { GET_ROOMS_DATA, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR, APPLY_CHARGE_FILTER } from './roomsAction';
 
 const initialState = {
     loading: true,
@@ -9,7 +9,7 @@ const initialState = {
 
 export default function roomsReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_ROOMS:
+        case GET_ROOMS_DATA:
             return {
                 ...state,
                 loading: true,
