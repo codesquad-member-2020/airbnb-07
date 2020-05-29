@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="background" ref="background" @click="isModalRender" />
-    <div v-if="this.$store.state.isOpenModal" class="reservation-modal-wrap">
-      <ReservationModalItem />
+    <div v-if="this.$store.state.isOpenModal">
+      <div class="background" ref="background" @click="isModalRender" />
+      <div class="reservation-modal-wrap">
+        <ReservationModalItem />
+      </div>
     </div>
+
     <div v-else></div>
     <div class="room-list-wrap">
       <div v-if="this.isRenderData" class="loading-container">
@@ -30,11 +33,6 @@ export default {
   data() {
     return {};
   },
-
-  mounted() {
-    this.$refs.background.style.display = 'none';
-  },
-
   components: {
     RoomCard,
     LoadingSpinner,
@@ -49,7 +47,6 @@ export default {
   },
   methods: {
     isModalRender(e) {
-      e.target.style.display = 'none';
       this.$store.commit('setOpenModal');
     },
   },
@@ -68,12 +65,10 @@ export default {
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  // grid-auto-rows: 340px;
   grid-gap: 35px;
 }
 
 .background {
-  // display: none;
   position: absolute;
   top: 0;
   left: 0;

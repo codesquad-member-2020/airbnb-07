@@ -1,7 +1,6 @@
 <template>
   <div class="reservation-modal-item-wrap">
     <div class="currentPrice-wrap">
-      <!-- <span v-if="!this.$store.getters.isPayloadData">&#8361; 0원</span> -->
       <span class="currentPrice"
         >&#8361; {{ this.$store.state.payloadDate.currentPrice }}</span
       >
@@ -26,6 +25,7 @@
       <div class="person-title">인원</div>
       <div class="person-info">
         총 인원수 : {{ this.$store.state.guestNumber }}명
+        <!-- <PersonFilterButtonComponent /> -->
       </div>
     </div>
     <div class="charge-info-wrap">
@@ -50,10 +50,12 @@
       </div>
       <div class="charge-info-item">
         <span>합계(①+②+③)</span>
-        <span>&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span>
+        <span class="final-price"
+          >&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span
+        >
       </div>
     </div>
-    <button class="reservation-btn">예약하기</button>
+    <button class="reservation-btn" @click="onReservation">예약하기</button>
     <div class="reservation-info-text">
       예약 확정 전에는 요금이 청구되지 않습니다.
     </div>
@@ -61,7 +63,7 @@
 </template>
 
 <script>
-// import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
 
 export default {
   components: {
@@ -72,6 +74,20 @@ export default {
       let result = this.$store.getters.sumPrice;
       result += 0.05 * result;
       return Math.floor(result);
+    },
+  },
+
+  methods: {
+    onReservation() {
+      var result = confirm(
+        '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+      );
+      if (result) {
+        this.$store.commit('setOpenModal');
+        this.$router.push('/reservation');
+      } else {
+        this.$store.commit('setOpenModal');
+      }
     },
   },
 };
@@ -167,5 +183,9 @@ export default {
     text-align: center;
     color: #95a5a6;
   }
+}
+
+.final-price {
+  color: #ff385c;
 }
 </style>

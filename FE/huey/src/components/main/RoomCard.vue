@@ -51,7 +51,6 @@ export default {
   computed: {},
   methods: {
     openReservationModal() {
-      document.querySelector('.background').style.display = 'block';
       this.$store.commit('setOpenModal', this.propsData);
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <div>
+    <div @click="toMainPage">
       <img class="air_logo_title" src="../assets/airbnb-logo.png" alt="" />
     </div>
     <div class="filter-container">
@@ -50,7 +50,7 @@
         </svg>
       </div>
       <div>
-        <button class="help-btn">도움말</button>
+        <button class="help-btn" @click="toReservationPage">마이 페이지</button>
       </div>
       <div class="sign-btn-container">
         <button class="signup-btn">로그아웃</button>
@@ -71,6 +71,17 @@ export default {
     PersonFilterButtonComponent,
     FilterSearchButtonComponent,
     PriceFilterButtonComponent,
+  },
+  methods: {
+    toReservationPage() {
+      this.$router.push('/reservation');
+    },
+
+    toMainPage() {
+      if (this.$route.path !== '/main') {
+        this.$router.push('/main');
+      }
+    },
   },
 };
 </script>
@@ -115,6 +126,7 @@ export default {
 .air_logo_title {
   width: 180px;
   margin-left: -35px;
+  cursor: pointer;
 }
 
 .signup-btn {
@@ -128,6 +140,7 @@ export default {
 }
 
 .help-btn {
+  color: #ff385c;
   margin-left: 20px;
 }
 
