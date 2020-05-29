@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { increaseCount, decreaseCount } from 'store/modules/person/personAction';
 import { MAIN } from 'constants/constant';
 
-const PersonFilterModalItem = ({ totalCount, typeText, ageText, countText, countType, }) => {
+const PersonFilterModalItem = ({ typeText, ageText, countText, countType, }) => {
     const dispatch = useDispatch();
     const limitCount = MAIN.PERSON.LIMIT_COUNT;
     const handlePersonCountUp = (countType) => dispatch(increaseCount(countType));
@@ -23,8 +23,8 @@ const PersonFilterModalItem = ({ totalCount, typeText, ageText, countText, count
                 </button>
                 <span className='person-count'>{countText}</span>
                 <button
-                    disabled={limitCount === totalCount}
-                    className={`person-count-btn ${limitCount === totalCount && 'count-btn-disabled'}`}
+                    disabled={limitCount === countText}
+                    className={'person-count-btn'}
                     onClick={() => handlePersonCountUp(countType)}>➕
                 </button>
             </div>
