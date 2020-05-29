@@ -34,6 +34,8 @@ const PersonFilterBtn = styled.div`
     cursor: pointer;
     box-sizing: border-box;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const PersonFilter = () => {

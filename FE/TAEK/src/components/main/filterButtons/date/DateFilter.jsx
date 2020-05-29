@@ -35,6 +35,8 @@ const DateFilterBtn = styled.div`
     text-align: center;
     box-sizing: border-box;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const DateFilter = () => {
