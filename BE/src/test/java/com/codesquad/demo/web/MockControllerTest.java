@@ -69,17 +69,18 @@ public class MockControllerTest {
     public void getFiltering() {
 
         // given
-        String localUrl = "http://localhost:" + port + "/mock/filter";
-//        String realUrl = "http://15.164.35.235/api/mock/filter";
+//        String localUrl = "http://localhost:" + port + "/mock/filter";
+        String realUrl = "http://15.164.35.235/api/mock/filter";
         Long id = 1L;
         String hotelName = "Stylish Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
-        String startDate = "2020-06-07";
-        String endDate = "2020-06-08";
-        String people = "3";
-        String min = "50000";
-        String max = "200000";
+        LocalDate startDate = LocalDate.parse("2020-08-07");
+        LocalDate endDate = LocalDate.parse("2020-08-08");
+//        String endDate = "2020-06-08";
+        int people = 3;
+        Integer min = 50000;
+        Integer max = 200000;
         String zero = "0";
         String man = "10000";
         String eman = "20000";
@@ -96,7 +97,7 @@ public class MockControllerTest {
 
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
-                = restTemplate.postForEntity(localUrl, filterRequestDto, AllAccommodationResponseDto.class);
+                = restTemplate.postForEntity(realUrl, filterRequestDto, AllAccommodationResponseDto.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);

@@ -107,12 +107,12 @@ public class MockService {
 
     private List<Accommodation> filteringForReservation(FilterRequestDto filterRequestDto, Airbnb airbnb) {
 
-        LocalDate requestStart = LocalDate.parse(filterRequestDto.getStartDate());
-        LocalDate requestEnd = LocalDate.parse(filterRequestDto.getEndDate());
+        LocalDate requestStart = filterRequestDto.getStartDate();
+        LocalDate requestEnd = filterRequestDto.getEndDate();
 
-        String requestPeople = filterRequestDto.getPeople();
-        String requestMinPrice = filterRequestDto.getMin();
-        String requestMaxPrice = filterRequestDto.getMax();
+        int requestPeople = filterRequestDto.getPeople();
+        Integer requestMinPrice = filterRequestDto.getMin();
+        Integer requestMaxPrice = filterRequestDto.getMax();
 
         List<Accommodation> accommodations = new ArrayList<>();
 
@@ -142,13 +142,13 @@ public class MockService {
 
         // 예약 인원보다 수용 인원이 큰 숙박 업소 추리기
         accommodations = accommodations.stream()
-                .filter(each -> each.getAvailableGuest() >= Integer.parseInt(requestPeople))
+                .filter(each -> each.getAvailableGuest() >= requestPeople)
                 .collect(Collectors.toList());
 
         // 예약 금액 사이에 있는 숙박 업소 추리기
         if (requestMinPrice != null) {
             accommodations = accommodations.stream()
-                    .filter(each -> (each.getCurrent_price() >= Integer.parseInt(requestMinPrice) && each.getCurrent_price() <= Integer.parseInt(requestMaxPrice)))
+                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
                     .collect(Collectors.toList());
         }
 
