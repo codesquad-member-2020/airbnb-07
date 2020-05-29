@@ -1,17 +1,24 @@
 <template>
   <div>
-    <LazyLoadingTestComponent />
+    <HeaderComponent />
+    <ReservationList class="reservation-component" />
   </div>
 </template>
 
 <script>
-import LazyLoadingTestComponent from '@/components/LazyLoading/LazyLoadingTestComponent';
+import HeaderComponent from '@/components/HeaderComponent';
+import ReservationList from '@/components/Reservation/ReservationList';
 
 export default {
   components: {
-    LazyLoadingTestComponent,
+    HeaderComponent,
+    ReservationList,
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.reservation-component {
+  margin-top: 60px;
+}
+</style>

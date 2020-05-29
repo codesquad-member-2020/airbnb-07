@@ -16,17 +16,8 @@
           :trigger="trigger"
           :offset-y="10"
           :close-after-select="true"
-          @date-one-selected="
-            val => {
-              buttonDateOne = val;
-            }
-          "
-          @date-two-selected="
-            val => {
-              buttonDateTwo = val;
-              trigger = false;
-            }
-          "
+          @date-one-selected="dateOneSelected"
+          @date-two-selected="dateTwoSelected"
         />
       </div>
     </div>
@@ -35,6 +26,7 @@
 
 <script>
 import format from 'date-fns/format';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -47,6 +39,9 @@ export default {
       trigger: false,
     };
   },
+  computed: {
+    ...mapMutations(['setCheckInDate', 'setCheckOutDate']),
+  },
   methods: {
     formatDates(dateOne, dateTwo) {
       let formattedDates = '';
@@ -57,6 +52,15 @@ export default {
         formattedDates += ' - ' + format(dateTwo, this.dateFormat);
       }
       return formattedDates;
+    },
+    dateOneSelected(val) {
+      this.buttonDateOne = val;
+      this.$store.commit('setCheckInDate', val);
+    },
+    dateTwoSelected(val) {
+      this.buttonDateTwo = val;
+      this.$store.commit('setCheckOutDate', val);
+      this.trigger = false;
     },
   },
 };

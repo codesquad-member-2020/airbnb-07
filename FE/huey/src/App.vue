@@ -9,6 +9,10 @@ export default {};
 </script>
 
 <style>
+body {
+  padding: 0px 5%;
+}
+
 @font-face {
   font-family: 'Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff')

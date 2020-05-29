@@ -1,8 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { numberComma } from 'utils/util';
-import { MAIN } from 'constants/constant';
+import { numberComma, dayCounter } from 'utils/util';
+import ReservationFilterInfo from './ReservationFilterInfo';
+import ReservationChargeInfo from './ReservationChargeInfo';
+import ratingStar from 'public/images/rating-star.svg';
 
 const ReservationModalItemWrap = styled.div`
     padding: 30px 30px;
@@ -89,64 +90,19 @@ const CloseButton = styled.div`
     cursor: pointer;
 `;
 
-const ReservationModalItem = ({ handleSetOpen, ratingStar, roomData }) => {
-    const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
-    const { totalCount, adultCount, childCount, babyCount } = useSelector(({ person }) => person);
+const ReservationModalItem = ({ handleModalToggle, roomData }) => {
     const { currentPrice, hotelRating } = roomData;
-
-    const totalRoomCharge = numberComma(currentPrice * 10 * totalCount);
-    const totalCharge = totalRoomCharge;
-
-    const checkInDateInfoText = `${checkInDateInfo.year}. ${checkInDateInfo.month}. ${checkInDateInfo.day}.`
-    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${checkOutDateInfo.year}. ${checkOutDateInfo.month}. ${checkOutDateInfo.day}.`
-
-    const personInfoText = [];
-    if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
-    if (childCount) personInfoText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
-    if (babyCount) personInfoText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
 
     return (
         <>
-            <CloseButton onClick={handleSetOpen}>❌</CloseButton>
+            <CloseButton onClick={handleModalToggle}>❌</CloseButton>
             <ReservationModalItemWrap>
                 <div className='currentPrice-wrap'>
                     <span className='currentPrice'>&#8361; {numberComma(currentPrice)}</span>
                     <span>/1박</span>
                 </div>
-                <div className='rating-wrap'>
-                    <img className='rating-star-icon' src={ratingStar} alt='rating-star' />
-                    {hotelRating}
-                </div>
-                <div className='date-info-wrap'>
-                    <div>날짜</div>
-                    <div className='date-info'>{checkInDateInfoText}{checkOutDateInfoText}</div>
-                </div>
-                <div className='person-info-wrap'>
-                    <div>인원</div>
-                    <div className='person-info'>{personInfoText.join(', ')}</div>
-                </div>
-                <div className='charge-info-wrap'>
-                    <div className='charge-info-item'>
-                        <span>숙박비 (10박 x {totalCount}인)</span>
-                        <span>&#8361; {totalRoomCharge}</span>
-                    </div>
-                    <div className='charge-info-item'>
-                        <span>청소비</span>
-                        <span>&#8361; 0</span>
-                    </div>
-                    <div className='charge-info-item'>
-                        <span>서비스 수수료</span>
-                        <span>&#8361; 0</span>
-                    </div>
-                    <div className='charge-info-item'>
-                        <span>숙박세와 수수료</span>
-                        <span>&#8361; 0</span>
-                    </div>
-                    <div className='charge-info-item'>
-                        <span>합계</span>
-                        <span>&#8361; {totalCharge}</span>
-                    </div>
-                </div>
+                <ReservationFilterInfo {...{ ratingStar, hotelRating }} />
+                <ReservationChargeInfo {...{ currentPrice, numberComma, dayCounter }} />
                 <button className='reservation-btn'>예약하기</button>
                 <div className='reservation-info-text'>예약 확정 전에는 요금이 청구되지 않습니다.</div>
             </ReservationModalItemWrap>

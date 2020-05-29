@@ -3,7 +3,6 @@
     <img class="room-img" :src="`${propsData.urls[0].url}`" alt="room-image" />
     <div class="room-text-info-wrap">
       <div class="info-top">
-        <!-- <div class="location">{location}</div> -->
         <div class="location">{{ propsData.location }}</div>
         <span class="person-number"
           >최대 인원수: {{ propsData.availableGuest }}명</span
@@ -36,10 +35,11 @@
       </div>
       <div class="info-bottom">
         <div class="total-charge">
-          <!-- 총 요금: &#8361; {numberComma(currentPrice * 10)} -->
-          총 요금: &#8361; 334334
+          총 요금: &#8361; {{ propsData.currentPrice }}
         </div>
-        <button class="reserve-btn">예 약</button>
+        <button class="reserve-btn" @click="this.openReservationModal">
+          예 약
+        </button>
       </div>
     </div>
   </div>
@@ -48,6 +48,12 @@
 <script>
 export default {
   props: ['propsData'],
+  computed: {},
+  methods: {
+    openReservationModal() {
+      this.$store.commit('setOpenModal', this.propsData);
+    },
+  },
 };
 </script>
 

@@ -3,6 +3,7 @@ import { MAIN } from 'constants/constant';
 
 const initialState = {
     isSave: false,
+    isChange: false,
     totalCount: 0,
     adultCount: 0,
     childCount: 0,
@@ -16,6 +17,7 @@ export default function personReducer(state = initialState, action) {
             return {
                 ...state,
                 isSave: true,
+                isChange: false,
             }
         case RESET_COUNT:
             return {
@@ -34,6 +36,7 @@ export default function personReducer(state = initialState, action) {
                     ..._state,
                     totalCount: state.totalCount + 1,
                     isSave: false,
+                    isChange: true,
                 }
             }
         case DECREASE_COUNT:
@@ -48,6 +51,7 @@ export default function personReducer(state = initialState, action) {
                     ..._state,
                     totalCount: state.totalCount - 1,
                     isSave: false,
+                    isChange: true,
                 }
             }
         default:

@@ -1,9 +1,7 @@
 <template>
   <div>
     <b-button v-b-modal.my-modal>
-      {{
-        personData(adultConut, childrenCount, babyCount) || '인원 / 게스트 추가'
-      }}</b-button
+      {{ this.$store.state.selectGuestInfo || '인원 / 게스트 추가' }}</b-button
     >
     <b-modal id="my-modal">
       <div class="adult-wrap wrap">
@@ -14,17 +12,17 @@
         <div class="adult-number number">
           <button
             class="number-btn"
-            name="adultConut"
-            :value="adultConut"
+            name="adultCount"
+            :value="this.$store.state.adultCount"
             @click="decreaseHandler"
           >
             -
           </button>
-          <div class="person-number">{{ adultConut }}</div>
+          <div class="person-number">{{ this.$store.state.adultCount }}</div>
           <button
             class="number-btn"
-            name="adultConut"
-            :value="adultConut"
+            name="adultCount"
+            :value="this.$store.state.adultCount"
             @click="increaseHandler"
           >
             +
@@ -40,16 +38,16 @@
           <button
             class="number-btn"
             name="childrenCount"
-            :value="childrenCount"
+            :value="this.$store.state.childrenCount"
             @click="decreaseHandler"
           >
             -
           </button>
-          <div class="person-number">{{ childrenCount }}</div>
+          <div class="person-number">{{ this.$store.state.childrenCount }}</div>
           <button
             class="number-btn"
             name="childrenCount"
-            :value="childrenCount"
+            :value="this.$store.state.childrenCount"
             @click="increaseHandler"
           >
             +
@@ -65,16 +63,16 @@
           <button
             class="number-btn"
             name="babyCount"
-            :value="babyCount"
+            :value="this.$store.state.babyCount"
             @click="decreaseHandler"
           >
             -
           </button>
-          <div class="person-number">{{ babyCount }}</div>
+          <div class="person-number">{{ this.$store.state.babyCount }}</div>
           <button
             class="number-btn"
             name="babyCount"
-            :value="babyCount"
+            :value="this.$store.state.babyCount"
             @click="increaseHandler"
           >
             +
@@ -87,60 +85,17 @@
 
 <script>
 export default {
-  data() {
-    return {
-      adultConut: 0,
-      childrenCount: 0,
-      babyCount: 0,
-    };
-  },
   methods: {
-    personData(adultConut, childrenCount, babyCount) {
-      let result = '';
-      if (adultConut + childrenCount > 0 && babyCount > 0) {
-        return `게스트 ${adultConut + childrenCount}명, 유아 ${babyCount}명`;
-      }
-      if (adultConut + childrenCount > 0) {
-        let guest = this.adultConut + this.childrenCount;
-        result += `게스트 ${guest}명`;
-        return result;
-      }
-      if (babyCount > 0) {
-        return `유아 ${babyCount}명`;
-      }
-      return '';
-    },
-
     increaseHandler(e) {
       const { name, value } = e.target;
-      if (this.adultConut + this.childrenCount + this.babyCount >= 8) return;
-      switch (name) {
-        case 'adultConut':
-          this.adultConut++;
-          break;
-        case 'childrenCount':
-          this.childrenCount++;
-          break;
-        case 'babyCount':
-          this.babyCount++;
-          break;
-      }
+      this.$store.commit('increaseEvent', name);
+      this.$store.commit('personData');
     },
 
     decreaseHandler(e) {
       const { name, value } = e.target;
-      if (value <= 0) return;
-      switch (name) {
-        case 'adultConut':
-          this.adultConut--;
-          break;
-        case 'childrenCount':
-          this.childrenCount--;
-          break;
-        case 'babyCount':
-          this.babyCount--;
-          break;
-      }
+      this.$store.commit('decreaseEvent', e.target);
+      this.$store.commit('personData');
     },
   },
 };

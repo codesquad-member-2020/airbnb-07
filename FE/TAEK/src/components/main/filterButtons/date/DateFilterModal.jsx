@@ -7,11 +7,11 @@ import DatePicker from './DatePicker';
 import DateFilterModalBtn from './DateFilterModalBtn';
 
 const Background = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 5;
 `;
 
