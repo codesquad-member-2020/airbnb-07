@@ -114,10 +114,7 @@ public class MockService {
         String requestMinPrice = filterRequestDto.getMin();
         String requestMaxPrice = filterRequestDto.getMax();
 
-        // 예약이 없는 숙박업소
-        List<Accommodation> accommodations = airbnb.getAccommodations().stream()
-                .filter(each -> each.getReservations().size() == 0)
-                .collect(Collectors.toList());
+        List<Accommodation> accommodations = new ArrayList<>();
 
         // 예약이 있는 숙박업소
         List<Accommodation> reservedAccommodations = airbnb.getAccommodations().stream()
@@ -154,6 +151,11 @@ public class MockService {
                     .filter(each -> (each.getCurrent_price() >= Integer.parseInt(requestMinPrice) && each.getCurrent_price() <= Integer.parseInt(requestMaxPrice)))
                     .collect(Collectors.toList());
         }
+
+        // 예약이 없는 숙박업소
+        accommodations.addAll(airbnb.getAccommodations().stream()
+                .filter(each -> each.getReservations().size() == 0)
+                .collect(Collectors.toList()));
 
         return accommodations;
     }

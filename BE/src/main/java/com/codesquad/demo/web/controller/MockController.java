@@ -48,6 +48,7 @@ public class MockController {
                                                @PathVariable Long reservationId,
                                                @PathVariable String userEmail,
                                                HttpServletRequest request) {
+
         return mockService.delete(accommodationId, reservationId, userEmail, request);
     }
 }
