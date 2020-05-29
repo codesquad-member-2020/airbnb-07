@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import RoomList from './RoomList';
-import Loading from '@/components/common/Loading';
+import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRooms } from 'store/modules/rooms/roomsAction';
+import { getRoomsData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
+import { MAIN } from 'constants/constant';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
@@ -19,14 +20,15 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
+    const charge = useSelector(({ charge }) => charge);
+    const { loading, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
     const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRooms());
+        dispatch(getRoomsData(charge.min, charge.max));
     }, [dispatch]);
 
-    if (loading) return <Loading />;
+    if (loading) return <LoadingSpiner />;
 
     return (
         <RoomsWrap>
@@ -36,8 +38,8 @@ const Rooms = () => {
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
-                    <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
-                    <RoomList allData={roomsData.allData} />
+                    <RoomsTitle>{filterRoomsData.allData.length ? `적절한 ${filterRoomsData.allData.length}개의 숙소` : `${MAIN.ROOMS.NOT_RESULT}`} </RoomsTitle>
+                    <RoomList allData={filterRoomsData.allData} />
                     <PageTop />
                 </>}
         </RoomsWrap>

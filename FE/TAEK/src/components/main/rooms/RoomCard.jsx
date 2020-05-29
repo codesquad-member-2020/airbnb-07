@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
-import { MAIN } from 'constants/constant';
+import { COMMON } from 'constants/constant';
 import { modalToggle, selectedRoom } from 'store/modules/reservation/reservationAction';
 
 const RoomCardWrap = styled.div`
@@ -93,7 +93,7 @@ const RoomCard = ({ roomData }) => {
     const [titleImgUrl] = urls;
 
     const handleReservationClick = () => {
-        if (!date.isSave || !person.isSave) return alert(MAIN.RESERVATION.NOT_ENOUGH_CONDITION_MESSAGE);
+        if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
         dispatch(modalToggle());
         dispatch(selectedRoom(roomData));
     }
