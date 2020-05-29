@@ -1,6 +1,5 @@
 package com.codesquad.demo.domain;
 
-import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
 import com.codesquad.demo.web.dto.response.EachReservationInfoResponseDto;
 import lombok.*;
@@ -8,7 +7,6 @@ import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -22,14 +20,15 @@ public class User {
     private Long id;
 
     private String email;
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<UserReservation> reservations = new ArrayList<>();
 
-    public void addReservation(Reservation reservation) {
+    public UserReservation addReservation(UserReservation reservation) {
         this.reservations.add(reservation);
+        return this.reservations.get(this.reservations.size()-1);
     }
 
     public void deleteReservation(Long reservationId) {
-        Reservation willDelete = this.reservations.stream()
+        UserReservation willDelete = this.reservations.stream()
                 .filter(reservation -> reservation.getId().equals(reservationId))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("해당 reservation이 없습니다. reservationId = " + reservationId));
@@ -43,9 +42,9 @@ public class User {
                 = new ArrayList<>();
 
         try {
-            for (Reservation each : this.getReservations()) {
+            for (UserReservation each : this.getReservations()) {
                 for (Accommodation accommodation : accommodations) {
-                    for (Reservation each2 : accommodation.getReservations()) {
+                    for (AccommodationReservation each2 : accommodation.getReservations()) {
                         if (each2.getId().equals(each.getId())) {
 
                             eachReservationInfoResponseDtos.add(EachReservationInfoResponseDto.builder()

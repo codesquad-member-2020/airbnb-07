@@ -3,7 +3,6 @@ package com.codesquad.demo.domain;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +28,16 @@ public class Accommodation {
     private Integer previous_price;
     private Integer discount_price;
     private String hotelRating;
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<AccommodationReservation> reservations = new ArrayList<>();
     private List<Picture> pictures = new ArrayList<>();
 
-    public void addReservationDate(Reservation reservation) {
+    public void addReservationDate(AccommodationReservation reservation) {
         this.getReservations().add(reservation);
     }
 
     public void deleteReservation(Long reservationId) {
 
-        Reservation willDelete = this.reservations.stream()
+        AccommodationReservation willDelete = this.reservations.stream()
                 .filter(reservation -> reservation.getId().equals(reservationId))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("해당 reservation이 없습니다. reservationId = " + reservationId));

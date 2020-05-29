@@ -17,14 +17,22 @@ create table user (
     airbnb_key int
 );
 
-create table reservation (
+create table accommodation_reservation (
     id int not null auto_increment primary key,
     start_date date,
     end_date date,
     people int,
     total_price int,
     accommodation int references accommodation(id),
-    accommodation_key int,
+    accommodation_key int
+);
+
+create table user_reservation (
+    id int not null auto_increment primary key,
+    start_date date,
+    end_date date,
+    people int,
+    total_price int,
     user int references user (id),
     user_key int
 );

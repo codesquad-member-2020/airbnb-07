@@ -128,7 +128,7 @@ public class MockService {
         for (Accommodation accommodation : reservedAccommodations) {
 
             boolean ok = true;
-            for (Reservation each : accommodation.getReservations()) {
+            for (AccommodationReservation each : accommodation.getReservations()) {
                 if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
                         || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
                     ok = false;
@@ -239,14 +239,11 @@ public class MockService {
 //            String userEmail = (String) request.getAttribute("userEmail");
             Long id = 1L;
 
-            LocalDate startDate = reservationRequestDto.getStartDate();
-            LocalDate endDate = reservationRequestDto.getEndDate();
-            int people = reservationRequestDto.getPeople();
-            int totalPrice = reservationRequestDto.getTotalPrice();
-
             Airbnb airbnb = findAirbnbById(id);
 
-            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate, people, totalPrice);
+            airbnb.reservationSaveToUser(userEmail, reservationRequestDto);
+
+            airbnb.reservationSaveToAccommodation(accommodationId, reservationRequestDto);
 
             airbnbRepository.save(airbnb);
 
@@ -267,12 +264,13 @@ public class MockService {
         }
     }
 
+
     public DeleteReservationResponseDto delete(Long accommodationId, Long reservationId, String userEmail, HttpServletRequest request) {
 
         try {
 //        String userEmail = request.getAttribute("userEmail");
 
-            String successMessage = "예약 삭제에 성공했습니다.";
+            String successMessage = "예약 취소에 성공했습니다.";
 
             Airbnb airbnb = findAirbnbById(1L);
 
@@ -286,7 +284,7 @@ public class MockService {
                     .build();
 
         } catch (Exception e) {
-            String failMessage = "예약에 실패했습니다.";
+            String failMessage = "예약 취소에 실패했습니다.";
 
             e.printStackTrace();
 

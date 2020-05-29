@@ -1,10 +1,11 @@
 package com.codesquad.demo.domain;
 
+import com.codesquad.demo.web.dto.request.ReservationRequestDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import javax.annotation.Generated;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Getter
@@ -21,10 +22,14 @@ public class Airbnb {
     List<Accommodation> accommodations;
     List<User> users;
 
-    public void reservationSave(String userEmail, Long accommodationId,
-                                LocalDate startDate, LocalDate endDate, int people, int totalPrice) {
+    public void reservationSaveToUser(String userEmail, ReservationRequestDto reservationRequestDto) {
 
-        Reservation reservation = Reservation.builder()
+        LocalDate startDate = reservationRequestDto.getStartDate();
+        LocalDate endDate = reservationRequestDto.getEndDate();
+        int people = reservationRequestDto.getPeople();
+        int totalPrice = reservationRequestDto.getTotalPrice();
+
+        UserReservation reservation = UserReservation.builder()
                 .startDate(startDate)
                 .endDate(endDate)
                 .people(people)
@@ -36,13 +41,6 @@ public class Airbnb {
                 each.addReservation(reservation);
             }
         }
-
-        for (Accommodation each : accommodations) {
-            if (each.getId().equals(accommodationId)) {
-                each.addReservationDate(reservation);
-            }
-        }
-
     }
 
     public void deleteReservation(Long accommodationId, Long reservationId, String userEmail) {
@@ -68,5 +66,26 @@ public class Airbnb {
                 .filter(each -> each.getEmail().equals(userEmail))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("해당 user가 없습니다. userEmail = "+ userEmail));
+    }
+
+    public void reservationSaveToAccommodation(Long accommodationId, ReservationRequestDto reservationRequestDto) {
+
+        LocalDate startDate = reservationRequestDto.getStartDate();
+        LocalDate endDate = reservationRequestDto.getEndDate();
+        int people = reservationRequestDto.getPeople();
+        int totalPrice = reservationRequestDto.getTotalPrice();
+
+        AccommodationReservation reservation = AccommodationReservation.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .people(people)
+                .totalPrice(totalPrice)
+                .build();
+
+        for (Accommodation each : accommodations) {
+            if (each.getId().equals(accommodationId)) {
+                each.addReservationDate(reservation);
+            }
+        }
     }
 }
