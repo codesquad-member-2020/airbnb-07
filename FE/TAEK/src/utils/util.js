@@ -12,3 +12,13 @@ export const dayCounter = (checkIn, checkOut) => {
     const result = Math.round(_checkOut.getTime() - _checkIn.getTime()) / day;
     return result.toFixed(0);
 }
+
+export const getAverageCharge = prices => {
+    let total = 0;
+    const totalPrice = prices.reduce((acc, cur) => {
+        total += cur.total;
+        acc += (cur.total * cur.price);
+        return acc;
+    }, 0);
+    return Math.floor(totalPrice / total);
+}

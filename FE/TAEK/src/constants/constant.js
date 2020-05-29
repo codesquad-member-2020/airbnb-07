@@ -36,6 +36,11 @@ const MAIN = {
     }
 }
 
+const COMMON = {
+    LOADING: '잠시 기다려 주세요.',
+}
+
 export {
-    MAIN
+    MAIN,
+    COMMON
 }
