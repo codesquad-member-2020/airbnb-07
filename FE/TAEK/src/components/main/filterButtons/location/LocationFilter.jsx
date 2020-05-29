@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 
 const LocationFilterWrap = styled.div`
@@ -17,7 +17,6 @@ const HighlightBorder = styled.div`
     border-radius: 15px;
     pointer-events: none;
     box-sizing: border-box;
-    z-index: 10;
 `;
 
 const LocationFilterBtn = styled.div`
@@ -38,6 +37,7 @@ const LocationFilterBtn = styled.div`
         font-family: 'Noto Sans KR', sans-serif;
         border: none;
         outline: none;
+        background-color: #fff;
     }
 `;
 

@@ -19,7 +19,6 @@ const HighlightBorder = styled.div`
     border-radius: 15px;
     pointer-events: none;
     box-sizing: border-box;
-    z-index: 10;
 `;
 
 const DateFilterBtn = styled.div`
