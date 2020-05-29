@@ -4,6 +4,7 @@ import { MAIN } from 'constants/constant';
 const GET_ROOMS = 'rooms/GET_ROOMS';
 const GET_ROOMS_SUCCESS = 'rooms/GET_ROOMS_SUCCESS';
 const GET_ROOMS_ERROR = 'rooms/GET_ROOMS_ERROR';
+const APPLY_CHARGE_FILTER = 'rooms/APPLY_CHARGE_FILTER';
 
 const getRooms = () => async dispatch => {
     dispatch({ type: GET_ROOMS });
@@ -17,9 +18,13 @@ const getRooms = () => async dispatch => {
     }
 };
 
+const applyChargeFilter = (min, max) => ({ type: APPLY_CHARGE_FILTER, payload: { min, max } });
+
 export {
     GET_ROOMS,
     GET_ROOMS_SUCCESS,
     GET_ROOMS_ERROR,
+    APPLY_CHARGE_FILTER,
     getRooms,
+    applyChargeFilter,
 }

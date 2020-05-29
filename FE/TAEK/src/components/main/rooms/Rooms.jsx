@@ -19,7 +19,7 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
+    const { loading, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
     const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
@@ -36,8 +36,8 @@ const Rooms = () => {
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
-                    <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
-                    <RoomList allData={roomsData.allData} />
+                    <RoomsTitle>{filterRoomsData.allData.length}개 이상의 숙소</RoomsTitle>
+                    <RoomList allData={filterRoomsData.allData} />
                     <PageTop />
                 </>}
         </RoomsWrap>
