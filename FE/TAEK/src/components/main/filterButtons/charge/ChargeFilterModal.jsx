@@ -110,9 +110,6 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
     const { min, max, isChange } = useSelector(({ charge }) => charge);
     const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
 
-    let prices;
-    if (roomsData) prices = roomsData.prices;
-
     const handleChargeInfoReset = () => dispatch(resetCharge());
     const handleChargeInfoSave = () => {
         if (isChange) dispatch(saveCharge());
@@ -129,8 +126,8 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
                     {(loading || error) ?
                         <span>{COMMON.LOADING}</span> :
                         <>
-                            <AverageTitle>평균 1박 요금은 &#8361; {numberComma(getAverageCharge(prices))} 입니다.</AverageTitle>
-                            <ChargePicker {...{ prices }} />
+                            <AverageTitle>평균 1박 요금은 &#8361; {numberComma(getAverageCharge(roomsData.prices))} 입니다.</AverageTitle>
+                            <ChargePicker prices={roomsData.prices} />
                             <ChargeRangeText>
                                 <div className='charge-text'>
                                     <div className='charge-desc'>최저 요금</div>
