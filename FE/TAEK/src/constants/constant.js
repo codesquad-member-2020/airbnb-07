@@ -33,12 +33,12 @@ const MAIN = {
         CLEAN_UP_COST: 15000,
         SERVICE_COST: 2000,
         TAX_RATE: 0.05,
-        NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
     }
 }
 
 const COMMON = {
     LOADING: '잠시 기다려 주세요.',
+    NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
 }
 
 export {
