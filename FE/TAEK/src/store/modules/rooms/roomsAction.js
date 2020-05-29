@@ -13,7 +13,7 @@ const getRooms = (min, max) => async dispatch => {
         if (response.status !== 200) throw (`${response.status}Error! ${MAIN.ROOMS.GET_ROOMS_ERROR}`);
         const data = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: data });
-        dispatch({ type: APPLY_CHARGE_FILTER, payload: { min, max } });
+        dispatch(applyChargeFilter(min, max));
     } catch (e) {
         dispatch({ type: GET_ROOMS_ERROR, payload: e });
     }
