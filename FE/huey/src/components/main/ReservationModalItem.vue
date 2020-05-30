@@ -79,7 +79,8 @@ export default {
 
   methods: {
     onReservation() {
-      var result = confirm(
+      this.$store.dispatch('SET_RESERVATION');
+      let result = confirm(
         '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
       );
       if (result) {
