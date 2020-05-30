@@ -56,14 +56,14 @@ const ReservationListWrap = styled.div`
             }
         }
         .reservation-cancel-btn {
-            width: 60%;
+            width: 50%;
             height: 35px;
             color: #fff;
             border: none;
             outline: none;
-            background-color: #ff385c;
+            background-color: ${props => props.theme.brandColor};
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             font-family: 'Noto Sans KR', sans-serif;
             box-shadow: ${props => props.theme.boxShadow};

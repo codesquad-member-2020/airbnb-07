@@ -23,7 +23,7 @@ const ReservationCard = ({ reservationInfo, index }) => {
             <td>{reservationsInfo.people}명</td>
             <td>{numberComma(reservationsInfo.totalPrice)}원</td>
             <td className="cancel-btn-container">
-                <button className="reservation-cancel-btn">취소</button>
+                <button className="reservation-cancel-btn">취 소</button>
             </td>
         </tr>
     )
