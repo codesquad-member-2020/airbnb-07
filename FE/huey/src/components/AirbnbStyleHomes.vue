@@ -11,7 +11,7 @@
       </div>
     </div> -->
     <div
-      class="flex w-full p-6 items-center border-t border-b border-grey-light filter-container"
+      class="flex w-full p-6 items-center border-b border-grey-light filter-container"
     >
       <div class="flex items-center ml-auto">
         <span class="mr-2">Show Map</span>
@@ -174,6 +174,7 @@ export default {
     z-index: 10;
   }
   .filter-container {
+    margin-top: 80px;
     top: 80px;
     background: white;
     z-index: 10;
