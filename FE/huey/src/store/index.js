@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { initMainRedner } from '@/api/reservation';
+import { initMainRedner, reservationInfo } from '@/api/reservation';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     initRenderRooms: [],
+    reservationList: [],
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
@@ -44,6 +45,9 @@ export default new Vuex.Store({
   mutations: {
     setInitRenderData(state, renderData) {
       state.initRenderRooms = renderData;
+    },
+    setReservationInfo(state, reservationData) {
+      state.reservationList = reservationData;
     },
     setOpenModal(state, payload) {
       state.isOpenModal = !state.isOpenModal;
@@ -123,6 +127,11 @@ export default new Vuex.Store({
     async INIT_RENDER({ commit }) {
       const { data } = await initMainRedner();
       commit('setInitRenderData', data);
+    },
+
+    async RESERVATION_INFO({ commit }) {
+      const { data } = await reservationInfo();
+      commit('setReservationInfo', data);
     },
   },
 });
