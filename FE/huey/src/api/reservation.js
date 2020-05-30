@@ -6,7 +6,11 @@ function fetchPosts() {
 }
 
 function initMainRedner() {
-  return instance.get('mock/all');
+  return instance.get('mock/init');
 }
 
-export { fetchPosts, initMainRedner };
+function reservationInfo() {
+  return instance.get('mock/reservationInfo/guswns1659@gmail.com');
+}
+
+export { fetchPosts, initMainRedner, reservationInfo };
