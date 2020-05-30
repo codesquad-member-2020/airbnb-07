@@ -62,7 +62,7 @@ export default {
 }
 
 .room-list-wrap {
-  margin-top: 40px;
+  margin-top: 115px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 35px;
