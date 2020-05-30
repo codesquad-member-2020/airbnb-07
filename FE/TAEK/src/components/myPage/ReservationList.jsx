@@ -38,7 +38,7 @@ const ReservationListWrap = styled.div`
         width: 300px;
         padding: 20px;
             img {
-                width: 280px;
+                width: 100%;
                 height: auto;
                 border-radius: 5px;
                 box-shadow: ${props => props.theme.boxShadow};
@@ -51,12 +51,12 @@ const ReservationListWrap = styled.div`
             display: flex;
             flex-direction: column;
             .date-arrow {
-                margin: 15px 0;
+                margin: 12.5px 0;
                 transform: rotate(90deg);
             }
         }
         .reservation-cancel-btn {
-            width: 50%;
+            width: 45%;
             height: 35px;
             color: #fff;
             border: none;
