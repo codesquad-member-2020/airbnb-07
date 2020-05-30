@@ -1,13 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { MAIN } from 'constants/constant';
+import { formatDate } from 'utils/util';
 
 const ReservationFilterInfo = ({ ratingStar, hotelRating }) => {
     const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
     const { adultCount, childCount, babyCount } = useSelector(({ person }) => person);
 
-    const checkInDateInfoText = `${checkInDateInfo.year}. ${checkInDateInfo.month}. ${checkInDateInfo.day}.`;
-    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${checkOutDateInfo.year}. ${checkOutDateInfo.month}. ${checkOutDateInfo.day}.`;
+    const checkInDateInfoText = `${formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '. ')}.`;
+    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '. ')}.`;
 
     const personInfoText = [];
     if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
