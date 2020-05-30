@@ -22,3 +22,9 @@ export const getAverageCharge = prices => {
     }, 0);
     return Math.floor(totalPrice / total);
 }
+
+export const formatDate = (year, month, day, gap) => {
+    if ((month + '').length < 2) month = '0' + month;
+    if ((day + '').length < 2) day = '0' + day;
+    return [year, month, day].join(gap);
+}

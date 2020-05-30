@@ -1,5 +1,6 @@
 const URL = {
-    ROOMS_ALL: process.env.ROOMS_ALL_URL,
+    ROOMS_INIT: process.env.ROOMS_INIT_URL,
+    ROOMS_FILTER: process.env.ROOMS_FILTER_URL,
 }
 
 export default URL;
