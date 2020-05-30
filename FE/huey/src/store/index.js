@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { initMainRedner, reservationInfo } from '@/api/reservation';
+import {
+  initMainRedner,
+  reservationInfo,
+  setReservation,
+} from '@/api/reservation';
 
 Vue.use(Vuex);
 
@@ -8,6 +12,8 @@ export default new Vuex.Store({
   state: {
     initRenderRooms: [],
     reservationList: [],
+    reservationMessage: '',
+    clickedAccommodationid: 0,
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
@@ -49,10 +55,16 @@ export default new Vuex.Store({
     setReservationInfo(state, reservationData) {
       state.reservationList = reservationData;
     },
+    setReservationMessage(state, resReservationMessage) {
+      state.reservationMessage = resReservationMessage;
+    },
     setOpenModal(state, payload) {
       state.isOpenModal = !state.isOpenModal;
       if (payload === 'undefined') return;
       state.payloadDate = payload;
+    },
+    setAccommodationId(state, accommodationid) {
+      state.clickedAccommodationid = accommodationid;
     },
     setCheckInDate(state, value) {
       state.checkinDate = value;
@@ -132,6 +144,20 @@ export default new Vuex.Store({
     async RESERVATION_INFO({ commit }) {
       const { data } = await reservationInfo();
       commit('setReservationInfo', data);
+    },
+
+    async SET_RESERVATION({ state, getters, commit }) {
+      const setData = {
+        startDate: state.checkinDate,
+        endDate: state.checkoutDate,
+        people: state.guestNumber,
+        totalPrice: getters.sumPrice,
+      };
+      const { data } = await setReservation(
+        state.clickedAccommodationid,
+        setData,
+      );
+      commit('setReservationMessage', data);
     },
   },
 });
