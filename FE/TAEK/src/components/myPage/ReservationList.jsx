@@ -51,7 +51,7 @@ const ReservationListWrap = styled.div`
             display: flex;
             flex-direction: column;
             .date-arrow {
-                margin: 5px 0;
+                margin: 15px 0;
                 transform: rotate(90deg);
             }
         }
