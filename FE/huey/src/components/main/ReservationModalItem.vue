@@ -24,7 +24,6 @@
     <div class="person-info-wrap">
       <div class="person-title">인원</div>
       <div class="person-info">
-        <!-- 총 인원수 : {{ this.$store.state.guestNumber }}명 -->
         <PersonFilterButtonComponent />
       </div>
     </div>
@@ -86,7 +85,9 @@ export default {
       if (result) {
         this.$store.commit('setOpenModal');
         this.$store.commit('initState');
-        this.$router.push('/reservation');
+        setTimeout(() => {
+          this.$router.push('/reservation');
+        }, 1000);
       } else {
         this.$store.commit('setOpenModal');
       }
