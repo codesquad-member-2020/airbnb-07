@@ -24,7 +24,6 @@
     <div class="person-info-wrap">
       <div class="person-title">인원</div>
       <div class="person-info">
-        <!-- 총 인원수 : {{ this.$store.state.guestNumber }}명 -->
         <PersonFilterButtonComponent />
       </div>
     </div>
@@ -79,13 +78,16 @@ export default {
 
   methods: {
     onReservation() {
-      var result = confirm(
+      this.$store.dispatch('SET_RESERVATION');
+      let result = confirm(
         '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
       );
       if (result) {
         this.$store.commit('setOpenModal');
         this.$store.commit('initState');
-        this.$router.push('/reservation');
+        setTimeout(() => {
+          this.$router.push('/reservation');
+        }, 1000);
       } else {
         this.$store.commit('setOpenModal');
       }

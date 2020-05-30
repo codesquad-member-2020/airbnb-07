@@ -37,7 +37,11 @@
         <div class="total-charge">
           총 요금: &#8361; {{ propsData.currentPrice }}
         </div>
-        <button class="reserve-btn" @click="this.openReservationModal">
+        <button
+          class="reserve-btn"
+          :data-accommodationId="propsData.id"
+          @click="this.openReservationModal"
+        >
           예 약
         </button>
       </div>
@@ -46,12 +50,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: ['propsData'],
-  computed: {},
+  computed: {
+    ...mapState(['clickedAccommodationid']),
+  },
   methods: {
-    openReservationModal() {
+    openReservationModal({
+      target: {
+        dataset: { accommodationid },
+      },
+    }) {
       this.$store.commit('setOpenModal', this.propsData);
+      this.$store.commit('setAccommodationId', accommodationid);
     },
   },
 };

@@ -30,6 +30,14 @@
 export default {
   methods: {
     searchRooms() {
+      // 아래부분 데이터 하드코딩되어있음 filter API완성되면 수정할 예정
+      this.$store.dispatch('FILTERED_ROOMS', {
+        startDate: '2020-05-28',
+        endDate: '2020-05-30',
+        people: 5,
+        min: 100000,
+        max: 200000,
+      });
       this.$router.push('/rooms');
     },
   },
