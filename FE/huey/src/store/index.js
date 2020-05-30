@@ -5,6 +5,7 @@ import {
   reservationInfo,
   setReservation,
   removeReservation,
+  filterRooms,
 } from '@/api/reservation';
 
 Vue.use(Vuex);
@@ -172,6 +173,11 @@ export default new Vuex.Store({
         payload.reservationId,
       );
       commit('setReservationRemoveMessage', data);
+    },
+
+    async FILTERED_ROOMS({ commit }, payload) {
+      const { data } = await filterRooms(payload);
+      console.log(data);
     },
   },
 });
