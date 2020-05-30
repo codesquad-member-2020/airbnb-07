@@ -4,6 +4,7 @@ import {
   initMainRedner,
   reservationInfo,
   setReservation,
+  removeReservation,
 } from '@/api/reservation';
 
 Vue.use(Vuex);
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   state: {
     initRenderRooms: [],
     reservationList: [],
-    reservationMessage: '',
+    reservationSuccessMessage: '',
+    reservationRemoveMeaaage: '',
     clickedAccommodationid: 0,
     isOpenModal: false,
     payloadDate: [],
@@ -56,7 +58,11 @@ export default new Vuex.Store({
       state.reservationList = reservationData;
     },
     setReservationMessage(state, resReservationMessage) {
-      state.reservationMessage = resReservationMessage;
+      state.reservationSuccessMessage = resReservationMessage;
+    },
+
+    setReservationRemoveMessage(state, removeMessage) {
+      state.reservationRemoveMeaaage = removeMessage;
     },
     setOpenModal(state, payload) {
       state.isOpenModal = !state.isOpenModal;
@@ -158,6 +164,14 @@ export default new Vuex.Store({
         setData,
       );
       commit('setReservationMessage', data);
+    },
+
+    async REMOVE_RESERVATION({ commit }, payload) {
+      const { data } = await removeReservation(
+        payload.accommodationId,
+        payload.reservationId,
+      );
+      commit('setReservationRemoveMessage', data);
     },
   },
 });
