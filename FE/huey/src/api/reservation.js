@@ -13,8 +13,20 @@ function setReservation(accommodationId, setData) {
   return instance.post(`mock/${accommodationId}/guswns1659@gmail.com`, setData);
 }
 
+function removeReservation(accommodationId, reservationId) {
+  return instance.delete(
+    `mock/${accommodationId}/${reservationId}/guswns1659@gmail.com`,
+  );
+}
+
 function reservationInfo() {
   return instance.get('mock/reservationInfo/guswns1659@gmail.com');
 }
 
-export { fetchPosts, initMainRedner, setReservation, reservationInfo };
+export {
+  fetchPosts,
+  initMainRedner,
+  setReservation,
+  removeReservation,
+  reservationInfo,
+};
