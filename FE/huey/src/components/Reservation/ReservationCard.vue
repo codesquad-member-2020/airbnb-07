@@ -8,11 +8,11 @@
       <div class="hotel-name-title">{{ propsData.hotelName }}</div>
     </td>
     <td>
-      {{ propsData.reservations[0].startDate }} -
-      {{ propsData.reservations[0].endDate }}
+      {{ propsData.reservation.startDate }} -
+      {{ propsData.reservation.endDate }}
     </td>
-    <td>{{ propsData.reservations[0].people }}</td>
-    <td>{{ propsData.reservations[0].totalPrice }}원</td>
+    <td>{{ propsData.reservation.people }}</td>
+    <td>{{ propsData.reservation.totalPrice }}원</td>
     <td class="cancel-btn-container">
       <button class="reservation-cancel-btn">예약취소</button>
     </td>
