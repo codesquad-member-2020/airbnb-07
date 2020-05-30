@@ -4,7 +4,7 @@ import RoomList from './RoomList';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRoomsInitData } from 'store/modules/rooms/roomsAction';
+import { getRoomsInitData, getRoomsFilterData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
 import { MAIN } from 'constants/constant';
 import { numberComma } from 'utils/util';
@@ -21,12 +21,12 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const charge = useSelector(({ charge }) => charge);
-    const { loading, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
+    const { min, max } = useSelector(({ charge }) => charge);
+    const { loading, filterData, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
     const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRoomsInitData({ min: charge.min, max: charge.max }));
+        filterData ? dispatch(getRoomsFilterData({ filterData, min, max })) : dispatch(getRoomsInitData({ min, max }));
     }, [dispatch]);
 
     if (loading) return <LoadingSpiner />;

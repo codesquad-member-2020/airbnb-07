@@ -1,9 +1,10 @@
-import { GET_ROOMS_INIT_DATA, GET_ROOMS_FILTER_DATA, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR, APPLY_CHARGE_FILTER } from './roomsAction';
+import { GET_ROOMS_INIT_DATA, GET_ROOMS_FILTER_DATA, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR, SAVE_FILTER_DATA, APPLY_CHARGE_FILTER } from './roomsAction';
 
 const initialState = {
     loading: true,
     roomsData: null,
     filterRoomsData: null,
+    filterData: null,
     error: null,
 };
 
@@ -38,6 +39,11 @@ export default function roomsReducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 error: action.payload,
+            }
+        case SAVE_FILTER_DATA:
+            return {
+                ...state,
+                filterData: action.payload,
             }
         case APPLY_CHARGE_FILTER:
             {

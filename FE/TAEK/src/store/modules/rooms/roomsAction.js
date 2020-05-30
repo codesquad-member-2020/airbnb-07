@@ -5,6 +5,7 @@ const GET_ROOMS_INIT_DATA = 'rooms/GET_ROOMS';
 const GET_ROOMS_FILTER_DATA = 'rooms/GET_ROOMS_FILTER_DATA';
 const GET_ROOMS_SUCCESS = 'rooms/GET_ROOMS_SUCCESS';
 const GET_ROOMS_ERROR = 'rooms/GET_ROOMS_ERROR';
+const SAVE_FILTER_DATA = 'rooms/SAVE_FILTER_DATA';
 const APPLY_CHARGE_FILTER = 'rooms/APPLY_CHARGE_FILTER';
 
 const getRoomsInitData = data => async dispatch => {
@@ -34,11 +35,13 @@ const getRoomsFilterData = data => async dispatch => {
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
+        dispatch(saveFilterData(data.filterData));
     } catch (e) {
         dispatch({ type: GET_ROOMS_ERROR, payload: e });
     }
 }
 
+const saveFilterData = filterData => ({ type: SAVE_FILTER_DATA, payload: filterData });
 const applyChargeFilter = (min, max) => ({ type: APPLY_CHARGE_FILTER, payload: { min, max } });
 
 export {
@@ -46,8 +49,10 @@ export {
     GET_ROOMS_FILTER_DATA,
     GET_ROOMS_SUCCESS,
     GET_ROOMS_ERROR,
+    SAVE_FILTER_DATA,
     APPLY_CHARGE_FILTER,
     getRoomsInitData,
     getRoomsFilterData,
+    saveFilterData,
     applyChargeFilter,
 }
