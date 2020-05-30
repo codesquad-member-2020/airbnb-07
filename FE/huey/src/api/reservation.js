@@ -23,10 +23,15 @@ function reservationInfo() {
   return instance.get('mock/reservationInfo/guswns1659@gmail.com');
 }
 
+function filterRooms(filterData) {
+  return instance.post('mock/filter', filterData);
+}
+
 export {
   fetchPosts,
   initMainRedner,
   setReservation,
   removeReservation,
   reservationInfo,
+  filterRooms,
 };
