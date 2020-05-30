@@ -88,12 +88,20 @@ export default {
 
 <style lang="scss" scoped>
 .header-container {
+  position: fixed;
+  top: 0;
   height: 80px;
   display: flex;
+  background-color: #fff;
   justify-content: space-around;
+  width: 90%;
   font-size: 13px;
   align-items: center;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  transition: All 0.2s ease;
+  -webkit-transition: All 0.2s ease;
+  -moz-transition: All 0.2s ease;
+  -o-transition: All 0.2s ease;
 }
 
 .header-search-btn {
