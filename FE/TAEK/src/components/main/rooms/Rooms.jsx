@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRoomsData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
 import { MAIN } from 'constants/constant';
+import { numberComma } from 'utils/util';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
@@ -38,7 +39,11 @@ const Rooms = () => {
                 </> :
                 <>
                     {isOpen && <ReservationModal {...{ roomData }} />}
-                    <RoomsTitle>{filterRoomsData.allData.length ? `적절한 ${filterRoomsData.allData.length}개의 숙소` : `${MAIN.ROOMS.NOT_RESULT}`} </RoomsTitle>
+                    <RoomsTitle>
+                        {filterRoomsData.allData.length ?
+                            `검색 결과 약 ${numberComma(filterRoomsData.allData.length)}개` :
+                            `${MAIN.ROOMS.NOT_RESULT}`}
+                    </RoomsTitle>
                     <RoomList allData={filterRoomsData.allData} />
                     <PageTop />
                 </>}
