@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import ReservationModalItem from './ReservationModalItem';
+import ReservationModalMap from './ReservationModalMap';
 import { modalToggle } from 'store/modules/reservation/reservationAction';
 
 const Background = styled.div`
@@ -18,21 +19,25 @@ const Background = styled.div`
 const ReservationModalWrap = styled.div`
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(.5);
+    left: 25%;
+    transform: translateY(-50%) scale(.5);
     width: 450px;
     height: 650px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: ${props => props.theme.boxShadow};
     z-index: 10;
-    animation-name: beservationModal;
+    animation-name: reservationModal;
     animation-duration: 0.2s;
     animation-timing-function: cubic-bezier(.17,.67,.62,1.64);
     animation-fill-mode: both;
-    @keyframes beservationModal{
-        to { transform: translate(-50%, -50%) scale(1); }
+    @keyframes reservationModal{
+        to { transform: translateY(-50%) scale(1); }
     }
+`;
+
+const ReservationModalMapContainer = styled.div`
+    position: relative;
 `;
 
 const ReservationModal = ({ roomData }) => {
@@ -46,6 +51,9 @@ const ReservationModal = ({ roomData }) => {
                 <Background onClick={handleModalToggle} />
                 <ReservationModalWrap>
                     <ReservationModalItem {...{ handleModalToggle, roomData }} />
+                    <ReservationModalMapContainer>
+                        <ReservationModalMap {...{ roomData }} />
+                    </ReservationModalMapContainer>
                 </ReservationModalWrap>
             </ModalPortal>
         </>
