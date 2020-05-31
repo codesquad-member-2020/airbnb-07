@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, memo } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ReservationCard from './ReservationCard';
+import LoadingSpiner from '@/components/common/LoadingSpiner';
+import PageTop from '@/components/common/PageTop';
+import { getReservationInfoData } from 'store/modules/reservation/reservationAction';
 
 const ReservationListWrap = styled.div`
     padding: 40px 15%;
@@ -75,16 +79,15 @@ const ReservationListWrap = styled.div`
     }
 `;
 
-import { reservationList } from 'mock/mockData.js';
-
 const ReservationList = () => {
-    const reservationCards = reservationList[0].allData.map((reservationInfo, index) => {
-        return (
-            <ReservationCard
-                key={reservationInfo.reservations[0].reservationId}
-                {...{ reservationInfo, index }}
-            />)
-    });
+    const dispatch = useDispatch();
+    const { loading, reservationData, error } = useSelector(({ reservation }) => reservation);
+
+    useEffect(() => {
+        dispatch(getReservationInfoData());
+    }, [dispatch]);
+
+    if (loading) return <LoadingSpiner />;
 
     return (
         <ReservationListWrap>
@@ -101,11 +104,20 @@ const ReservationList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {reservationCards}
+                    {error ?
+                        <tr>{error}</tr> :
+                        reservationData.allData.reverse().map((reservationInfo, index) => {
+                            return (
+                                <ReservationCard
+                                    key={reservationInfo.reservation.id}
+                                    {...{ reservationInfo, index }}
+                                />)
+                        })}
                 </tbody>
             </table>
+            <PageTop />
         </ReservationListWrap>
     )
 }
 
-export default ReservationList
+export default memo(ReservationList)

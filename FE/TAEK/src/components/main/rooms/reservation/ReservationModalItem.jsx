@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingSpiner from '@/components/common/LoadingSpiner';
 import styled from 'styled-components';
 import { numberComma, dayCounter, formatDate } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
 import ReservationChargeInfo from './ReservationChargeInfo';
 import { MAIN } from 'constants/constant';
+import { requestReservation } from 'store/modules/reservation/reservationAction';
 
 const ReservationModalItemWrap = styled.div`
     padding: 30px 30px;
@@ -92,13 +94,15 @@ const CloseButton = styled.div`
 `;
 
 const ReservationModalItem = ({ handleModalToggle, roomData }) => {
+    const dispatch = useDispatch();
+    const [reservation, setReservation] = useState(false);
     const person = useSelector(({ person }) => person);
     const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
     const { totalCount } = person;
-    const { currentPrice, hotelRating } = roomData;
+    const { id, currentPrice, hotelRating } = roomData;
 
-    const checkInDateInfoText = `${formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '. ')}`;
-    const checkOutDateInfoText = `${formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '. ')}`;
+    const checkInDateInfoText = `${formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '-')}`;
+    const checkOutDateInfoText = `${formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '-')}`;
 
     const dayCount = dayCounter(checkInDateInfo, checkOutDateInfo);
     const totalRoomCharge = currentPrice * dayCount * totalCount;
@@ -106,6 +110,17 @@ const ReservationModalItem = ({ handleModalToggle, roomData }) => {
     const serviceCost = MAIN.RESERVATION.SERVICE_COST;
     const tax = Math.floor(totalRoomCharge * MAIN.RESERVATION.TAX_RATE);
     const totalCharge = totalRoomCharge + cleanUpCost + serviceCost + tax;
+
+    const handleReservationClick = () => {
+        setReservation(true);
+        const reservationData = {
+            startDate: checkInDateInfoText,
+            endDate: checkOutDateInfoText,
+            people: totalCount,
+            totalPrice: totalCharge
+        }
+        dispatch(requestReservation({ id, reservationData }));
+    }
 
     return (
         <>
@@ -117,7 +132,9 @@ const ReservationModalItem = ({ handleModalToggle, roomData }) => {
                 </div>
                 <ReservationFilterInfo {...{ hotelRating, checkInDateInfoText, checkOutDateInfoText, person }} />
                 <ReservationChargeInfo {...{ numberComma, dayCount, totalCount, totalRoomCharge, cleanUpCost, serviceCost, tax, totalCharge }} />
-                <button className='reservation-btn'>예약하기</button>
+                <button className='reservation-btn' onClick={handleReservationClick} disabled={reservation}>
+                    {reservation ? '예약 요청 중..' : '예약하기'}
+                </button>
                 <div className='reservation-info-text'>예약 확정 전에는 요금이 청구되지 않습니다.</div>
             </ReservationModalItemWrap>
         </>

@@ -1,4 +1,11 @@
-import { GET_ROOMS_INIT_DATA, GET_ROOMS_FILTER_DATA, GET_ROOMS_SUCCESS, GET_ROOMS_ERROR, SAVE_FILTER_DATA, APPLY_CHARGE_FILTER } from './roomsAction';
+import {
+    GET_ROOMS_INIT_DATA,
+    GET_ROOMS_FILTER_DATA,
+    GET_ROOMS_SUCCESS,
+    GET_ROOMS_ERROR,
+    SAVE_FILTER_DATA,
+    APPLY_CHARGE_FILTER
+} from './roomsAction';
 
 const initialState = {
     loading: true,

@@ -18,7 +18,7 @@ const ReservationFilterInfo = ({ hotelRating, checkInDateInfoText, checkOutDateI
             </div>
             <div className='date-info-wrap'>
                 <div>날짜</div>
-                <div className='date-info'>{checkInDateInfoText} ➜ {checkOutDateInfoText}</div>
+                <div className='date-info'>{checkInDateInfoText.replace(/-/g, '. ')}. ➜ {checkOutDateInfoText.replace(/-/g, '. ')}.</div>
             </div>
             <div className='person-info-wrap'>
                 <div>인원</div>

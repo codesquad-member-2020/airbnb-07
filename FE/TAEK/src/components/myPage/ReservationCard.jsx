@@ -2,9 +2,8 @@ import React from 'react'
 import { numberComma } from 'utils/util';
 
 const ReservationCard = ({ reservationInfo, index }) => {
-    const { hotelName, urls, reservations } = reservationInfo;
+    const { hotelName, urls, reservation } = reservationInfo;
     const [titleImgUrl] = urls;
-    const [reservationsInfo] = reservations;
 
     return (
         <tr className="reservation-card-container">
@@ -15,13 +14,13 @@ const ReservationCard = ({ reservationInfo, index }) => {
             </td>
             <td>
                 <div className='date-info'>
-                    <span>{reservationsInfo.startDate}</span>
+                    <span>{reservation.startDate}</span>
                     <span className='date-arrow' >➜</span>
-                    <span>{reservationsInfo.endDate}</span>
+                    <span>{reservation.endDate}</span>
                 </div>
             </td>
-            <td>{reservationsInfo.people}명</td>
-            <td>{numberComma(reservationsInfo.totalPrice)}원</td>
+            <td>{reservation.people}명</td>
+            <td>{numberComma(reservation.totalPrice)}원</td>
             <td className="cancel-btn-container">
                 <button className="reservation-cancel-btn">취 소</button>
             </td>
