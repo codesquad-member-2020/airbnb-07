@@ -3,7 +3,10 @@
     <LoadingSpinner />
   </div>
   <div v-else>
-    <h2 class="reservation-title">예약 정보</h2>
+    <h3 class="reservation-title">
+      <img class="res-logo" src="../../assets/res-page-logo.svg" alt="" />
+      예약 정보
+    </h3>
     <table class="table-container">
       <thead>
         <tr>
@@ -56,6 +59,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.res-logo {
+  display: inline-block;
+  width: 85px;
+}
+
 .loading-container {
   position: absolute;
   top: 50%;
