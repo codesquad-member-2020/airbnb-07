@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="73b4b07d-326e-4d0d-a590-17cb8dac3a12" name="airbnb">
+        <fileTransfer rootFolder="/home/ubuntu/airbnb-07/BE/src/main/java/com/codesquad/demo" accessType="SFTP" host="15.164.35.235" port="22" sshConfigId="0b24301e-ddb1-4c09-a9c6-32aaf346a037" sshConfig="ubuntu@15.164.35.235:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
