@@ -25,10 +25,6 @@ const MAIN = {
         MIN_CHARGE: 10000,
         MAX_CHARGE: 1000000,
     },
-    ROOMS: {
-        GET_ROOMS_ERROR: '조회에 실패했습니다. 다시 시도해주세요.',
-        NOT_RESULT: '검색 결과가 없습니다.',
-    },
     RESERVATION: {
         CLEAN_UP_COST: 15000,
         SERVICE_COST: 2000,
@@ -39,6 +35,9 @@ const MAIN = {
 const COMMON = {
     LOADING: '잠시 기다려 주세요.',
     NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
+    NOT_INPUT_CHECKOUT_MESSAGE: '체크아웃 날짜를 선택하세요.',
+    GET_DATA_ERROR: '조회에 실패했습니다. 다시 시도해주세요.',
+    NOT_RESULT: '검색 결과가 없습니다.',
 }
 
 export {

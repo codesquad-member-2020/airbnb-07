@@ -114,7 +114,7 @@ const DatePickerWrap = styled.div`
 const DatePicker = ({ dateFilterModalBtn }) => {
     const dispatch = useDispatch();
     const { checkInDate, checkOutDate } = useSelector(({ date }) => date);
-    const [focusedInput, setFocusedInput] = useState('startDate');
+    const [focusedInput, setFocusedInput] = useState(checkInDate ? 'endDate' : 'startDate');
 
     const handleDatesChange = ({ startDate, endDate }) => {
         dispatch(checkIn(startDate));

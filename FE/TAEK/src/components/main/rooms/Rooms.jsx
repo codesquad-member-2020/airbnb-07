@@ -4,9 +4,9 @@ import RoomList from './RoomList';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRoomsData } from 'store/modules/rooms/roomsAction';
+import { getRoomsInitData, getRoomsFilterData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
-import { MAIN } from 'constants/constant';
+import { COMMON } from 'constants/constant';
 import { numberComma } from 'utils/util';
 
 const RoomsWrap = styled.div`
@@ -21,12 +21,12 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const charge = useSelector(({ charge }) => charge);
-    const { loading, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
-    const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
+    const { min, max } = useSelector(({ charge }) => charge);
+    const { loading, filterData, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
+    const { isModalOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRoomsData(charge.min, charge.max));
+        filterData ? dispatch(getRoomsFilterData({ filterData, min, max })) : dispatch(getRoomsInitData({ min, max }));
     }, [dispatch]);
 
     if (loading) return <LoadingSpiner />;
@@ -38,11 +38,11 @@ const Rooms = () => {
                     <span>{error}</span>
                 </> :
                 <>
-                    {isOpen && <ReservationModal {...{ roomData }} />}
+                    {isModalOpen && <ReservationModal {...{ roomData }} />}
                     <RoomsTitle>
                         {filterRoomsData.allData.length ?
                             `검색 결과 약 ${numberComma(filterRoomsData.allData.length)}개` :
-                            `${MAIN.ROOMS.NOT_RESULT}`}
+                            `${COMMON.NOT_RESULT}`}
                     </RoomsTitle>
                     <RoomList allData={filterRoomsData.allData} />
                     <PageTop />

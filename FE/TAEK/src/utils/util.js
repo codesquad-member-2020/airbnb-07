@@ -1,8 +1,6 @@
 export const numberComma = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export const dayCounter = (checkIn, checkOut) => {
-    if (!checkOut) return 1;
-
     const day = 1000 * 60 * 60 * 24;
     const _checkIn = new Date(checkIn.year, checkIn.month - 1, checkIn.day);
     const _checkOut = new Date(checkOut.year, checkOut.month - 1, checkOut.day);
@@ -21,4 +19,10 @@ export const getAverageCharge = prices => {
         return acc;
     }, 0);
     return Math.floor(totalPrice / total);
+}
+
+export const formatDate = (year, month, day, gap) => {
+    if ((month + '').length < 2) month = '0' + month;
+    if ((day + '').length < 2) day = '0' + day;
+    return [year, month, day].join(gap);
 }
