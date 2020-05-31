@@ -35,7 +35,9 @@ const ReservationCard = ({ reservationInfo, index }) => {
                 <td>{people}</td>
                 <td>{numberComma(totalPrice)}원</td>
                 <td className='cancel-btn-container'>
-                    <button className='reservation-cancel-btn' onClick={handleCancelClick}>취 소</button>
+                    <button className='reservation-cancel-btn' onClick={handleCancelClick} disabled={cancel}>
+                        취 소
+                    </button>
                 </td>
             </tr>
         </>

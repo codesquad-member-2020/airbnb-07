@@ -6,7 +6,7 @@ import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoomsInitData, getRoomsFilterData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
-import { MAIN } from 'constants/constant';
+import { COMMON } from 'constants/constant';
 import { numberComma } from 'utils/util';
 
 const RoomsWrap = styled.div`
@@ -42,7 +42,7 @@ const Rooms = () => {
                     <RoomsTitle>
                         {filterRoomsData.allData.length ?
                             `검색 결과 약 ${numberComma(filterRoomsData.allData.length)}개` :
-                            `${MAIN.ROOMS.NOT_RESULT}`}
+                            `${COMMON.NOT_RESULT}`}
                     </RoomsTitle>
                     <RoomList allData={filterRoomsData.allData} />
                     <PageTop />

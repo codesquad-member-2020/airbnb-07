@@ -17,10 +17,12 @@ const initialState = {
 export default function reservationReducer(state = initialState, action) {
     switch (action.type) {
         case MODAL_TOGGLE:
-            const _isModalOpen = state.isModalOpen;
-            return {
-                ...state,
-                isModalOpen: !_isModalOpen,
+            {
+                const _isModalOpen = state.isModalOpen;
+                return {
+                    ...state,
+                    isModalOpen: !_isModalOpen,
+                }
             }
         case SELECTED_ROOM:
             return {
