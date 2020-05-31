@@ -19,6 +19,6 @@ export default {
 
 <style lang="scss" scoped>
 .reservation-component {
-  margin-top: 60px;
+  margin-top: 115px;
 }
 </style>

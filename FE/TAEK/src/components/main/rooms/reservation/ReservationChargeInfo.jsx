@@ -1,18 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { MAIN } from 'constants/constant';
 
-const ReservationChargeInfo = ({ currentPrice, numberComma, dayCounter }) => {
-    const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
-    const { totalCount } = useSelector(({ person }) => person);
-
-    const dayCount = dayCounter(checkInDateInfo, checkOutDateInfo);
-    const totalRoomCharge = currentPrice * dayCount * totalCount;
-    const cleanUpCost = MAIN.RESERVATION.CLEAN_UP_COST;
-    const serviceCost = MAIN.RESERVATION.SERVICE_COST;
-    const tax = Math.floor(totalRoomCharge * MAIN.RESERVATION.TAX_RATE);
-    const totalCharge = totalRoomCharge + cleanUpCost + serviceCost + tax;
-
+const ReservationChargeInfo = ({ numberComma, dayCount, totalCount, totalRoomCharge, cleanUpCost, serviceCost, tax, totalCharge }) => {
     return (
         <>
             <div className='charge-info-wrap'>

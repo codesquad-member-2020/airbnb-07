@@ -62,7 +62,6 @@ export default {
 }
 
 .room-list-wrap {
-  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 35px;
@@ -73,7 +72,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 3500px;
   z-index: 5;
   background-color: #00000080;
 }

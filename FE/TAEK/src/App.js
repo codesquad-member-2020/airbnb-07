@@ -6,6 +6,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import NotFound from '@/components/error/NotFound';
 import Login from '@/components/login/Login';
 import Main from '@/components/main/Main';
+import MyPage from '@/components/myPage/Mypage';
 
 const App = () => {
     return (
@@ -13,10 +14,10 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Redirect exact from='/react/index.html' to='/' />
                     <Redirect from='/githublogin' to='/main' />
                     <Route exact path='/' component={Login} />
                     <Route path='/main' component={Main} />
+                    <Route path='/mypage' component={MyPage} />
                     <Route component={NotFound} />
                 </Switch>
             </Router>

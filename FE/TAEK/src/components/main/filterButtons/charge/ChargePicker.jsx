@@ -12,8 +12,6 @@ import Rheostat from "rheostat";
 import { MAIN } from 'constants/constant';
 import ChargeGraph from './ChargeGraph';
 
-import { prices } from 'mock/mockData';
-
 ThemedStyleSheet.registerInterface(cssInterface);
 ThemedStyleSheet.registerTheme({
     ...RheostatDefaultTheme,
@@ -49,7 +47,7 @@ const RheostatWrap = styled.div`
     }
 `;
 
-const ChargePicker = () => {
+const ChargePicker = ({ prices }) => {
     const dispatch = useDispatch();
     const { min, max } = useSelector(({ charge }) => charge);
     const handleValuesUpdated = ({ values }) => {

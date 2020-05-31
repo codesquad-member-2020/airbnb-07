@@ -1,6 +1,9 @@
 <template>
   <div class="rooms-wrap">
-    <h2 class="rooms-title"></h2>
+    <h2 class="rooms-title">
+      <img class="best-room-logo" src="../../assets/res-page-logo.svg" alt="" />
+      이달의 추천 !! 숙소 베스트 30
+    </h2>
     <RoomLists />
   </div>
 </template>
@@ -23,8 +26,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.best-room-logo {
+  width: 100px;
+  display: inline-block;
+}
 .rooms-wrap {
-  margin-top: 60px;
+  margin-top: 115px;
 }
 
 .rooms-title {

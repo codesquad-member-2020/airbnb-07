@@ -35,6 +35,8 @@ const ChargeFilterBtn = styled.div`
     cursor: pointer;
     box-sizing: border-box;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const ChargeFilter = () => {

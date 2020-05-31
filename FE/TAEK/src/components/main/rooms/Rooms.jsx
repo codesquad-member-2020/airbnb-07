@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import RoomList from './RoomList';
-import Loading from '@/components/common/Loading';
+import LoadingSpiner from '@/components/common/LoadingSpiner';
+import PageTop from '@/components/common/PageTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRooms } from 'store/modules/rooms/roomsAction';
+import { getRoomsInitData, getRoomsFilterData } from 'store/modules/rooms/roomsAction';
 import ReservationModal from './reservation/ReservationModal';
+import { COMMON } from 'constants/constant';
+import { numberComma } from 'utils/util';
 
 const RoomsWrap = styled.div`
     margin-top: 60px;
@@ -18,25 +21,31 @@ const RoomsTitle = styled.h2`
 
 const Rooms = () => {
     const dispatch = useDispatch();
-    const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
-    const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
+    const { min, max } = useSelector(({ charge }) => charge);
+    const { loading, filterData, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
+    const { isModalOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getRooms());
+        filterData ? dispatch(getRoomsFilterData({ filterData, min, max })) : dispatch(getRoomsInitData({ min, max }));
     }, [dispatch]);
 
-    if (loading) return <Loading />;
+    if (loading) return <LoadingSpiner />;
 
     return (
         <RoomsWrap>
             {error ?
                 <>
-                    {error}
+                    <span>{error}</span>
                 </> :
                 <>
-                    {isOpen && <ReservationModal {...{ roomData }} />}
-                    <RoomsTitle>{roomsData.allData.length}개 이상의 숙소</RoomsTitle>
-                    <RoomList allData={roomsData.allData} />
+                    {isModalOpen && <ReservationModal {...{ roomData }} />}
+                    <RoomsTitle>
+                        {filterRoomsData.allData.length ?
+                            `검색 결과 약 ${numberComma(filterRoomsData.allData.length)}개` :
+                            `${COMMON.NOT_RESULT}`}
+                    </RoomsTitle>
+                    <RoomList allData={filterRoomsData.allData} />
+                    <PageTop />
                 </>}
         </RoomsWrap>
     )

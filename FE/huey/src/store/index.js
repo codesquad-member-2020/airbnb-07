@@ -1,12 +1,23 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { initMainRedner } from '@/api/reservation';
+import {
+  initMainRedner,
+  reservationInfo,
+  setReservation,
+  removeReservation,
+  filterRooms,
+} from '@/api/reservation';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     initRenderRooms: [],
+    reservationList: [],
+    reservationSuccessMessage: '',
+    reservationRemoveMeaaage: '',
+    clickedAccommodationid: 0,
+    selectedCountry: '',
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
@@ -45,10 +56,23 @@ export default new Vuex.Store({
     setInitRenderData(state, renderData) {
       state.initRenderRooms = renderData;
     },
+    setReservationInfo(state, reservationData) {
+      state.reservationList = reservationData;
+    },
+    setReservationMessage(state, resReservationMessage) {
+      state.reservationSuccessMessage = resReservationMessage;
+    },
+
+    setReservationRemoveMessage(state, removeMessage) {
+      state.reservationRemoveMeaaage = removeMessage;
+    },
     setOpenModal(state, payload) {
       state.isOpenModal = !state.isOpenModal;
       if (payload === 'undefined') return;
       state.payloadDate = payload;
+    },
+    setAccommodationId(state, accommodationid) {
+      state.clickedAccommodationid = accommodationid;
     },
     setCheckInDate(state, value) {
       state.checkinDate = value;
@@ -58,6 +82,9 @@ export default new Vuex.Store({
     },
     setGuestNumber(state, number) {
       state.guestNumber = number;
+    },
+    setSelectedCountry(state, value) {
+      state.selectedCountry = value;
     },
     personData(state) {
       this._mutations.setGuestNumber[0](
@@ -123,6 +150,38 @@ export default new Vuex.Store({
     async INIT_RENDER({ commit }) {
       const { data } = await initMainRedner();
       commit('setInitRenderData', data);
+    },
+
+    async RESERVATION_INFO({ commit }) {
+      const { data } = await reservationInfo();
+      commit('setReservationInfo', data);
+    },
+
+    async SET_RESERVATION({ state, getters, commit }) {
+      const setData = {
+        startDate: state.checkinDate,
+        endDate: state.checkoutDate,
+        people: state.guestNumber,
+        totalPrice: getters.sumPrice,
+      };
+      const { data } = await setReservation(
+        state.clickedAccommodationid,
+        setData,
+      );
+      commit('setReservationMessage', data);
+    },
+
+    async REMOVE_RESERVATION({ commit }, payload) {
+      const { data } = await removeReservation(
+        payload.accommodationId,
+        payload.reservationId,
+      );
+      commit('setReservationRemoveMessage', data);
+    },
+
+    async FILTERED_ROOMS({ commit }, payload) {
+      const { data } = await filterRooms(payload);
+      console.log(data);
     },
   },
 });

@@ -1,11 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCharge, resetCharge } from 'store/modules/charge/chargeAction';
+import { applyChargeFilter } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import ChargePicker from './ChargePicker';
-import { MAIN } from 'constants/constant';
-import { numberComma } from 'utils/util';
+import { MAIN, COMMON } from 'constants/constant';
+import { numberComma, getAverageCharge } from 'utils/util';
 
 const Background = styled.div`
     position: fixed;
@@ -106,12 +107,14 @@ const ChargeRangeText = styled.div`
 `;
 
 const ChargeFilterModal = ({ handleSetOpen }) => {
-    const { min, max, isChange } = useSelector(({ charge }) => charge);
     const dispatch = useDispatch();
+    const { min, max, isChange } = useSelector(({ charge }) => charge);
+    const { loading, roomsData, error } = useSelector(({ rooms }) => rooms);
 
     const handleChargeInfoReset = () => dispatch(resetCharge());
     const handleChargeInfoSave = () => {
         if (isChange) dispatch(saveCharge());
+        if (roomsData) dispatch(applyChargeFilter(min, max));
         handleSetOpen();
     }
 
@@ -122,25 +125,27 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
             </ModalPortal>
             <ChargeFilterModalWrap>
                 <ChargeFilterModalContentWrap>
-                    <AverageTitle>
-                        평균 1박 요금은 &#8361; {numberComma(100000)} 입니다.
-                    </AverageTitle>
-                    <ChargePicker />
-                    <ChargeRangeText>
-                        <div className='charge-text'>
-                            <div className='charge-desc'>최저 요금</div>
-                            <div>&#8361; {numberComma(min)}</div>
-                        </div>
-                        <div className='charge-text-dash'>-</div>
-                        <div className='charge-text'>
-                            <div className='charge-desc'>최고 요금</div>
-                            <div>&#8361; {max === MAIN.CHARGE.MAX_CHARGE ? `${numberComma(max)}+` : numberComma(max)}</div>
-                        </div>
-                    </ChargeRangeText>
-                    <div className='modal-btn-wrap'>
-                        <button className='modal-btn reset-btn' onClick={handleChargeInfoReset}>지우기</button>
-                        <button className='modal-btn save-btn' onClick={handleChargeInfoSave}>저장</button>
-                    </div>
+                    {(loading || error) ?
+                        <span>{COMMON.LOADING}</span> :
+                        <>
+                            <AverageTitle>평균 1박 요금은 &#8361; {numberComma(getAverageCharge(roomsData.prices))} 입니다.</AverageTitle>
+                            <ChargePicker prices={roomsData.prices} />
+                            <ChargeRangeText>
+                                <div className='charge-text'>
+                                    <div className='charge-desc'>최저 요금</div>
+                                    <div>&#8361; {numberComma(min)}</div>
+                                </div>
+                                <div className='charge-text-dash'>-</div>
+                                <div className='charge-text'>
+                                    <div className='charge-desc'>최고 요금</div>
+                                    <div>&#8361; {max === MAIN.CHARGE.MAX_CHARGE ? `${numberComma(max)}+` : numberComma(max)}</div>
+                                </div>
+                            </ChargeRangeText>
+                            <div className='modal-btn-wrap'>
+                                <button className='modal-btn reset-btn' onClick={handleChargeInfoReset}>지우기</button>
+                                <button className='modal-btn save-btn' onClick={handleChargeInfoSave}>저장</button>
+                            </div>
+                        </>}
                 </ChargeFilterModalContentWrap>
             </ChargeFilterModalWrap>
         </>

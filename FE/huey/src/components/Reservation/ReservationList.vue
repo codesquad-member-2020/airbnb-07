@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <h2 class="reservation-title">예약 정보</h2>
+  <div v-if="this.isReservationData" class="loading-container">
+    <LoadingSpinner />
+  </div>
+  <div v-else>
+    <h3 class="reservation-title">
+      <img class="res-logo" src="../../assets/res-page-logo.svg" alt="" />
+      예약 정보
+    </h3>
     <table class="table-container">
       <thead>
         <tr>
@@ -12,7 +18,10 @@
           <th width="20%">예약 취소</th>
         </tr>
       </thead>
-      <tbody v-for="(resData, index) in this.testArr" :key="resData.index">
+      <tbody
+        v-for="(resData, index) in reservationList.allData"
+        :key="resData.index"
+      >
         <tr class="reservation-card-container">
           <ReservationCard :propsData="resData" :keyIndex="index" />
         </tr>
@@ -22,8 +31,9 @@
 </template>
 
 <script>
-import { testList } from './mock';
 import ReservationCard from '@/components/Reservation/ReservationCard';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -31,16 +41,36 @@ export default {
       testArr: [],
     };
   },
+  computed: {
+    ...mapState(['reservationList']),
+    isReservationData() {
+      if (this.reservationList.hasOwnProperty('allData')) return false;
+      return true;
+    },
+  },
   created() {
-    this.testArr = testList[0].allData;
+    this.$store.dispatch('RESERVATION_INFO');
   },
   components: {
     ReservationCard,
+    LoadingSpinner,
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.res-logo {
+  display: inline-block;
+  width: 85px;
+}
+
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 table > thead > tr > th {
   padding: 15px;
 }

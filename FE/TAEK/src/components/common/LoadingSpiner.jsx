@@ -2,21 +2,22 @@ import React from 'react'
 import styled from 'styled-components';
 import spiner from 'public/images/earth.svg';
 
-const LoadingWrap = styled.div`
+const LoadingSpinerWrap = styled.div`
     .loading-spiner {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 100;
     }
 `;
 
-const Loading = () => {
+const LoadingSpiner = () => {
     return (
-        <LoadingWrap>
+        <LoadingSpinerWrap>
             <img className='loading-spiner' src={spiner} alt="loading-spiner" />
-        </LoadingWrap>
+        </LoadingSpinerWrap>
     )
 }
 
-export default Loading
+export default LoadingSpiner

@@ -8,13 +8,20 @@
       <div class="hotel-name-title">{{ propsData.hotelName }}</div>
     </td>
     <td>
-      {{ propsData.reservations[0].startDate }} -
-      {{ propsData.reservations[0].endDate }}
+      {{ propsData.reservation.startDate }} -
+      {{ propsData.reservation.endDate }}
     </td>
-    <td>{{ propsData.reservations[0].people }}</td>
-    <td>{{ propsData.reservations[0].totalPrice }}원</td>
+    <td>{{ propsData.reservation.people }}</td>
+    <td>{{ propsData.reservation.totalPrice }}원</td>
     <td class="cancel-btn-container">
-      <button class="reservation-cancel-btn">예약취소</button>
+      <button
+        class="reservation-cancel-btn"
+        :data-reservationId="propsData.reservation.id"
+        :data-accommodationId="propsData.accommodationId"
+        @click="removeReservation"
+      >
+        예약취소
+      </button>
     </td>
   </Fragment>
 </template>
@@ -25,6 +32,28 @@ import { Fragment } from 'vue-fragment';
 export default {
   props: ['propsData', 'keyIndex'],
   components: { Fragment },
+  methods: {
+    removeReservation({
+      target: {
+        dataset: { accommodationid, reservationid },
+      },
+    }) {
+      const roomData = {
+        accommodationId: accommodationid,
+        reservationId: reservationid,
+      };
+
+      let result = confirm('예약을 취소하시겠습니까?');
+      if (result) {
+        this.$store.dispatch('REMOVE_RESERVATION', roomData);
+        setTimeout(() => {
+          location.reload(true);
+        }, 1000);
+      } else {
+        return;
+      }
+    },
+  },
 };
 </script>
 
