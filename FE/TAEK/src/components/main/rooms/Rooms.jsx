@@ -23,7 +23,7 @@ const Rooms = () => {
     const dispatch = useDispatch();
     const { min, max } = useSelector(({ charge }) => charge);
     const { loading, filterData, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
-    const { isOpen, roomData } = useSelector(({ reservation }) => reservation);
+    const { isModalOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
         filterData ? dispatch(getRoomsFilterData({ filterData, min, max })) : dispatch(getRoomsInitData({ min, max }));
@@ -38,7 +38,7 @@ const Rooms = () => {
                     <span>{error}</span>
                 </> :
                 <>
-                    {isOpen && <ReservationModal {...{ roomData }} />}
+                    {isModalOpen && <ReservationModal {...{ roomData }} />}
                     <RoomsTitle>
                         {filterRoomsData.allData.length ?
                             `검색 결과 약 ${numberComma(filterRoomsData.allData.length)}개` :
