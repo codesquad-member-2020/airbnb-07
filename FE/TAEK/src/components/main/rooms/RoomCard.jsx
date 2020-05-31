@@ -94,6 +94,7 @@ const RoomCard = ({ roomData }) => {
 
     const handleReservationClick = () => {
         if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
+        if (!date.checkOutDate) return alert(COMMON.NOT_INPUT_CHECKOUT_MESSAGE);
         dispatch(modalToggle());
         dispatch(selectedRoom(roomData));
     }

@@ -35,7 +35,8 @@ const SearchButton = () => {
     const { min, max } = charge;
 
     const handleSearchClick = () => {
-        if (!date.isSave || !person.isSave || !checkOutDateInfo) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
+        if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
+        if (!date.checkOutDate) return alert(COMMON.NOT_INPUT_CHECKOUT_MESSAGE);
         const filterData = {
             startDate: formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '-'),
             endDate: formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '-'),
