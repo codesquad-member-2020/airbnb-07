@@ -1,14 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { MAIN } from 'constants/constant';
-import { formatDate } from 'utils/util';
+import ratingStar from 'public/images/rating-star.svg';
 
-const ReservationFilterInfo = ({ ratingStar, hotelRating }) => {
-    const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
-    const { adultCount, childCount, babyCount } = useSelector(({ person }) => person);
-
-    const checkInDateInfoText = `${formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '. ')}.`;
-    const checkOutDateInfoText = checkOutDateInfo && ` ➜ ${formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '. ')}.`;
+const ReservationFilterInfo = ({ hotelRating, checkInDateInfoText, checkOutDateInfoText, person }) => {
+    const { adultCount, childCount, babyCount } = person;
 
     const personInfoText = [];
     if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
@@ -23,7 +18,7 @@ const ReservationFilterInfo = ({ ratingStar, hotelRating }) => {
             </div>
             <div className='date-info-wrap'>
                 <div>날짜</div>
-                <div className='date-info'>{checkInDateInfoText}{checkOutDateInfoText}</div>
+                <div className='date-info'>{checkInDateInfoText} ➜ {checkOutDateInfoText}</div>
             </div>
             <div className='person-info-wrap'>
                 <div>인원</div>
