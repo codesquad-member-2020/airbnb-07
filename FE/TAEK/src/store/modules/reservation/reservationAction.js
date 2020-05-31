@@ -35,6 +35,15 @@ const getReservationInfoData = () => async dispatch => {
     }
 }
 
+const cancelReservation = data => async dispatch => {
+    const response = await fetch(URL.RESERVATION_DELETE(data.accommodationId, data.reservationId), {
+        method: 'DELETE'
+    });
+    const json = await response.json();
+    alert(json.message);
+    dispatch(getReservationInfoData());
+}
+
 export {
     MODAL_TOGGLE,
     SELECTED_ROOM,
@@ -45,4 +54,5 @@ export {
     selectedRoom,
     requestReservation,
     getReservationInfoData,
+    cancelReservation,
 }
