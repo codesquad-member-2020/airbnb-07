@@ -92,29 +92,30 @@ const ReservationList = () => {
     return (
         <ReservationListWrap>
             <h2 className='reservation-title'>마이페이지</h2>
-            <table className='table-container'>
-                <thead>
-                    <tr>
-                        <th width='5%'></th>
-                        <th width='30%'>숙박 정보</th>
-                        <th width='20%'>날짜</th>
-                        <th width='11%'>인원</th>
-                        <th width='14%'>금액</th>
-                        <th width='20%'>예약 취소</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {error ?
-                        <tr>{error}</tr> :
-                        reservationData.allData.reverse().map((reservationInfo, index) => {
+            {error ?
+                <span>{error}</span> :
+                <table className='table-container'>
+                    <thead>
+                        <tr>
+                            <th width='5%'></th>
+                            <th width='30%'>숙박 정보</th>
+                            <th width='20%'>날짜</th>
+                            <th width='11%'>인원</th>
+                            <th width='14%'>금액</th>
+                            <th width='20%'>예약 취소</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reservationData.allData.reverse().map((reservationInfo, index) => {
                             return (
                                 <ReservationCard
                                     key={reservationInfo.reservation.id}
                                     {...{ reservationInfo, index }}
                                 />)
                         })}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
             <PageTop />
         </ReservationListWrap>
     )

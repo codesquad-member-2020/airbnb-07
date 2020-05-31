@@ -124,6 +124,7 @@ const ReservationModalItem = ({ handleModalToggle, roomData }) => {
 
     return (
         <>
+            {reservation && <LoadingSpiner />}
             <CloseButton onClick={handleModalToggle}>❌</CloseButton>
             <ReservationModalItemWrap>
                 <div className='currentPrice-wrap'>
@@ -133,7 +134,7 @@ const ReservationModalItem = ({ handleModalToggle, roomData }) => {
                 <ReservationFilterInfo {...{ hotelRating, checkInDateInfoText, checkOutDateInfoText, person }} />
                 <ReservationChargeInfo {...{ numberComma, dayCount, totalCount, totalRoomCharge, cleanUpCost, serviceCost, tax, totalCharge }} />
                 <button className='reservation-btn' onClick={handleReservationClick} disabled={reservation}>
-                    {reservation ? '예약 요청 중..' : '예약하기'}
+                    예약하기
                 </button>
                 <div className='reservation-info-text'>예약 확정 전에는 요금이 청구되지 않습니다.</div>
             </ReservationModalItemWrap>
