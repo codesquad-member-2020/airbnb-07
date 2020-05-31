@@ -1,6 +1,11 @@
 <template>
   <div class="reservation-modal-item-wrap">
     <div class="currentPrice-wrap">
+      <img
+        class="reservation-logo"
+        src="../../assets/reservation-logo.svg"
+        alt=""
+      />
       <span class="currentPrice"
         >&#8361; {{ this.$store.state.payloadDate.currentPrice }}</span
       >
@@ -97,6 +102,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.reservation-logo {
+  position: absolute;
+  width: 74px;
+  top: 8px;
+  left: 12px;
+}
+
 .date-title {
   text-align: left;
   text-indent: 15px;

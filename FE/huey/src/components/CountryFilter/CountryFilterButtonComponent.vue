@@ -33,7 +33,7 @@ export default {
       countryOptions: [
         { value: '뉴욕' },
         { value: '보스턴' },
-        { value: '워싱턴' },
+        { value: '시애틀' },
       ],
     };
   },
