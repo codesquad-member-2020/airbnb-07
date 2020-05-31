@@ -17,6 +17,7 @@ export default new Vuex.Store({
     reservationSuccessMessage: '',
     reservationRemoveMeaaage: '',
     clickedAccommodationid: 0,
+    selectedCountry: '',
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
@@ -81,6 +82,9 @@ export default new Vuex.Store({
     },
     setGuestNumber(state, number) {
       state.guestNumber = number;
+    },
+    setSelectedCountry(state, value) {
+      state.selectedCountry = value;
     },
     personData(state) {
       this._mutations.setGuestNumber[0](
