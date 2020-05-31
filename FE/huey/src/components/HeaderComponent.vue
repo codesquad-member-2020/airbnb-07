@@ -4,7 +4,9 @@
       <img class="air_logo_title" src="../assets/airbnb-logo.png" alt="" />
     </div>
     <div class="filter-container">
-      <div>Metropolitan City of Florence, 이탈리아</div>
+      <div>
+        <CountryFilterButtonComponent />
+      </div>
       <div>
         <DateFilterButtonComponent />
       </div>
@@ -64,6 +66,7 @@ import DateFilterButtonComponent from '@/components/Datepicker/DateFilterButtonC
 import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
 import FilterSearchButtonComponent from '@/components/FilterSearchButtonComponent';
 import PriceFilterButtonComponent from '@/components/PriceFilter/PriceFilterButtonComponent';
+import CountryFilterButtonComponent from '@/components/CountryFilter/CountryFilterButtonComponent';
 
 export default {
   components: {
@@ -71,6 +74,7 @@ export default {
     PersonFilterButtonComponent,
     FilterSearchButtonComponent,
     PriceFilterButtonComponent,
+    CountryFilterButtonComponent,
   },
   methods: {
     toReservationPage() {
@@ -111,6 +115,7 @@ export default {
 
 .filter-container {
   display: flex;
+  align-items: center;
   border: 1px solid rgb(247, 247, 247);
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
   border-radius: 12px;
