@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { changePage } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import miniMenu from 'public/images/mini-menu.svg';
@@ -90,12 +92,16 @@ const MainHeaderWrap = styled.div`
 `;
 
 const MainHeader = () => {
+    const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
     const handleMiniMenuOpen = () => setOpen(!isOpen);
     const handleMiniMenuLeave = () => setOpen(false);
 
     let history = useHistory();
-    const handleLogoClick = () => history.push('/main');
+    const handleLogoClick = () => {
+        dispatch(changePage(1));
+        history.push('/main');
+    }
 
     return (
         <MainHeaderArea>
