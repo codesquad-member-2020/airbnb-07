@@ -46,7 +46,7 @@ const RoomTextInfoWrap = styled.div`
             line-height: 20px;
             height: 22px;
             letter-spacing: -0.05rem;
-            cursor: help;
+            cursor: default;
         }
         .previousPrice {
             color: #7f8c8d;
