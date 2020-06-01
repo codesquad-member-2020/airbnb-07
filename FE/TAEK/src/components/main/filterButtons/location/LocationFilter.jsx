@@ -56,7 +56,7 @@ const LocationFilter = () => {
             <LocationFilterBtn>
                 <select onChange={handleLocationChange} name='지역'>
                     <option value='Seattle'>Seattle</option>
-                    <option value='New York'>New York</option>
+                    <option value='NewYork'>New York</option>
                     <option value='Boston'>Boston</option>
                 </select>
             </LocationFilterBtn>
