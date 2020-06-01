@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">1</div>
+<div class="counter">5</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">2.727s</div>
+<div class="counter">20.283s</div>
 <p>duration</p>
 </div>
 </td>
@@ -51,7 +51,7 @@
 </td>
 <td>
 <div class="infoBox failures" id="successRate">
-<div class="percent">0%</div>
+<div class="percent">80%</div>
 <p>successful</p>
 </div>
 </td>
@@ -76,19 +76,19 @@
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
 <div class="test">
-<a name="reserveTest"></a>
-<h3 class="failures">reserveTest</h3>
+<a name="deleteTest"></a>
+<h3 class="failures">deleteTest</h3>
 <span class="code">
 <pre>org.opentest4j.AssertionFailedError: 
 Expecting:
- &lt;&quot;404&quot;&gt;
+ &lt;&quot;202&quot;&gt;
 to be equal to:
  &lt;&quot;200&quot;&gt;
 but was not.
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at com.codesquad.demo.web.MockControllerTest.reserveTest(MockControllerTest.java:125)
+	at com.codesquad.demo.web.MockControllerTest.deleteTest(MockControllerTest.java:177)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -179,24 +179,44 @@ but was not.
 </tr>
 </thead>
 <tr>
-<td class="failures">reserveTest</td>
-<td class="failures">2.727s</td>
+<td class="failures">deleteTest</td>
+<td class="failures">1.931s</td>
 <td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">getFiltering</td>
+<td class="success">2.638s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getInitTest</td>
+<td class="success">5.611s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getReservationInfo</td>
+<td class="success">2.086s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">reserveTest</td>
+<td class="success">8.017s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>14:05:17.039 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.040 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.042 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.044 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.054 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@54765905 testClass = MockControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@7875a8bc testClass = MockControllerTest, locations = '{}', classes = '{class com.codesquad.demo.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@114824b4, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6c1b21df, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4ae7f622, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@169c8fc5, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]], class annotated with @DirtiesContext [false] with mode [null].
-14:05:17.058 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.059 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
-14:05:17.067 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@54765905 testClass = MockControllerTest, testInstance = com.codesquad.demo.web.MockControllerTest@45d86fb9, testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@7875a8bc testClass = MockControllerTest, locations = '{}', classes = '{class com.codesquad.demo.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@114824b4, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6c1b21df, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4ae7f622, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@169c8fc5, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]]].
-14:05:17.095 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}
+<pre>19:26:28.209 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.218 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.223 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.226 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.244 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@7d3c1f1b testClass = MockControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@f5375d0 testClass = MockControllerTest, locations = '{}', classes = '{class com.codesquad.demo.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@72375671, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6293106b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@41aa962e, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64fc9f9, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]], class annotated with @DirtiesContext [false] with mode [null].
+19:26:28.253 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.255 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.codesquad.demo.web.MockControllerTest]
+19:26:28.274 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@7d3c1f1b testClass = MockControllerTest, testInstance = com.codesquad.demo.web.MockControllerTest@118106e7, testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@f5375d0 testClass = MockControllerTest, locations = '{}', classes = '{class com.codesquad.demo.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@72375671, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6293106b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@41aa962e, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@64fc9f9, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]]].
+19:26:28.371 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -206,73 +226,38 @@ but was not.
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.3.0.RELEASE)
 
-2020-05-27 14:05:17.802  INFO 17191 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : Starting MockControllerTest on hyunjun with PID 17191 (started by hyunjun in /home/hyunjun/Repository/airbnb-07/BE)
-2020-05-27 14:05:17.804  INFO 17191 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : No active profile set, falling back to default profiles: default
-2020-05-27 14:05:18.795  INFO 17191 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2020-05-27 14:05:18.900  INFO 17191 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 97ms. Found 1 JDBC repository interfaces.
-2020-05-27 14:05:20.529  INFO 17191 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2020-05-27 14:05:20.555  INFO 17191 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-05-27 14:05:20.555  INFO 17191 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
-2020-05-27 14:05:20.803  INFO 17191 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-05-27 14:05:20.803  INFO 17191 --- [    Test worker] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2959 ms
-2020-05-27 14:05:20.812  INFO 17191 --- [    Test worker] c.c.demo.config.SimpleCorsFilter         : SimpleCORSFilter init
-2020-05-27 14:05:21.664  INFO 17191 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-05-27 14:05:22.608  INFO 17191 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-05-27 14:05:23.840  INFO 17191 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-05-27 14:05:24.574  INFO 17191 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 42127 (http) with context path ''
-2020-05-27 14:05:24.602  INFO 17191 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : Started MockControllerTest in 7.503 seconds (JVM running for 9.687)
-2020-05-27 14:05:25.787  INFO 17191 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-05-27 14:05:25.787  INFO 17191 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-05-27 14:05:25.823  INFO 17191 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 36 ms
+2020-06-01 19:26:29.355  INFO 13924 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : Starting MockControllerTest on hyunjun with PID 13924 (started by hyunjun in /home/hyunjun/Repository/airbnb-07/BE)
+2020-06-01 19:26:29.359  INFO 13924 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : No active profile set, falling back to default profiles: default
+2020-06-01 19:26:31.189  INFO 13924 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-06-01 19:26:31.365  INFO 13924 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 158ms. Found 1 JDBC repository interfaces.
+2020-06-01 19:26:33.371  INFO 13924 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2020-06-01 19:26:33.409  INFO 13924 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-01 19:26:33.410  INFO 13924 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-01 19:26:33.655  INFO 13924 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-01 19:26:33.656  INFO 13924 --- [    Test worker] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4198 ms
+2020-06-01 19:26:33.672  INFO 13924 --- [    Test worker] c.c.demo.config.SimpleCorsFilter         : SimpleCORSFilter init
+2020-06-01 19:26:34.675  INFO 13924 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-06-01 19:26:35.576  INFO 13924 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-06-01 19:26:36.582  INFO 13924 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-01 19:26:37.391  INFO 13924 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 34281 (http) with context path ''
+2020-06-01 19:26:37.412  INFO 13924 --- [    Test worker] c.codesquad.demo.web.MockControllerTest  : Started MockControllerTest in 9.036 seconds (JVM running for 12.061)
+2020-06-01 19:26:38.165  INFO 13924 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-01 19:26:38.166  INFO 13924 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-06-01 19:26:38.200  INFO 13924 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 34 ms
 </pre>
 </span>
 </div>
 <div id="tab3" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>org.springframework.data.relational.core.conversion.DbActionExecutionException: Failed to execute DbAction.UpdateRoot(entity=Airbnb(id=1, accommodations=[Accommodation(id=1, hotelName=hotel, description=description, location=location, street=street, latitude=32.13, longitude=43.23, availableGuest=4, current_price=3, previous_price=2, discount_price=1, hotelRating=2.3, reservation=null, reservationDates=[], pictures=[Picture(id=1, url=url)])], users=[User(id=1, email=guswns1659@gmail.com, reservations=[]), User(id=null, email=zmdk1127@naver.com, reservations=null)]))
-	at org.springframework.data.jdbc.core.AggregateChangeExecutor.execute(AggregateChangeExecutor.java:89)
-	at org.springframework.data.jdbc.core.AggregateChangeExecutor.lambda$execute$0(AggregateChangeExecutor.java:50)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-	at org.springframework.data.relational.core.conversion.DefaultAggregateChange.forEachAction(DefaultAggregateChange.java:116)
-	at org.springframework.data.jdbc.core.AggregateChangeExecutor.execute(AggregateChangeExecutor.java:50)
-	at org.springframework.data.jdbc.core.JdbcAggregateTemplate.store(JdbcAggregateTemplate.java:339)
-	at org.springframework.data.jdbc.core.JdbcAggregateTemplate.save(JdbcAggregateTemplate.java:149)
-	at org.springframework.data.jdbc.repository.support.SimpleJdbcRepository.save(SimpleJdbcRepository.java:55)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.data.repository.core.support.ImplementationInvocationMetadata.invoke(ImplementationInvocationMetadata.java:72)
-	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:382)
-	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:205)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:549)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:155)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:130)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.save(Unknown Source)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.save(Unknown Source)
-	at com.codesquad.demo.service.MockService.reserve(MockService.java:272)
-	at com.codesquad.demo.web.controller.MockController.reserve(MockController.java:34)
+<pre>[2020.06.01 19:26:37] (Coverage): Error during class instrumentation: org.springframework.http.client.HttpComponentsClientHttpRequestFactory: java.lang.RuntimeException: java.io.IOException: Class not found
+java.lang.IllegalStateException: 해당 reservation이 없습니다. reservationId = 1
+	at com.codesquad.demo.domain.User.lambda$deleteReservation$1(User.java:34)
+	at java.util.Optional.orElseThrow(Optional.java:290)
+	at com.codesquad.demo.domain.User.deleteReservation(User.java:34)
+	at com.codesquad.demo.domain.Airbnb.deleteReservation(Airbnb.java:53)
+	at com.codesquad.demo.service.MockService.delete(MockService.java:285)
+	at com.codesquad.demo.web.controller.MockController.delete(MockController.java:53)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -286,8 +271,8 @@ but was not.
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:931)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:666)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
@@ -326,33 +311,6 @@ but was not.
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [UPDATE `airbnb` WHERE `airbnb`.`id` = ?]; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `airbnb`.`id` = 1' at line 1
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:235)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1443)
-	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:633)
-	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:862)
-	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:883)
-	at org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate.update(NamedParameterJdbcTemplate.java:321)
-	at org.springframework.data.jdbc.core.convert.DefaultDataAccessStrategy.update(DefaultDataAccessStrategy.java:142)
-	at org.springframework.data.jdbc.core.JdbcAggregateChangeExecutionContext.updateWithoutVersion(JdbcAggregateChangeExecutionContext.java:366)
-	at org.springframework.data.jdbc.core.JdbcAggregateChangeExecutionContext.executeUpdateRoot(JdbcAggregateChangeExecutionContext.java:114)
-	at org.springframework.data.jdbc.core.AggregateChangeExecutor.execute(AggregateChangeExecutor.java:70)
-	... 94 more
-Caused by: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `airbnb`.`id` = 1' at line 1
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1092)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1340)
-	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
-	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:867)
-	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:617)
-	... 101 more
 </pre>
 </span>
 </div>
@@ -364,7 +322,7 @@ Caused by: java.sql.SQLSyntaxErrorException: You have an error in your SQL synta
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.3</a> at 2020. 5. 27 오후 2:05:27</p>
+<a href="http://www.gradle.org">Gradle 6.3</a> at 2020. 6. 1 오후 7:27:04</p>
 </div>
 </div>
 </body>

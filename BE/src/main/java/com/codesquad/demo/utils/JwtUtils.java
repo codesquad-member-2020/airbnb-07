@@ -3,12 +3,16 @@ package com.codesquad.demo.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class JwtUtils {
     private static final String JWT_KEY = "A";
+
+    private static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     private JwtUtils() {}
 
@@ -32,6 +36,10 @@ public class JwtUtils {
                 .setSigningKey(JWT_KEY.getBytes())
                 .parseClaimsJws(jwt)
                 .getBody();
-        return claims.get("userEmail", String.class);
+        String result = claims.get("userEmail", String.class);
+
+        logger.info("result : {}", result);
+
+        return result;
     }
 }

@@ -25,22 +25,27 @@ public class LoginIntercepter extends HandlerInterceptorAdapter {
         }
 
         try {
-            Cookie[] cookies = request.getCookies();
-            if (cookies == null) throw new IllegalStateException("no cookie");
 
-            Cookie cookie = Arrays.stream(cookies)
-                    .filter(each -> each.getName().equals("userEmail"))
-                    .findFirst()
-                    .orElseThrow(IllegalStateException::new);
+            String userEmailInHeader = request.getHeader("Authorization");
+            logger.info("Authorization : {}", userEmailInHeader);
 
-            String token = cookie.getValue();
-            String jwtUserEmail = JwtUtils.jwtParsing(token);
+//            Cookie[] cookies = request.getCookies();
+//            if (cookies == null) throw new IllegalStateException("no cookie");
+//
+//            Cookie cookie = Arrays.stream(cookies)
+//                    .filter(each -> each.getName().equals("userEmail"))
+//                    .findFirst()
+//                    .orElseThrow(IllegalStateException::new);
+//
+//            String token = cookie.getValue();
+//            String jwtUserEmail = JwtUtils.jwtParsing(token);
+            String jwtUserEmail = JwtUtils.jwtParsing(userEmailInHeader);
             request.setAttribute("userEmail", jwtUserEmail);
 
+            return true;
         } catch (Exception e) {
             response.setStatus(401);
             return false;
         }
-        return true;
     }
 }
