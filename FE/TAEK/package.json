@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/lab": "^4.0.0-alpha.54",
     "leaflet": "^1.6.0",
     "moment": "^2.26.0",
     "react": "^16.13.1",

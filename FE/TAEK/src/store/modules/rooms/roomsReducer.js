@@ -4,7 +4,8 @@ import {
     GET_ROOMS_SUCCESS,
     GET_ROOMS_ERROR,
     SAVE_FILTER_DATA,
-    APPLY_CHARGE_FILTER
+    APPLY_CHARGE_FILTER,
+    CHANGE_PAGE
 } from './roomsAction';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
     roomsData: null,
     filterRoomsData: null,
     filterData: null,
+    currentPage: 1,
     error: null,
 };
 
@@ -64,6 +66,11 @@ export default function roomsReducer(state = initialState, action) {
                         allData: _filterRoomsData,
                     },
                 }
+            }
+        case CHANGE_PAGE:
+            return {
+                ...state,
+                currentPage: action.payload,
             }
         default:
             return state

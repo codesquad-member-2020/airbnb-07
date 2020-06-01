@@ -36,7 +36,7 @@ const ResultReset = styled.div`
 const Rooms = () => {
     const dispatch = useDispatch();
     const { min, max } = useSelector(({ charge }) => charge);
-    const { loading, filterData, filterRoomsData, error } = useSelector(({ rooms }) => rooms);
+    const { loading, filterData, filterRoomsData, currentPage, error } = useSelector(({ rooms }) => rooms);
     const { isModalOpen, roomData } = useSelector(({ reservation }) => reservation);
 
     const handleResultResetClick = () => location.reload();
@@ -61,7 +61,7 @@ const Rooms = () => {
                             `${COMMON.NOT_RESULT}`}
                         <ResultReset onClick={handleResultResetClick}>초기화</ResultReset>
                     </RoomsTitle>
-                    <RoomList allData={filterRoomsData.allData} />
+                    <RoomList allData={filterRoomsData.allData} {...{ currentPage }} />
                     <PageTop />
                 </>}
         </RoomsWrap>

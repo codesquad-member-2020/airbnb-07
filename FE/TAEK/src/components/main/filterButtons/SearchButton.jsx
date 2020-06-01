@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { COMMON } from 'constants/constant';
 import { getRoomsFilterData } from 'store/modules/rooms/roomsAction';
+import { changePage } from 'store/modules/rooms/roomsAction';
 import { formatDate } from 'utils/util';
 
 const SearchButtonWrap = styled.div`
@@ -45,6 +46,7 @@ const SearchButton = () => {
             max: charge.isSave ? max : null
         }
         dispatch(getRoomsFilterData({ filterData, min, max }));
+        dispatch(changePage(1));
     }
 
     return (

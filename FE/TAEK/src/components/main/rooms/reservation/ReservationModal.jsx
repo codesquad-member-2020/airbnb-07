@@ -13,7 +13,7 @@ const Background = styled.div`
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 5;
+    z-index: 200;
     background-color: #00000080;
 `;
 
@@ -31,7 +31,7 @@ const ReservationModalWrap = styled.div`
     background-color: #fff;
     border-radius: 5px;
     box-shadow: ${props => props.theme.boxShadow};
-    z-index: 10;
+    z-index: 250;
     animation-name: reservationModal;
     animation-duration: 0.2s;
     animation-timing-function: cubic-bezier(.17,.67,.62,1.64);

@@ -12,7 +12,7 @@ const ReservationModalMapWrap = styled.div`
     }
 `;
 
-const CitiInfo = styled.div`
+const RoomInfo = styled.div`
   height: 40px;
   width: 100px;
   display: flex;
@@ -24,7 +24,7 @@ const CitiInfo = styled.div`
 const ReservationModalMap = ({ roomData }) => {
     const { hotelName, latitude, longitude } = roomData;
 
-    const cities = [
+    const rooms = [
         {
             name: hotelName,
             latitude: latitude,
@@ -38,10 +38,7 @@ const ReservationModalMap = ({ roomData }) => {
     return (
         <ReservationModalMapWrap>
             <Map
-                bounds={bounds}
-                boundsOptions={{
-                    padding: [40, 40]
-                }}
+                bounds={bounds} boundsOptions={{ padding: [40, 40] }}
                 style={{
                     height: '100%',
                     width: '100%',
@@ -50,16 +47,11 @@ const ReservationModalMap = ({ roomData }) => {
                 }}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {cities.map(city => (
-                    <Marker
-                        key={city.name}
-                        position={[city.latitude, city.longitude]}
-                        onClick={() => console.log("onClick")}
-                    >
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                {rooms.map(room => (
+                    <Marker key={room.name} position={[room.latitude, room.longitude]}>
                         <Popup closeButton={false}>
-                            <CitiInfo color={city.color}>{city.name}</CitiInfo>
+                            <RoomInfo color={room.color}>{room.name}</RoomInfo>
                         </Popup>
                     </Marker>
                 ))}

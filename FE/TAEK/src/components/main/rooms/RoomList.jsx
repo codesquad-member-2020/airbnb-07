@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import RoomCard from './RoomCard';
+import Pagenation from './Pagenation';
+import { MAIN } from 'constants/constant';
 
 const RoomListWrap = styled.div`
     margin-top : 40px;
@@ -14,17 +16,22 @@ const RoomListWrap = styled.div`
     @media ( max-width: 680px ) { grid-template-columns: repeat(1, 1fr); }
 `;
 
-const RoomList = ({ allData }) => {
-    const roomList = allData.map(roomData => {
+const RoomList = ({ allData, currentPage }) => {
+    const maximum = MAIN.ROOMS.MAXIMUM_VIEW_ITEM_COUNT;
+    const pageItems = [...allData].splice(((currentPage - 1) * maximum), maximum);
+    const roomList = pageItems.map(roomData => {
         return (
             <RoomCard key={roomData.id} {...{ roomData }} />
         )
     });
 
     return (
-        <RoomListWrap>
-            {roomList}
-        </RoomListWrap>
+        <>
+            <RoomListWrap>
+                {roomList}
+            </RoomListWrap>
+            <Pagenation />
+        </>
     )
 }
 
