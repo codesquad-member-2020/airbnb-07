@@ -24,11 +24,13 @@ const requestReservation = data => async dispatch => {
 }
 
 const getReservationInfoData = () => async dispatch => {
-    dispatch({ type: GET_RESERVATION_INFO_DATA });
     try {
+        dispatch({ type: GET_RESERVATION_INFO_DATA });
         const response = await fetch(URL.RESERVATION_INFO);
-        if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
         const json = await response.json();
+
+        if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+
         dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: json });
     } catch (e) {
         dispatch({ type: GET_RESERVATION_INFO_ERROR, payload: e });
