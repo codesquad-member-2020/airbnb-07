@@ -56,7 +56,6 @@ const ReservationModalMap = ({ roomData }) => {
                     <Marker
                         key={city.name}
                         position={[city.latitude, city.longitude]}
-                        onClick={() => console.log("onClick")}
                     >
                         <Popup closeButton={false}>
                             <CitiInfo color={city.color}>{city.name}</CitiInfo>

@@ -24,6 +24,9 @@ const MAIN = {
             COUNT_TYPE: { countType: 'babyCount' },
         },
     },
+    ROOMS: {
+        MAXIMUM_VIEW_ITEM_COUNT: 9,
+    },
     CHARGE: {
         MIN_CHARGE: 10000,
         MAX_CHARGE: 1000000,

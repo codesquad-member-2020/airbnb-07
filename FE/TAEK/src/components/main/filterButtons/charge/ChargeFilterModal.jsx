@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCharge, resetCharge } from 'store/modules/charge/chargeAction';
 import { applyChargeFilter } from 'store/modules/rooms/roomsAction';
+import { changePage } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import ModalPortal from 'utils/ModalPortal';
 import ChargePicker from './ChargePicker';
@@ -115,6 +116,7 @@ const ChargeFilterModal = ({ handleSetOpen }) => {
     const handleChargeInfoSave = () => {
         if (isChange) dispatch(saveCharge());
         if (roomsData) dispatch(applyChargeFilter(min, max));
+        dispatch(changePage(1));
         handleSetOpen();
     }
 
