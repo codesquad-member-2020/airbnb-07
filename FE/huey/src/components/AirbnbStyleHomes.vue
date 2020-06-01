@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="flex pt-4 room-map-container">
-      <div class="h-12 py-2 px-4" :class="[showMap ? 'w-2/3' : 'w-full']">
+      <div class="h-12 py-2 px-4" :class="[showMap ? 'w-1/2' : 'w-full']">
         <div class="pl-2 mb-2">
           <div class="font-semibold text-2xl">{{ roomListTitle }}</div>
         </div>
@@ -40,7 +40,7 @@
           ></simple-paginator>
         </div>
       </div>
-      <div class="w-1/3 py-2 pr-4 pin-r" :class="{ 'map-before': !showMap }">
+      <div class="w-1/2 py-2 pr-4 pin-r" :class="{ 'map-before': !showMap }">
         <room-map
           @bounds:changed="handleBoundsChanged"
           :rooms="rooms"
@@ -127,6 +127,7 @@ export default {
   },
   methods: {
     handleBoundsChanged({ mapBounds }) {
+      // console.log(mapBounds);
       this.mapBounds = mapBounds;
       this.fetchRooms(1);
     },
