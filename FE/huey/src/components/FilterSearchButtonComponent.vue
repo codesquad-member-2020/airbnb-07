@@ -27,9 +27,29 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState([
+      'selectedCountry',
+      'checkinDate',
+      'checkoutDate',
+      'guestNumber',
+    ]),
+  },
   methods: {
     searchRooms() {
+      if (
+        !(
+          this.selectedCountry &&
+          this.checkinDate &&
+          this.checkoutDate &&
+          this.guestNumber
+        )
+      )
+        return alert('필수 사항을 입력해주세요');
+
       // 아래부분 데이터 하드코딩되어있음 filter API완성되면 수정할 예정
       this.$store.dispatch('FILTERED_ROOMS', {
         startDate: '2020-05-28',
@@ -38,6 +58,7 @@ export default {
         min: 100000,
         max: 200000,
       });
+      if (this.$route.path == '/rooms') return;
       this.$router.push('/rooms');
     },
   },
