@@ -25,7 +25,7 @@ const MAIN = {
         },
     },
     ROOMS: {
-        MAXIMUM_VIEW_ITEM_COUNT: 9,
+        MAXIMUM_VIEW_ITEM_COUNT: 12,
     },
     CHARGE: {
         MIN_CHARGE: 10000,
