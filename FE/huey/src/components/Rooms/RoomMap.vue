@@ -206,6 +206,15 @@ export default {
 }
 .map-price-container {
   overflow: visible !important;
+  background: #fff;
+  font-weight: bold;
+  width: 70px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ff385c;
+
   .map-price-marker {
     background-color: white;
     color: black;
@@ -213,6 +222,7 @@ export default {
 }
 .map-price-container-hovered {
   overflow: visible !important;
+
   .map-price-marker {
     background-color: rgb(0, 132, 137);
     color: white;
