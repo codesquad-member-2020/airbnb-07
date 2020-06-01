@@ -100,6 +100,7 @@ const MainHeader = () => {
     let history = useHistory();
     const handleLogoClick = () => {
         dispatch(changePage(1));
+        window.scrollTo(0, 0);
         history.push('/main');
     }
 
