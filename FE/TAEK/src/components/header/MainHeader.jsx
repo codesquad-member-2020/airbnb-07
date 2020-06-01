@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { changePage } from 'store/modules/rooms/roomsAction';
@@ -26,6 +26,11 @@ const MainHeaderWrap = styled.div`
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    transition: .4s ease;
+    &.hide {
+        box-shadow: 0;
+        transform: translateY(-80px);
+    }
     .main-airbnb-logo {
         cursor: pointer;
     }
@@ -94,6 +99,8 @@ const MainHeaderWrap = styled.div`
 const MainHeader = () => {
     const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
+    const [hide, setHide] = useState(false);
+    const [pageY, setPageY] = useState(0);
     const handleMiniMenuOpen = () => setOpen(!isOpen);
     const handleMiniMenuLeave = () => setOpen(false);
 
@@ -104,9 +111,23 @@ const MainHeader = () => {
         history.push('/main');
     }
 
+    const handleScroll = () => {
+        const { pageYOffset } = window;
+        const deltaY = pageYOffset - pageY;
+        const hide = pageYOffset !== 0 && deltaY >= 0;
+
+        setHide(hide);
+        setPageY(pageYOffset);
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [pageY]);
+
     return (
         <MainHeaderArea>
-            <MainHeaderWrap>
+            <MainHeaderWrap className={hide && 'hide'}>
                 <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
                 <MainHeaderMenu />
                 <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
