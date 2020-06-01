@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import LoadingSpiner from '@/components/common/LoadingSpiner';
 import styled from 'styled-components';
 import { numberComma, dayCounter, formatDate } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
@@ -9,7 +8,7 @@ import { MAIN } from 'constants/constant';
 import { requestReservation } from 'store/modules/reservation/reservationAction';
 
 const ReservationModalItemWrap = styled.div`
-    padding: 30px 30px;
+    width: 370px;
     color: #000;
     .currentPrice-wrap {
         margin-bottom: 10px;
@@ -93,9 +92,8 @@ const CloseButton = styled.div`
     cursor: pointer;
 `;
 
-const ReservationModalItem = ({ handleModalToggle, roomData }) => {
+const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setReservation }) => {
     const dispatch = useDispatch();
-    const [reservation, setReservation] = useState(false);
     const person = useSelector(({ person }) => person);
     const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
     const { totalCount } = person;
@@ -124,7 +122,6 @@ const ReservationModalItem = ({ handleModalToggle, roomData }) => {
 
     return (
         <>
-            {reservation && <LoadingSpiner />}
             <CloseButton onClick={handleModalToggle}>❌</CloseButton>
             <ReservationModalItemWrap>
                 <div className='currentPrice-wrap'>
