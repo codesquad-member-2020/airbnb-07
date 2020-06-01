@@ -107,6 +107,7 @@ public class MockService {
 
     private List<Accommodation> filteringForReservation(FilterRequestDto filterRequestDto, Airbnb airbnb) {
 
+        String requestLocation = filterRequestDto.getLocation();
         LocalDate requestStart = filterRequestDto.getStartDate();
         LocalDate requestEnd = filterRequestDto.getEndDate();
 
@@ -116,8 +117,13 @@ public class MockService {
 
         List<Accommodation> accommodations = new ArrayList<>();
 
+        // location에 따라 숙박업소 리스트업하기
+        List<Accommodation> accommodationsByLocation = airbnb.getAccommodations().stream()
+                .filter(each -> each.getLocation().equals(requestLocation))
+                .collect(Collectors.toList());
+
         // 예약이 있는 숙박업소
-        List<Accommodation> reservedAccommodations = airbnb.getAccommodations().stream()
+        List<Accommodation> reservedAccommodations = accommodationsByLocation.stream()
                 .filter(each -> each.getReservations().size() != 0)
                 .collect(Collectors.toList());
 
@@ -153,7 +159,7 @@ public class MockService {
         }
 
         // 예약이 없는 숙박업소
-        accommodations.addAll(airbnb.getAccommodations().stream()
+        accommodations.addAll(accommodationsByLocation.stream()
                 .filter(each -> each.getReservations().size() == 0)
                 .collect(Collectors.toList()));
 

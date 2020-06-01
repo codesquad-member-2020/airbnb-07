@@ -34,6 +34,7 @@ public class MockController {
                                           @PathVariable Long accommodationId,
                                           @PathVariable String userEmail,
                                           HttpServletRequest request) {
+
         return mockService.reserve(reservationRequestDto, accommodationId, userEmail, request);
     }
 
