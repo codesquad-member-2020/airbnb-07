@@ -33,10 +33,9 @@ const getRoomsFilterData = data => async dispatch => {
             },
             body: JSON.stringify(data.filterData),
         });
-        const json = await response.json();
-
         if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
+        const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
         dispatch(saveFilterData(data.filterData));
