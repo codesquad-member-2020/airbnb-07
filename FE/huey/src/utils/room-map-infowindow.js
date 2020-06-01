@@ -47,7 +47,7 @@ const createSlideIndicatorHtml = marker => {
 const infoWindow = {
   getContentHtml(marker) {
     return `
-      <div class="info-window border border-grey rounded">
+      <div class="info-window border border-grey rounded" style="width:280px;">
         <div class="siema-container">
           <div class="siema">${createSlideHtml(marker)}</div>
           <div class="indicators">${createSlideIndicatorHtml(marker)}</div>
