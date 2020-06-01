@@ -13,10 +13,9 @@ const getRoomsInitData = data => async dispatch => {
     try {
         dispatch({ type: GET_ROOMS_INIT_DATA });
         const response = await fetch(URL.ROOMS_INIT);
-        const json = await response.json();
-
         if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
+        const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
     } catch (e) {
