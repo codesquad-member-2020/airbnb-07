@@ -418,9 +418,17 @@ module.exports = function (gMapsApi) {
 
     this.eventDiv_.style.position = this.labelDiv_.style.position
     this.eventDiv_.style.overflow = this.labelDiv_.style.overflow
-    this.eventDiv_.style.opacity = 0.01 // Don't use 0; DIV won't be clickable on MSIE
+    this.eventDiv_.style.opacity = 1 // Don't use 0; DIV won't be clickable on MSIE
     this.eventDiv_.style.MsFilter = '"progid:DXImageTransform.Microsoft.Alpha(opacity=1)"'
     this.eventDiv_.style.filter = 'alpha(opacity=1)' // For MSIE
+    this.eventDiv_.style.background = "#fff"
+    this.eventDiv_.style.fontWeight = "bold"
+    this.eventDiv_.style.width = "70px"
+    this.eventDiv_.style.height = "25px"
+    this.eventDiv_.style.lineHeight = "25px"
+    this.eventDiv_.style.borderRadius = "20px"
+    this.eventDiv_.style.boxSizing = "borderBox"
+    this.eventDiv_.style.border = "2px solid #ff385c"
 
     this.setAnchor()
     this.setPosition() // This also updates z-index, if necessary.
