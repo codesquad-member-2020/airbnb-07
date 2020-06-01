@@ -31,38 +31,32 @@ export default function dateReducer(state = initialState, action) {
                 ...initialState,
             }
         case CHECK_IN:
-            {
-                let dateInfo = null;
-                if (action.payload) dateInfo = {
-                    year: action.payload._d.getFullYear(),
-                    month: action.payload._d.getMonth() + 1,
-                    day: action.payload._d.getDate(),
-                }
-                return {
-                    ...state,
-                    checkInDate: action.payload,
-                    checkInDateInfo: dateInfo,
-                    isSave: false,
-                    isChange: true,
-                }
+            return {
+                ...state,
+                checkInDate: action.payload,
+                checkInDateInfo: getDateInfo(action.payload),
+                isSave: false,
+                isChange: true,
             }
         case CHECK_OUT:
-            {
-                let dateInfo = null;
-                if (action.payload) dateInfo = {
-                    year: action.payload._d.getFullYear(),
-                    month: action.payload._d.getMonth() + 1,
-                    day: action.payload._d.getDate(),
-                }
-                return {
-                    ...state,
-                    checkOutDate: action.payload,
-                    checkOutDateInfo: dateInfo,
-                    isSave: false,
-                    isChange: true,
-                }
+            return {
+                ...state,
+                checkOutDate: action.payload,
+                checkOutDateInfo: getDateInfo(action.payload),
+                isSave: false,
+                isChange: true,
             }
         default:
             return state
     }
+}
+
+function getDateInfo(dateData) {
+    let dateInfo = null;
+    if (dateData) dateInfo = {
+        year: dateData._d.getFullYear(),
+        month: dateData._d.getMonth() + 1,
+        day: dateData._d.getDate(),
+    }
+    return dateInfo
 }

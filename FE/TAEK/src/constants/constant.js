@@ -1,4 +1,7 @@
 const MAIN = {
+    LOCATION: {
+        DEFAULT_LOCATION: 'Seattle',
+    },
     DATE: {
         START_DATE_ID: 'airbnb-start-date',
         END_DATE_ID: 'airbnb-end-date',
