@@ -4,9 +4,9 @@
     <div class="room-text-info-wrap">
       <div class="info-top">
         <div class="location">{{ propsData.location }}</div>
-        <span class="person-number"
+        <!-- <span class="person-number"
           >최대 인원수: {{ propsData.availableGuest }}명</span
-        >
+        > -->
         <div class="rating-wrap">
           <img
             class="rating-star-icon"
