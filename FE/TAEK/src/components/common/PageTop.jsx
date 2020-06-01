@@ -16,6 +16,10 @@ const PageTopWrap = styled.div`
         color: #c2c2c2;
         transform: rotate(-90deg);
         cursor: pointer;
+        :hover {
+            color: #000;
+            border: 1.19px solid #000;
+        }
     }
 `;
 
