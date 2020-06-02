@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { changePage } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
-import miniMenu from 'public/images/mini-menu.svg';
 import MainHeaderMenu from './MainHeaderMenu';
 import MainHeaderMiniMenu from './MainHeaderMiniMenu';
 
