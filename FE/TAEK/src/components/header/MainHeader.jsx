@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { changePage } from 'store/modules/rooms/roomsAction';
@@ -101,6 +101,7 @@ const MainHeader = () => {
     const [isOpen, setOpen] = useState(false);
     const [hide, setHide] = useState(false);
     const [pageY, setPageY] = useState(0);
+    const documentRef = useRef(document);
     const handleMiniMenuOpen = () => setOpen(!isOpen);
     const handleMiniMenuLeave = () => setOpen(false);
 
@@ -121,8 +122,8 @@ const MainHeader = () => {
     }
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        documentRef.current.addEventListener('scroll', handleScroll);
+        return () => documentRef.current.removeEventListener('scroll', handleScroll);
     }, [pageY]);
 
     return (

@@ -27,6 +27,7 @@ const RoomList = ({ allData, currentPage }) => {
 
     return (
         <>
+            <Pagenation />
             <RoomListWrap>
                 {roomList}
             </RoomListWrap>
