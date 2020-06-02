@@ -12,14 +12,14 @@ const Background = styled.div`
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 5;
+    z-index: 105;
 `;
 
 const DateFilterModalWrap = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 110;
     .DateRangePicker_picker {
         font-weight: 600;
         overflow: hidden;
