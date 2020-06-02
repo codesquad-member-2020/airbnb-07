@@ -27,6 +27,4 @@ export const formatDate = (year, month, day, gap) => {
     return [year, month, day].join(gap);
 }
 
-export const checkResponseData = response => {
-    return response.ok && (response.status >= 200 && response.status <= 207);
-}
+export const checkResponseData = response => response.ok && (response.status >= 200 && response.status <= 207);

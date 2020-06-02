@@ -19,11 +19,7 @@ const RoomListWrap = styled.div`
 const RoomList = ({ allData, currentPage }) => {
     const maximum = MAIN.ROOMS.MAXIMUM_VIEW_ITEM_COUNT;
     const pageItems = [...allData].splice(((currentPage - 1) * maximum), maximum);
-    const roomList = pageItems.map(roomData => {
-        return (
-            <RoomCard key={roomData.id} {...{ roomData }} />
-        )
-    });
+    const roomList = pageItems.map(roomData => <RoomCard key={roomData.id} {...{ roomData }} />);
 
     return (
         <>

@@ -45,20 +45,22 @@ const PersonFilter = () => {
 
     const handleSetOpen = () => setOpen(!isOpen);
 
-    const personBtnText = isSave && totalCount ? [] : ['인원'];
-    if (isSave && adultCount) personBtnText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
-    if (isSave && childCount) personBtnText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
-    if (isSave && babyCount) personBtnText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+    const personBtnTextArr = isSave && totalCount ? [] : ['인원'];
+    if (isSave && adultCount) personBtnTextArr.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
+    if (isSave && childCount) personBtnTextArr.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
+    if (isSave && babyCount) personBtnTextArr.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+
+    const personBtnText = personBtnTextArr.join(', ');
 
     useEffect(() => {
-        setPrevPersonBtnText(personBtnText.join(', '));
+        setPrevPersonBtnText(personBtnTextArr.join(', '));
     }, [isOpen]);
 
     return (
         <PersonFilterWrap>
             {(isOpen || isSave) && <HighlightBorder />}
             <PersonFilterBtn onClick={handleSetOpen}>
-                {isSave ? personBtnText.join(', ') : prevPersonBtnText}
+                {isSave ? personBtnText : prevPersonBtnText}
             </PersonFilterBtn>
             {isOpen && <PersonFilterModal {...{ handleSetOpen }} />}
         </PersonFilterWrap>
