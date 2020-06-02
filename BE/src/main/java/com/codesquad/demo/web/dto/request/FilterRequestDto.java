@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class FilterRequestDto {
 
+    private String location;
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer people;

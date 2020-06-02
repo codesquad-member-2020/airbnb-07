@@ -49,7 +49,7 @@ public class MockControllerTest {
         String hotelName = "Stylish Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
-        int total = 140;
+        int total = 84;
 
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
@@ -69,25 +69,20 @@ public class MockControllerTest {
     public void getFiltering() {
 
         // given
-//        String localUrl = "http://localhost:" + port + "/mock/filter";
-        String realUrl = "http://15.164.35.235/api/mock/filter";
-        Long id = 1L;
-        String hotelName = "Stylish Queen Anne Apartment";
+        String localUrl = "http://localhost:" + port + "/mock/filter";
+//        String realUrl = "http://15.164.35.235/api/mock/filter";
+        Long id = 2L;
+        String hotelName = "Bright & Airy Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
-        LocalDate startDate = LocalDate.parse("2020-08-07");
-        LocalDate endDate = LocalDate.parse("2020-08-08");
-//        String endDate = "2020-06-08";
+        LocalDate startDate = LocalDate.parse("2020-06-03");
+        LocalDate endDate = LocalDate.parse("2020-06-09");
         int people = 3;
         Integer min = 50000;
         Integer max = 200000;
-        String zero = "0";
-        String man = "10000";
-        String eman = "20000";
-        int one = 1;
-        int six = 6;
 
         FilterRequestDto filterRequestDto = FilterRequestDto.builder()
+                .location(location)
                 .startDate(startDate)
                 .endDate(endDate)
                 .people(people)
@@ -97,7 +92,7 @@ public class MockControllerTest {
 
         // when
         ResponseEntity<AllAccommodationResponseDto> responseEntity
-                = restTemplate.postForEntity(realUrl, filterRequestDto, AllAccommodationResponseDto.class);
+                = restTemplate.postForEntity(localUrl, filterRequestDto, AllAccommodationResponseDto.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -112,11 +107,11 @@ public class MockControllerTest {
     public void reserveTest() {
 
         // given
-        Long id = 1L;
+        int id = 1;
         String userEmail = "guswns1659@gmail.com";
-        String url = "http://localhost:" + port +  "/mock/" + "1/" + userEmail;
-        LocalDate startDate = LocalDate.parse("2020-06-01");
-        LocalDate endDate = LocalDate.parse("2020-06-03");
+        String url = "http://localhost:" + port +  "/mock/" + id + "/" + userEmail;
+        LocalDate startDate = LocalDate.parse("2020-08-05");
+        LocalDate endDate = LocalDate.parse("2020-08-09");
         int people = 5;
         int totalPrice = 100000;
         String ok = "200";
@@ -144,6 +139,8 @@ public class MockControllerTest {
 
         // given
         String url = "http://localhost:" + port + "/mock/reservationInfo" + "/guswns1659@gmail.com";
+        String pictureUrl = "https://a1.muscache.com/ac/pictures/67560560/cfe47d69_original.jpg?interpolation=lanczos-none&size=large_cover&output-format=jpg&output-quality=70";
+        int people = 5;
         String ok = "200";
         long id = 1L;
 
@@ -155,8 +152,8 @@ public class MockControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
         assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(id);
-        assertThat(responseEntity.getBody().getAllData().get(0).getUrls()).isNotNull();
-        assertThat(responseEntity.getBody().getAllData().get(0).getReservation()).isNotNull();
+        assertThat(responseEntity.getBody().getAllData().get(0).getUrls().get(0).getUrl()).isEqualTo(pictureUrl);
+        assertThat(responseEntity.getBody().getAllData().get(0).getReservation().getPeople()).isEqualTo(people);
     }
 
     @Test
@@ -168,9 +165,6 @@ public class MockControllerTest {
         String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId + "/guswns1659@gmail.com";
         String ok = "200";
         String successMessage = "예약 삭제에 성공했습니다.";
-
-        // when
-//        restTemplate.delete(url);
 
         ResponseEntity<DeleteReservationResponseDto> responseEntity =
                 restTemplate.exchange(url, HttpMethod.DELETE, null , DeleteReservationResponseDto.class);
