@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import miniMenu from 'public/images/mini-menu.svg';
 import MainHeaderMenu from './MainHeaderMenu';
+import MainHeaderMiniMenu from './MainHeaderMiniMenu';
 
 const MainHeaderArea = styled.div`
     position: relative;
@@ -25,6 +26,7 @@ const MainHeaderWrap = styled.div`
     padding: 0 15%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
     transition: .4s ease;
     &.hide {
@@ -34,76 +36,13 @@ const MainHeaderWrap = styled.div`
     .main-airbnb-logo {
         cursor: pointer;
     }
-    .main-header-menu {
-        display: flex;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 600;
-        color: #484848;
-        li {
-            margin-right: 20px;
-            cursor: pointer;
-            :last-child {
-                margin-right: 0;
-            }
-        }
-        @media (max-width: 1180px) { display: none; }
-    }
-    .mini-menu {
-        position: relative;
-        width: 200px;
-        height: 30px;
-        display: none;
-        align-self: center;
-        img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
-        }
-        .main-header-menu {
-            position: absolute;
-            top: 30px;
-            right: 0;
-            display: block;
-            width: 200px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #484848;
-            background-color: #fff;
-            z-index: 7;
-            overflow: hidden;
-            animation-name: miniMenu;
-            animation-duration: .3s;
-            animation-timing-function:ease-in-out;
-            animation-fill-mode: both;
-            @keyframes miniMenu {
-                0% { height: 0; }
-                100% { height: 250px;}
-            }
-            border-radius: 5px;
-            box-shadow: ${props => props.theme.modalShadow};
-            box-sizing: border-box;
-            li {
-                display: block;
-                line-height: 30px;
-                padding: 10px 20px;
-                margin-right: 0;
-                cursor: pointer;
-            }
-        }
-        @media (max-width: 1180px) { display: block; }
-    }
 `;
 
 const MainHeader = () => {
     const dispatch = useDispatch();
-    const [isOpen, setOpen] = useState(false);
     const [hide, setHide] = useState(false);
     const [pageY, setPageY] = useState(0);
     const documentRef = useRef(document);
-    const handleMiniMenuOpen = () => setOpen(!isOpen);
-    const handleMiniMenuLeave = () => setOpen(false);
 
     let history = useHistory();
     const handleLogoClick = () => {
@@ -131,10 +70,7 @@ const MainHeader = () => {
             <MainHeaderWrap className={hide && 'hide'}>
                 <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
                 <MainHeaderMenu />
-                <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
-                    <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
-                    {isOpen && <MainHeaderMenu />}
-                </div>
+                <MainHeaderMiniMenu />
             </MainHeaderWrap>
         </MainHeaderArea>
     )
