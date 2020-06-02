@@ -1,5 +1,6 @@
 import URL from 'constants/url';
 import { COMMON } from 'constants/constant';
+import { checkResponseData } from 'utils/util';
 
 const GET_ROOMS_INIT_DATA = 'rooms/GET_ROOMS';
 const GET_ROOMS_FILTER_DATA = 'rooms/GET_ROOMS_FILTER_DATA';
@@ -13,7 +14,7 @@ const getRoomsInitData = data => async dispatch => {
     try {
         dispatch({ type: GET_ROOMS_INIT_DATA });
         const response = await fetch(URL.ROOMS_INIT);
-        if (!response.ok && response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+        if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
@@ -33,7 +34,7 @@ const getRoomsFilterData = data => async dispatch => {
             },
             body: JSON.stringify(data.filterData),
         });
-        if (!response.ok && response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+        if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });

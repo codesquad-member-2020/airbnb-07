@@ -1,5 +1,6 @@
 import URL from 'constants/url';
 import { COMMON } from 'constants/constant';
+import { checkResponseData } from 'utils/util';
 
 const MODAL_TOGGLE = 'reservation/MODAL_TOGGLE';
 const SELECTED_ROOM = 'reservation/SELECTED_ROOM';
@@ -27,7 +28,7 @@ const getReservationInfoData = () => async dispatch => {
     try {
         dispatch({ type: GET_RESERVATION_INFO_DATA });
         const response = await fetch(URL.RESERVATION_INFO);
-        if (!response.ok && response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+        if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
         dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: json });
