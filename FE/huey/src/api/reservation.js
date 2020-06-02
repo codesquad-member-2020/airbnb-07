@@ -1,12 +1,13 @@
-import { instance, filter } from './index';
+import { instance, authoriztion } from './index';
 
 // API를 추가할 예정
 function fetchPosts() {
-  return filter.get('/');
+  return authoriztion.get('/');
 }
 
 function initMainRedner() {
   return instance.get('mock/init');
+  // return filter.get();
 }
 
 function setReservation(accommodationId, setData) {
