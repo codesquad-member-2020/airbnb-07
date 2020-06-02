@@ -55,7 +55,13 @@ import { mapState } from 'vuex';
 export default {
   props: ['propsData'],
   computed: {
-    ...mapState(['clickedAccommodationid']),
+    ...mapState([
+      'clickedAccommodationid',
+      'selectedCountry',
+      'checkinDate',
+      'checkoutDate',
+      'guestNumber',
+    ]),
   },
   methods: {
     openReservationModal({
@@ -63,6 +69,15 @@ export default {
         dataset: { accommodationid },
       },
     }) {
+      if (
+        !(
+          this.selectedCountry &&
+          this.checkinDate &&
+          this.checkoutDate &&
+          this.guestNumber
+        )
+      )
+        return alert('필수 사항을 입력해주세요');
       this.$store.commit('setOpenModal', this.propsData);
       this.$store.commit('setAccommodationId', accommodationid);
     },
