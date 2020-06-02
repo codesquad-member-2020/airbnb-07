@@ -110,8 +110,8 @@ public class MockControllerTest {
         int id = 1;
         String userEmail = "guswns1659@gmail.com";
         String url = "http://localhost:" + port +  "/mock/" + id + "/" + userEmail;
-        LocalDate startDate = LocalDate.parse("2020-06-05");
-        LocalDate endDate = LocalDate.parse("2020-06-06");
+        LocalDate startDate = LocalDate.parse("2020-08-05");
+        LocalDate endDate = LocalDate.parse("2020-08-09");
         int people = 5;
         int totalPrice = 100000;
         String ok = "200";

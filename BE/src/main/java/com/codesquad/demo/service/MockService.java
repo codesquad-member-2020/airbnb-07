@@ -129,24 +129,25 @@ public class MockService {
         // 예약이 있는 숙박업소에서 사용자의 예약에 맞는 숙박업소를 찾는 과정
         for (Accommodation accommodation : reservedAccommodations) {
 
-            boolean ok = true;
-            for (AccommodationReservation each : accommodation.getReservations()) {
-                if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
-                        || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
-                    ok = false;
-                    break;
-                }
-                if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
-                        || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
-                    ok = false;
-                    break;
-                }
-                if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
-                        || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
-                    ok = false;
-                    break;
-                }
-            }
+            boolean ok = isReservable(accommodation, requestStart, requestEnd);
+
+//            for (AccommodationReservation each : accommodation.getReservations()) {
+//                if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
+//                        || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
+//                    ok = false;
+//                    break;
+//                }
+//                if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
+//                        || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
+//                    ok = false;
+//                    break;
+//                }
+//                if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
+//                        || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
+//                    ok = false;
+//                    break;
+//                }
+//            }
             if (ok) accommodations.add(accommodation);
         }
 
@@ -253,6 +254,19 @@ public class MockService {
 
             Airbnb airbnb = findAirbnbById(id);
 
+            Accommodation accommodation = airbnb.getAccommodations().stream()
+                    .filter(each -> each.getId().equals(accommodationId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("해당 accommodation이 없습니다. id = " + accommodationId));
+
+            LocalDate requestStart = reservationRequestDto.getStartDate();
+            LocalDate requestEnd = reservationRequestDto.getEndDate();
+
+
+            if (!isReservable(accommodation, requestStart, requestEnd)) {
+                throw new IllegalStateException("해당 날짜엔 이미 예약이 있습니다.");
+            }
+
             airbnb.reservationSaveToUser(userEmail, reservationRequestDto);
 
             airbnb.reservationSaveToAccommodation(accommodationId, reservationRequestDto);
@@ -262,6 +276,17 @@ public class MockService {
             return ReservationResponseDto.builder()
                     .status("200")
                     .message(successMessage)
+                    .build();
+
+        } catch(IllegalStateException e) {
+
+            String failMessage = "해당 날짜엔 이미 예약이 있습니다.";
+
+            e.printStackTrace();
+
+            return ReservationResponseDto.builder()
+                    .status("202")
+                    .message(failMessage)
                     .build();
 
         } catch (Exception e) {
@@ -274,6 +299,28 @@ public class MockService {
                     .message(failMessage)
                     .build();
         }
+    }
+
+    private boolean isReservable(Accommodation accommodation, LocalDate requestStart, LocalDate requestEnd) {
+
+        for (AccommodationReservation each : accommodation.getReservations()) {
+            if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
+                    || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
+                return false;
+            }
+            if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
+                    || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
+
+                return false;
+
+            }
+            if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
+                    || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
