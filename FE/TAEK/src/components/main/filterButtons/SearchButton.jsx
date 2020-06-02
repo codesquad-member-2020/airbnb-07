@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { COMMON } from 'constants/constant';
+import { MAIN, COMMON } from 'constants/constant';
 import { getRoomsFilterData } from 'store/modules/rooms/roomsAction';
 import { changePage } from 'store/modules/rooms/roomsAction';
 import { formatDate } from 'utils/util';
@@ -27,10 +27,7 @@ const SearchButtonWrap = styled.div`
 
 const SearchButton = () => {
     const dispatch = useDispatch();
-    const { location } = useSelector(({ location }) => location);
-    const date = useSelector(({ date }) => date);
-    const person = useSelector(({ person }) => person);
-    const charge = useSelector(({ charge }) => charge);
+    const { location, date, person, charge } = useSelector(state => state);
 
     const { checkInDateInfo, checkOutDateInfo } = date;
     const { totalCount } = person;
@@ -40,7 +37,7 @@ const SearchButton = () => {
         if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
         if (!date.checkOutDate) return alert(COMMON.NOT_INPUT_CHECKOUT_MESSAGE);
         const filterData = {
-            location: location,
+            location: location.locationInfo,
             startDate: formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '-'),
             endDate: formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '-'),
             people: totalCount,
@@ -48,7 +45,7 @@ const SearchButton = () => {
             max: charge.isSave ? max : null
         }
         dispatch(getRoomsFilterData({ filterData, min, max }));
-        dispatch(changePage(1));
+        dispatch(changePage(MAIN.PAGE.DEFAULT_PAGE));
     }
 
     return (

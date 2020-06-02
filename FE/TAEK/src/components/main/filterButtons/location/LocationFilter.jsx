@@ -47,7 +47,7 @@ const LocationFilterBtn = styled.div`
 
 const LocationFilter = () => {
     const dispatch = useDispatch();
-    const { location } = useSelector(({ location }) => location);
+    const { locationInfo } = useSelector(({ location }) => location);
 
     const handleLocationChange = ({ target }) => dispatch(changeLocation(target.value));
 
@@ -56,7 +56,7 @@ const LocationFilter = () => {
             <HighlightBorder />
             <LocationFilterBtn>
                 <select onChange={handleLocationChange} name='지역'>
-                    <option value='' hidden>{location}</option>
+                    <option value='' hidden>{locationInfo}</option>
                     <option value='Seattle'>Seattle</option>
                     <option value='NewYork'>NewYork</option>
                     <option value='Boston'>Boston</option>

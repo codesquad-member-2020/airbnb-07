@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import MainHeaderMenu from './MainHeaderMenu';
 import MainHeaderMiniMenu from './MainHeaderMiniMenu';
+import { MAIN } from 'constants/constant';
 
 const MainHeaderArea = styled.div`
     position: relative;
@@ -45,7 +46,7 @@ const MainHeader = () => {
 
     let history = useHistory();
     const handleLogoClick = () => {
-        dispatch(changePage(1));
+        dispatch(changePage(MAIN.PAGE.DEFAULT_PAGE));
         window.scrollTo(0, 0);
         history.push('/main');
     }
