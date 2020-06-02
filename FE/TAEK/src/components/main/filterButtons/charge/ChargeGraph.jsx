@@ -15,7 +15,7 @@ const ChargeGraph = ({ style, children }) => {
                 ...style,
                 background: background,
                 width: 10,
-                height: priceData.total * 2.5,
+                height: priceData.total / 2,
                 bottom: 2,
             }}
         />
