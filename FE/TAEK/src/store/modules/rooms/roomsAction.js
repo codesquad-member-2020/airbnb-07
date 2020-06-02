@@ -13,7 +13,7 @@ const getRoomsInitData = data => async dispatch => {
     try {
         dispatch({ type: GET_ROOMS_INIT_DATA });
         const response = await fetch(URL.ROOMS_INIT);
-        if (!response.ok) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+        if (!response.ok && response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
@@ -33,7 +33,7 @@ const getRoomsFilterData = data => async dispatch => {
             },
             body: JSON.stringify(data.filterData),
         });
-        if (!response.ok) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+        if (!response.ok && response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
