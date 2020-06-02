@@ -27,6 +27,7 @@ const SearchButtonWrap = styled.div`
 
 const SearchButton = () => {
     const dispatch = useDispatch();
+    const { location } = useSelector(({ location }) => location);
     const date = useSelector(({ date }) => date);
     const person = useSelector(({ person }) => person);
     const charge = useSelector(({ charge }) => charge);
@@ -39,6 +40,7 @@ const SearchButton = () => {
         if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
         if (!date.checkOutDate) return alert(COMMON.NOT_INPUT_CHECKOUT_MESSAGE);
         const filterData = {
+            location: location,
             startDate: formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '-'),
             endDate: formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '-'),
             people: totalCount,
