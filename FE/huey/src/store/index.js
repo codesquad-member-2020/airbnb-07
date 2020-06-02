@@ -12,6 +12,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
     initRenderRooms: [],
     reservationList: [],
     reservationSuccessMessage: '',
