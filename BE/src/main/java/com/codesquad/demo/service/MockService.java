@@ -110,7 +110,6 @@ public class MockService {
         String requestLocation = filterRequestDto.getLocation();
         LocalDate requestStart = filterRequestDto.getStartDate();
         LocalDate requestEnd = filterRequestDto.getEndDate();
-
         int requestPeople = filterRequestDto.getPeople();
         Integer requestMinPrice = filterRequestDto.getMin();
         Integer requestMaxPrice = filterRequestDto.getMax();
@@ -139,6 +138,11 @@ public class MockService {
                 }
                 if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
                         || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
+                    ok = false;
+                    break;
+                }
+                if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
+                        || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
                     ok = false;
                     break;
                 }

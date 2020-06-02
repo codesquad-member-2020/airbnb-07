@@ -71,12 +71,12 @@ public class MockControllerTest {
         // given
         String localUrl = "http://localhost:" + port + "/mock/filter";
 //        String realUrl = "http://15.164.35.235/api/mock/filter";
-        Long id = 401L;
-        String hotelName = "Clean & quiet apt home by the park";
-        String location = "NewYork";
+        Long id = 2L;
+        String hotelName = "Bright & Airy Queen Anne Apartment";
+        String location = "Seattle";
         String status = "200";
-        LocalDate startDate = LocalDate.parse("2020-06-01");
-        LocalDate endDate = LocalDate.parse("2020-06-05");
+        LocalDate startDate = LocalDate.parse("2020-06-03");
+        LocalDate endDate = LocalDate.parse("2020-06-09");
         int people = 3;
         Integer min = 50000;
         Integer max = 200000;
@@ -165,9 +165,6 @@ public class MockControllerTest {
         String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId + "/guswns1659@gmail.com";
         String ok = "200";
         String successMessage = "예약 삭제에 성공했습니다.";
-
-        // when
-//        restTemplate.delete(url);
 
         ResponseEntity<DeleteReservationResponseDto> responseEntity =
                 restTemplate.exchange(url, HttpMethod.DELETE, null , DeleteReservationResponseDto.class);
