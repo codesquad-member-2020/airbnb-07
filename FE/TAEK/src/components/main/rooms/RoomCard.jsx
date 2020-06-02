@@ -13,6 +13,19 @@ const RoomCardWrap = styled.div`
     overflow: hidden;
     border-radius: 5px;
     box-shadow: ${props => props.theme.boxShadow};
+    transition: transform .15s ease-in-out;
+    opacity: 0;
+    animation-name: roomCard;
+    animation-duration: .6s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    @keyframes roomCard{
+        to { opacity: 1 }
+    }
+    :hover {
+        transform: scale(1.07);
+        z-index: 1;
+    }
 `;
 
 const RoomImg = styled.img`

@@ -36,6 +36,14 @@ const ReservationListWrap = styled.div`
         border-radius: 5px;
         margin-top: 35px;
         width: 100%;
+        opacity: 0;
+        animation-name: reservationTable;
+        animation-duration: .6s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        @keyframes reservationTable{
+            to { opacity: 1 }
+        }
     }
     .reservation-card-container {
         .hotel-container {
