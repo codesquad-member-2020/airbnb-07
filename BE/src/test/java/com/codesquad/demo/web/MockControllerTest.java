@@ -43,7 +43,7 @@ public class MockControllerTest {
     public void getInitTest() {
 
         // given
-        String url = "http://localhost:" + port + "/mock/init";
+        String url = "http://localhost:" + port + "/mock/authorization/init";
         Long id = 1L;
         int size = 30;
         String hotelName = "Stylish Queen Anne Apartment";
@@ -69,7 +69,7 @@ public class MockControllerTest {
     public void getFiltering() {
 
         // given
-        String localUrl = "http://localhost:" + port + "/mock/filter";
+        String localUrl = "http://localhost:" + port + "/mock/authorization/filter";
 //        String realUrl = "http://15.164.35.235/api/mock/filter";
         Long id = 2L;
         String hotelName = "Bright & Airy Queen Anne Apartment";
@@ -109,9 +109,9 @@ public class MockControllerTest {
         // given
         int id = 1;
         String userEmail = "guswns1659@gmail.com";
-        String url = "http://localhost:" + port +  "/mock/" + id + "/" + userEmail;
-        LocalDate startDate = LocalDate.parse("2020-08-05");
-        LocalDate endDate = LocalDate.parse("2020-08-09");
+        String url = "http://localhost:" + port +  "/mock/authorization/" + id + "/" + userEmail;
+        LocalDate startDate = LocalDate.parse("2020-06-05");
+        LocalDate endDate = LocalDate.parse("2020-06-09");
         int people = 5;
         int totalPrice = 100000;
         String ok = "200";
@@ -138,7 +138,7 @@ public class MockControllerTest {
     public void getReservationInfo() {
 
         // given
-        String url = "http://localhost:" + port + "/mock/reservationInfo" + "/guswns1659@gmail.com";
+        String url = "http://localhost:" + port + "/mock/authorization/reservationInfo" + "/guswns1659@gmail.com";
         String pictureUrl = "https://a1.muscache.com/ac/pictures/67560560/cfe47d69_original.jpg?interpolation=lanczos-none&size=large_cover&output-format=jpg&output-quality=70";
         int people = 5;
         String ok = "200";
@@ -162,9 +162,9 @@ public class MockControllerTest {
         // given
         long accommodationId = 1L;
         long reservationId = 1L;
-        String url = "http://localhost:" + port + "/mock/" + accommodationId + "/" + reservationId + "/guswns1659@gmail.com";
+        String url = "http://localhost:" + port + "/mock/authorization/" + accommodationId + "/" + reservationId + "/guswns1659@gmail.com";
         String ok = "200";
-        String successMessage = "예약 삭제에 성공했습니다.";
+        String successMessage = "예약 취소에 성공했습니다.";
 
         ResponseEntity<DeleteReservationResponseDto> responseEntity =
                 restTemplate.exchange(url, HttpMethod.DELETE, null , DeleteReservationResponseDto.class);

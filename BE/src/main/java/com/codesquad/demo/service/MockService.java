@@ -245,7 +245,6 @@ public class MockService {
             LocalDate requestStart = reservationRequestDto.getStartDate();
             LocalDate requestEnd = reservationRequestDto.getEndDate();
 
-
             if (!isReservable(accommodation, requestStart, requestEnd)) {
                 throw new IllegalStateException("해당 날짜엔 이미 예약이 있습니다.");
             }

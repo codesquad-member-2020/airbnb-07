@@ -14,18 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("mock")
+@RequestMapping("mock/authorization")
 public class MockController {
 
     private final MockService mockService;
 
     @GetMapping("init")
     public AllAccommodationResponseDto getInit() {
+
         return mockService.getInit();
     }
 
     @PostMapping("filter")
     public AllAccommodationResponseDto getFiltering(@RequestBody FilterRequestDto filterRequestDto) {
+
         return mockService.getFiltering(filterRequestDto);
     }
 
@@ -41,6 +43,7 @@ public class MockController {
     @GetMapping("reservationInfo/{userEmail}")
     public AllReservationInfoResponseDto getReservationInfo(@PathVariable String userEmail,
                                                             HttpServletRequest request) {
+
         return mockService.getReservationInfo(userEmail, request);
     }
 
