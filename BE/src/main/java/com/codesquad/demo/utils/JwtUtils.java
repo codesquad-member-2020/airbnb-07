@@ -36,7 +36,12 @@ public class JwtUtils {
                 .setSigningKey(JWT_KEY.getBytes())
                 .parseClaimsJws(jwt)
                 .getBody();
+
         String result = claims.get("userEmail", String.class);
+
+        if (result.contains("\"")) {
+            result = result.replaceAll("\"", "");
+        }
 
         logger.info("result : {}", result);
 

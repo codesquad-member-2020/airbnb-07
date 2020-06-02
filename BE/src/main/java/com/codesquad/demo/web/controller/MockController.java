@@ -1,6 +1,7 @@
 package com.codesquad.demo.web.controller;
 
 import com.codesquad.demo.service.MockService;
+import com.codesquad.demo.service.ReserveService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
@@ -13,11 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("mock/authorization")
 public class MockController {
 
     private final MockService mockService;
+
+    private final ReserveService reserveService;
+
+    public MockController(MockService mockService, ReserveService reserveService) {
+        this.mockService = mockService;
+        this.reserveService = reserveService;
+    }
 
     @GetMapping("init")
     public AllAccommodationResponseDto getInit() {
