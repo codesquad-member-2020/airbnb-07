@@ -131,23 +131,6 @@ public class MockService {
 
             boolean ok = isReservable(accommodation, requestStart, requestEnd);
 
-//            for (AccommodationReservation each : accommodation.getReservations()) {
-//                if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
-//                        || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
-//                    ok = false;
-//                    break;
-//                }
-//                if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
-//                        || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
-//                    ok = false;
-//                    break;
-//                }
-//                if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
-//                        || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
-//                    ok = false;
-//                    break;
-//                }
-//            }
             if (ok) accommodations.add(accommodation);
         }
 

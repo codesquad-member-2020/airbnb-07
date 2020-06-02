@@ -21,17 +21,17 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(MAX_AGE_SECS);
     }
 
-    @Bean
-    public LoginIntercepter loginInterceptor() {
-        return new LoginIntercepter();
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/api/github/**")
-                .excludePathPatterns("/githublogin")
-                .excludePathPatterns("/github/**");
-    }
+//    @Bean
+//    public LoginIntercepter loginInterceptor() {
+//        return new LoginIntercepter();
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/api/github/**")
+//                .excludePathPatterns("/githublogin")
+//                .excludePathPatterns("/github/**");
+//    }
 }
