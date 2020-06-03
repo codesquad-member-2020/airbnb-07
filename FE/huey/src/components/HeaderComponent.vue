@@ -78,7 +78,9 @@ export default {
   },
   methods: {
     toReservationPage() {
-      this.$router.push('/reservation');
+      if (this.$route.path !== '/reservation') {
+        this.$router.push('/reservation');
+      }
     },
 
     toMainPage() {
