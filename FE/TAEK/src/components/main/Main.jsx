@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { getCookie } from 'utils/util';
+import { MAIN } from 'constants/constant';
+import { login } from 'store/modules/login/loginAction';
 import styled from 'styled-components';
 import MainHeader from '@/components/header/MainHeader';
 import FilterButtons from './filterButtons/FilterButtons';
@@ -10,6 +14,13 @@ const MainContentsWrap = styled.div`
 `;
 
 const Main = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
+        if (token) dispatch(login(token));
+    }, []);
+
     return (
         <>
             <MainHeader />

@@ -5,6 +5,7 @@ import charge from './charge/chargeReducer';
 import rooms from './rooms/roomsReducer';
 import reservation from './reservation/reservationReducer';
 import location from './location/locationReducer';
+import login from './login/loginReducer';
 
 export default combineReducers({
     date,
@@ -13,4 +14,5 @@ export default combineReducers({
     rooms,
     reservation,
     location,
+    login,
 });
