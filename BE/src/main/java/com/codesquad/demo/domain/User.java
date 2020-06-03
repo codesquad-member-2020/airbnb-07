@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -22,9 +23,8 @@ public class User {
     private String email;
     private List<UserReservation> reservations = new ArrayList<>();
 
-    public UserReservation addReservation(UserReservation reservation) {
+    public void addReservation(UserReservation reservation) {
         this.reservations.add(reservation);
-        return this.reservations.get(this.reservations.size()-1);
     }
 
     public void deleteReservation(Long reservationId) {
@@ -34,12 +34,15 @@ public class User {
                 .orElseThrow(() -> new IllegalStateException("해당 reservation이 없습니다. reservationId = " + reservationId));
 
         this.reservations.remove(willDelete);
+        this.reservations.sort(Comparator.comparing(UserReservation::getId));
     }
 
     public AllReservationInfoResponseDto showReservationInfos(List<Accommodation> accommodations) {
 
         List<EachReservationInfoResponseDto> eachReservationInfoResponseDtos
                 = new ArrayList<>();
+
+        this.getReservations().sort(Comparator.comparing(UserReservation::getId).reversed());
 
         try {
             for (UserReservation each : this.getReservations()) {

@@ -71,10 +71,9 @@ public class ReserveControllerTest {
 
         // given
         String url = "http://localhost:" + port + "/authorization/reservationInfo";
-        String pictureUrl = "https://a1.muscache.com/ac/pictures/67560560/cfe47d69_original.jpg?interpolation=lanczos-none&size=large_cover&output-format=jpg&output-quality=70";
-        int people = 5;
         String ok = "200";
-        long id = 1L;
+        long accommodationId = 6L;
+        long reservationId = 13L;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs");
@@ -88,10 +87,8 @@ public class ReserveControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
-        assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(id);
-        assertThat(responseEntity.getBody().getAllData().get(0).getUrls().get(0).getUrl()).isEqualTo(pictureUrl);
-        assertThat(responseEntity.getBody().getAllData().get(0).getReservation().getPeople()).isEqualTo(people);
-
+        assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(accommodationId);
+        assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(reservationId);
     }
 
     @Test
