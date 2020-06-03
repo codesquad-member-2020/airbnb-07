@@ -1,6 +1,10 @@
 import React from 'react'
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { deleteCookie } from 'utils/util';
+import { COMMON } from 'constants/constant';
+import styled from 'styled-components';
+import { logout } from 'store/modules/login/loginAction';
 
 const MainHeaderMenuWrap = styled.div`
     .main-header-menu {
@@ -21,8 +25,28 @@ const MainHeaderMenuWrap = styled.div`
 `;
 
 const MainHeaderMenu = () => {
+    const dispatch = useDispatch();
+    const { bLogin } = useSelector(({ login }) => login);
+
     let history = useHistory();
-    const handleMyPageClick = () => history.push('/mypage');
+
+    const handleMyPageClick = () => {
+        if (!bLogin) {
+            alert(COMMON.NOT_LOGIN_MEASSAGE);
+            history.push('/login');
+        }
+        else history.push('/mypage');
+    };
+
+    const handleLoginClick = () => {
+        if (!bLogin) history.push('/login');
+        else {
+            dispatch(logout());
+            deleteCookie(COMMON.TOKEN_KEY);
+            history.push('/');
+            location.reload();
+        }
+    }
 
     return (
         <MainHeaderMenuWrap>
@@ -31,7 +55,7 @@ const MainHeaderMenu = () => {
                 <li>체험 호스팅하기</li>
                 <li>도움말</li>
                 <li onClick={handleMyPageClick}>마이페이지</li>
-                <li>로그아웃</li>
+                <li onClick={handleLoginClick}>{bLogin ? '로그아웃' : '로그인'}</li>
             </ul>
         </MainHeaderMenuWrap>
     )

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { getCookie } from 'utils/util';
-import { MAIN } from 'constants/constant';
+import { COMMON } from 'constants/constant';
 import { login } from 'store/modules/login/loginAction';
 import styled from 'styled-components';
 import MainHeader from '@/components/header/MainHeader';
@@ -17,7 +17,7 @@ const Main = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
+        const token = getCookie(COMMON.TOKEN_KEY);
         if (token) dispatch(login(token));
     }, [dispatch]);
 

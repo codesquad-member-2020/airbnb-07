@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { numberComma, dayCounter, formatDate } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
 import ReservationChargeInfo from './ReservationChargeInfo';
-import { MAIN } from 'constants/constant';
+import { MAIN, COMMON } from 'constants/constant';
 import { requestReservation } from 'store/modules/reservation/reservationAction';
 
 const ReservationModalItemWrap = styled.div`
@@ -95,10 +96,11 @@ const CloseButton = styled.div`
 const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setReservation }) => {
     const dispatch = useDispatch();
     const person = useSelector(({ person }) => person);
-    const { token } = useSelector(({ login }) => login);
+    const { bLogin, token } = useSelector(({ login }) => login);
     const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
     const { totalCount } = person;
     const { id, currentPrice, hotelRating } = roomData;
+    let history = useHistory();
 
     const checkInDateInfoText = `${formatDate(checkInDateInfo.year, checkInDateInfo.month, checkInDateInfo.day, '-')}`;
     const checkOutDateInfoText = `${formatDate(checkOutDateInfo.year, checkOutDateInfo.month, checkOutDateInfo.day, '-')}`;
@@ -111,6 +113,10 @@ const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setRes
     const totalCharge = totalRoomCharge + cleanUpCost + serviceCost + tax;
 
     const handleReservationClick = () => {
+        if (!bLogin) {
+            alert(COMMON.NOT_LOGIN_MEASSAGE);
+            return history.push('/login');
+        }
         setReservation(true);
         const reservationData = {
             startDate: checkInDateInfoText,

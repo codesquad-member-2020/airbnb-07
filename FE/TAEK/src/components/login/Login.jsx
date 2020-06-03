@@ -5,6 +5,9 @@ import reactLogo from 'public/images/react-logo.png';
 import andLogo from 'public/images/and-logo.png';
 import airbnbLogo from 'public/images/airbnb-logo.svg';
 
+import { setCookie } from 'utils/util';
+import { COMMON } from 'constants/constant';
+
 const LoginWrap = styled.div`
     width: 100%;
     height: 100vh;
@@ -65,6 +68,8 @@ const LoginBtn = styled.div`
 `;
 
 const Login = () => {
+    const testLoginClick = () => setCookie(COMMON.TOKEN_KEY, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs', 14);
+
     return (
         <LoginWrap>
             <LogoWrap>
@@ -72,10 +77,12 @@ const Login = () => {
                 <AndLogo src={andLogo} alt='and-logo' />
                 <AirbnbLogo src={airbnbLogo} alt='airbnb-logo' />
             </LogoWrap>
-            <LoginBtn>
-                <Link to='/'>로그인</Link>
-                {/* <a href={process.env.OAUTH_URL}>로그인</a> */}
+            <LoginBtn onClick={testLoginClick}>
+                <Link to='/'>Git Login</Link>
             </LoginBtn>
+            {/* <LoginBtn>
+                <a href={process.env.OAUTH_URL}>Git Login</a>
+            </LoginBtn> */}
         </LoginWrap>
     )
 }
