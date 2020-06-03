@@ -52,6 +52,7 @@ export default {
 
       // 아래부분 데이터 하드코딩되어있음 filter API완성되면 수정할 예정
       this.$store.dispatch('FILTERED_ROOMS', {
+        location: 'Seattle',
         startDate: '2020-05-28',
         endDate: '2020-05-30',
         people: 5,
