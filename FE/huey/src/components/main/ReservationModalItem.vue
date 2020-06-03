@@ -95,7 +95,7 @@ export default {
         this.$store.commit('initState');
         setTimeout(() => {
           this.$router.push('/reservation');
-        }, 1000);
+        }, 2000);
       } else {
         this.$store.commit('setOpenModal');
       }

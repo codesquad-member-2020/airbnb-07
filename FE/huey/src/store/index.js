@@ -18,7 +18,7 @@ export default new Vuex.Store({
     reservationSuccessMessage: '',
     reservationRemoveMeaaage: '',
     clickedAccommodationid: 0,
-    selectedCountry: '',
+    selectedCountry: '' || '시애틀',
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
