@@ -1,12 +1,10 @@
-import React, { useEffect, memo } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ReservationCard from './ReservationCard';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { getReservationInfoData } from 'store/modules/reservation/reservationAction';
-import { getCookie } from 'utils/util';
-import { MAIN } from 'constants/constant';
 
 const ReservationListWrap = styled.div`
     padding: 40px 15%;
@@ -91,10 +89,10 @@ const ReservationListWrap = styled.div`
 
 const ReservationList = () => {
     const dispatch = useDispatch();
+    const { token } = useSelector(({ login }) => login);
     const { loading, reservationData, error } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
         dispatch(getReservationInfoData({ token }));
     }, [dispatch]);
 
@@ -132,4 +130,4 @@ const ReservationList = () => {
     )
 }
 
-export default memo(ReservationList)
+export default ReservationList

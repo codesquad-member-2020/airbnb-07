@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { numberComma, dayCounter, formatDate, getCookie } from 'utils/util';
+import { numberComma, dayCounter, formatDate } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
 import ReservationChargeInfo from './ReservationChargeInfo';
 import { MAIN } from 'constants/constant';
@@ -95,6 +95,7 @@ const CloseButton = styled.div`
 const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setReservation }) => {
     const dispatch = useDispatch();
     const person = useSelector(({ person }) => person);
+    const { token } = useSelector(({ login }) => login);
     const { checkInDateInfo, checkOutDateInfo } = useSelector(({ date }) => date);
     const { totalCount } = person;
     const { id, currentPrice, hotelRating } = roomData;
@@ -111,7 +112,6 @@ const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setRes
 
     const handleReservationClick = () => {
         setReservation(true);
-        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
         const reservationData = {
             startDate: checkInDateInfoText,
             endDate: checkOutDateInfoText,

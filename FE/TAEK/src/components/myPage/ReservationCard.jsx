@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { numberComma, getCookie } from 'utils/util';
+import { useDispatch, useSelector } from 'react-redux';
+import { numberComma } from 'utils/util';
 import { cancelReservation } from 'store/modules/reservation/reservationAction';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
-import { MAIN } from 'constants/constant';
 
 const ReservationCard = ({ reservationInfo, index }) => {
     const dispatch = useDispatch();
     const [cancel, setCancel] = useState(false);
+    const { token } = useSelector(({ login }) => login);
     const { hotelName, urls, reservation, accommodationId } = reservationInfo;
     const { id, startDate, endDate, people, totalPrice } = reservation
     const [titleImgUrl] = urls;
 
     const handleCancelClick = () => {
         setCancel(true);
-        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
         dispatch(cancelReservation({ accommodationId, reservationId: id, token }));
     }
 

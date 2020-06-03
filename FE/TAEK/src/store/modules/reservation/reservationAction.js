@@ -51,7 +51,7 @@ const cancelReservation = data => async dispatch => {
     });
     const json = await response.json();
     alert(json.message);
-    dispatch(getReservationInfoData());
+    dispatch(getReservationInfoData({ token: data.token }));
 }
 
 export {

@@ -17,6 +17,7 @@ export default function locationReducer(state = initialState, action) {
             return {
                 ...state,
                 bLogin: false,
+                token: null,
             }
         default:
             return state;

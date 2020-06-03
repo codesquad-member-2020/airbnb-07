@@ -19,7 +19,7 @@ const Main = () => {
     useEffect(() => {
         const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
         if (token) dispatch(login(token));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

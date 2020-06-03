@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from 'utils/util';
+import { MAIN } from 'constants/constant';
+import { login } from 'store/modules/login/loginAction';
 import MainHeader from '@/components/header/MainHeader';
 import ReservationList from './ReservationList';
 
 const MyPage = () => {
+    const dispatch = useDispatch();
+    const { bLogin } = useSelector(({ login }) => login);
+
+    useEffect(() => {
+        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
+        if (token) dispatch(login(token));
+    }, [dispatch]);
+
     return (
         <>
             <MainHeader />
-            <ReservationList />
+            {bLogin && <ReservationList />}
         </>
     )
 }
