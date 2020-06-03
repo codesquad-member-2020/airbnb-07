@@ -50,7 +50,12 @@ export default {
   setCenter(location) {
     center.lat = location.lat;
     center.lng = location.lng;
-    addFakerRooms(100);
+    // addFakerRooms(100);
+  },
+
+  setRoomsData(roomsData) {
+    rooms = roomsData;
+    console.log(rooms);
   },
 
   getAll(url) {
