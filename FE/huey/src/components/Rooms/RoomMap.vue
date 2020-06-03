@@ -38,7 +38,7 @@ export default {
       MarkerWithLabel: null,
       infoWindow: null,
       markers: [],
-      zoom: 10,
+      zoom: 14,
       mapFullyLoaded: false,
     };
   },
@@ -47,6 +47,7 @@ export default {
       this.clearMarkers();
       this.addMarkers();
       this.createInfoWindow();
+      // this.initMap();
     },
     center: {
       deep: true,
@@ -137,7 +138,7 @@ export default {
         icon: ' ',
         draggable: false,
         raiseOnDrag: true,
-        labelContent: `<div class="${lableContentClass}"><span>$${room.currentPrice}</span></div>`,
+        labelContent: `<div class="${lableContentClass}"><span>&#8361;${room.currentPrice}</span></div>`,
         labelClass: 'map-price-container',
       };
     },
