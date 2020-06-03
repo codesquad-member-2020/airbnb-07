@@ -23,9 +23,11 @@ const addFakerRooms = number => {
           Number(Math.random().toFixed(7)) *
             [-1, 1][Math.floor(Math.random() * 2)],
         currentPrice: Number(Math.random() * 2000).toFixed(2),
-        images: [1, 2, 3, 4, 5].map(
-          x => `https://placeimg.com/280/186/arch?time=${Math.random()}`,
-        ),
+        urls: [1, 2, 3, 4, 5].map(x => {
+          return {
+            url: `https://placeimg.com/280/186/arch?time=${Math.random()}`,
+          };
+        }),
         hotelRating: Math.floor(Math.random() * 5),
       },
     ];

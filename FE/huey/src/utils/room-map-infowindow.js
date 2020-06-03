@@ -1,11 +1,11 @@
 import { initSlides } from './siema-slide';
 
 const createSlideHtml = marker => {
-  return marker.room.images
+  return marker.room.urls
     .map(image => {
       return `
         <a href="#">
-          <img src="${image}" alt="${marker.room.name}"/>
+          <img src="${image.url}" alt="${marker.room.name}"/>
         </a>
        `;
     })
@@ -37,7 +37,7 @@ const createRatingHtml = marker => {
 };
 
 const createSlideIndicatorHtml = marker => {
-  return marker.room.images
+  return marker.room.urls
     .map(image => {
       return `<span>&#x25cf;</span>`;
     })

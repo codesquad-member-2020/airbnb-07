@@ -83,12 +83,11 @@ export default {
     },
     defaultAddress: {
       type: String,
-      default: 'CF Richmond Centre, Number 3 Road, Richmond, BC, Canada',
+      default: 'Seattle',
     },
   },
   created() {
     this.setSelectedCountry();
-    console.log(this.place.lat);
     roomApi.setCenter({ lat: this.place.lat, lng: this.place.lng });
   },
   data() {
@@ -165,6 +164,7 @@ export default {
     async fetchRooms(page = 1) {
       try {
         let { minLat, maxLat, minLng, maxLng } = this.getBounds();
+        console.log(minLat, maxLat, minLng, maxLng);
         let res = await roomApi.getAll(
           `/api/rooms?page=${page}&min_lng=${minLng}&max_lng=${maxLng}&min_lat=${minLat}&max_lat=${maxLat}`,
         );

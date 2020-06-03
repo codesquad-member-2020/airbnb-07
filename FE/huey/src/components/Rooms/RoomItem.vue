@@ -4,10 +4,10 @@
     @mouseover="$emit('room:hovered', room)"
     @mouseleave="$emit('room:unhovered')"
   >
-    <siema-slide :total-items="room.images.length">
+    <siema-slide :total-items="room.urls.length">
       <template slot="slide">
-        <a href="#" v-for="(img, index) in room.images" :key="index">
-          <img :src="img" :alt="room.hotelName" class="rounded w-full" />
+        <a href="#" v-for="(img, index) in room.urls" :key="index">
+          <img :src="img.url" :alt="room.hotelName" class="rounded w-full" />
         </a>
       </template>
 
