@@ -1,7 +1,11 @@
 import faker from 'faker';
 
 let rooms = [];
-let center = { lat: 49.166592, lng: -123.133568 };
+let center = { lat: 40.6643, lng: -73.9385 };
+
+// const setCenter = location => {
+//   console.log(location);
+// };
 
 const addFakerRooms = number => {
   for (let i = 1; i <= number; i++) {
@@ -40,9 +44,14 @@ const queryStringToObj = queryString => {
   return obj;
 };
 
-addFakerRooms(100);
-
 export default {
+  setCenter(location) {
+    center.lat = location.lat;
+    center.lng = location.lng;
+    addFakerRooms(100);
+    console.log(center);
+  },
+
   getAll(url) {
     let query = url.match(/\?(.+)/);
     let queryString = query ? query[0] : '';

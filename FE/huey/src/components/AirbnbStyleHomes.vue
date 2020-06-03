@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="map-base-container">
     <!-- <div class="flex nav">
       <div class="flex w-full bg-white search-container items-center">
         <div class="search-input lg:w-1/2 w-full">
@@ -61,9 +61,10 @@ import RoomList from '@/components/Rooms/RoomList';
 import ToggleSwitch from '@/components/Rooms/ToggleSwitch';
 import SimplePaginator from '@/components/Rooms/SimplePaginator';
 import AddressAutocomplete from '@/components/Rooms/AddressAutocomplete';
+import { mapState } from 'vuex';
 
 export default {
-  name: 'App',
+  // name: 'App',
   components: {
     RoomMap,
     RoomList,
@@ -74,22 +75,27 @@ export default {
   props: {
     defaultLat: {
       type: Number,
-      default: 49.16679,
+      default: 42.35843,
     },
     defaultLng: {
       type: Number,
-      default: -123.138385,
+      default: -71.05977,
     },
     defaultAddress: {
       type: String,
       default: 'CF Richmond Centre, Number 3 Road, Richmond, BC, Canada',
     },
   },
+  created() {
+    this.setSelectedCountry();
+    console.log(this.place.lat);
+    roomApi.setCenter({ lat: this.place.lat, lng: this.place.lng });
+  },
   data() {
     return {
       place: {
-        lat: this.defaultLat,
-        lng: this.defaultLng,
+        lat: 0,
+        lng: 0,
         address: this.defaultAddress,
       },
       rooms: [],
@@ -100,6 +106,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['selectedCountry']),
     center() {
       return {
         lat: this.place.lat,
@@ -126,6 +133,22 @@ export default {
     },
   },
   methods: {
+    setSelectedCountry() {
+      switch (this.selectedCountry) {
+        case '시애틀':
+          this.place.lat = 47.606209;
+          this.place.lng = -122.33207;
+          break;
+        case '보스턴':
+          this.place.lat = 42.35843;
+          this.place.lng = -71.05977;
+          break;
+        case '뉴욕':
+          this.place.lat = 40.6643;
+          this.place.lng = -73.9385;
+          break;
+      }
+    },
     handleBoundsChanged({ mapBounds }) {
       // console.log(mapBounds);
       this.mapBounds = mapBounds;
@@ -163,7 +186,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app {
+.map-base-container {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
