@@ -48,7 +48,7 @@ const MainHeader = () => {
     const handleLogoClick = () => {
         dispatch(changePage(MAIN.PAGE.DEFAULT_PAGE));
         window.scrollTo(0, 0);
-        history.push('/main');
+        history.push('/');
     }
 
     const handleScroll = () => {

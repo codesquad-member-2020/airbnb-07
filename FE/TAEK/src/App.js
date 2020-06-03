@@ -14,9 +14,9 @@ const App = () => {
             <Router>
                 <GlobalStyles />
                 <Switch>
-                    <Redirect from='/githublogin' to='/main' />
-                    <Route exact path='/' component={Login} />
-                    <Route path='/main' component={Main} />
+                    <Redirect from='/githublogin' to='/' />
+                    <Route exact path='/' component={Main} />
+                    <Route path='/login' component={Login} />
                     <Route path='/mypage' component={MyPage} />
                     <Route component={NotFound} />
                 </Switch>

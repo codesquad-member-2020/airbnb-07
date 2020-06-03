@@ -73,7 +73,7 @@ const Login = () => {
                 <AirbnbLogo src={airbnbLogo} alt='airbnb-logo' />
             </LogoWrap>
             <LoginBtn>
-                <Link to='/main'>로그인</Link>
+                <Link to='/'>로그인</Link>
                 {/* <a href={process.env.OAUTH_URL}>로그인</a> */}
             </LoginBtn>
         </LoginWrap>
