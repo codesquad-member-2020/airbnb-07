@@ -1,15 +1,14 @@
 <template>
-  <div class="map-base-container">
-    <!-- <div class="flex nav">
-      <div class="flex w-full bg-white search-container items-center">
-        <div class="search-input lg:w-1/2 w-full">
-          <address-autocomplete
-            v-model="place"
-            custom-class="flex w-full shadow appearance-none border rounded text-grey-dark items-center"
-          ></address-autocomplete>
-        </div>
-      </div>
-    </div> -->
+  <div
+    v-if="
+      !this.$store.state.renderSearchData.length ||
+      this.$store.state.isSearchWait
+    "
+    class="loading-container"
+  >
+    <LoadingSpinner />
+  </div>
+  <div v-else class="map-base-container">
     <div
       class="flex w-full p-6 items-center border-b border-grey-light filter-container"
     >
@@ -61,16 +60,16 @@ import RoomList from '@/components/Rooms/RoomList';
 import ToggleSwitch from '@/components/Rooms/ToggleSwitch';
 import SimplePaginator from '@/components/Rooms/SimplePaginator';
 import AddressAutocomplete from '@/components/Rooms/AddressAutocomplete';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { mapState } from 'vuex';
 
 export default {
-  // name: 'App',
   components: {
     RoomMap,
     RoomList,
     ToggleSwitch,
     SimplePaginator,
-    // AddressAutocomplete,
+    LoadingSpinner,
   },
   props: {
     defaultLat: {
@@ -83,11 +82,11 @@ export default {
     },
     defaultAddress: {
       type: String,
-      default: 'Seattle',
+      default: 'Boston',
     },
   },
   created() {
-    this.setSelectedCountry();
+    this.setCenterLocation();
     roomApi.setCenter({ lat: this.place.lat, lng: this.place.lng });
   },
   data() {
@@ -104,8 +103,14 @@ export default {
       showMap: true,
     };
   },
+  watch: {
+    rooms: function () {
+      this.place.lat = this.selectedLocation.lat;
+      this.place.lng = this.selectedLocation.lng;
+    },
+  },
   computed: {
-    ...mapState(['selectedCountry']),
+    ...mapState(['selectedCountry', 'selectedLocation']),
     center() {
       return {
         lat: this.place.lat,
@@ -132,24 +137,11 @@ export default {
     },
   },
   methods: {
-    setSelectedCountry() {
-      switch (this.selectedCountry) {
-        case '시애틀':
-          this.place.lat = 47.606209;
-          this.place.lng = -122.33207;
-          break;
-        case '보스턴':
-          this.place.lat = 42.35843;
-          this.place.lng = -71.05977;
-          break;
-        case '뉴욕':
-          this.place.lat = 40.6643;
-          this.place.lng = -73.9385;
-          break;
-      }
+    setCenterLocation() {
+      this.place.lat = this.selectedLocation.lat;
+      this.place.lng = this.selectedLocation.lng;
     },
     handleBoundsChanged({ mapBounds }) {
-      // console.log(mapBounds);
       this.mapBounds = mapBounds;
       this.fetchRooms(1);
     },
@@ -164,7 +156,6 @@ export default {
     async fetchRooms(page = 1) {
       try {
         let { minLat, maxLat, minLng, maxLng } = this.getBounds();
-        console.log(minLat, maxLat, minLng, maxLng);
         let res = await roomApi.getAll(
           `/api/rooms?page=${page}&min_lng=${minLng}&max_lng=${maxLng}&min_lat=${minLat}&max_lat=${maxLat}`,
         );
@@ -186,6 +177,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .map-base-container {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
