@@ -7,18 +7,20 @@ import {
   removeReservation,
   filterRooms,
 } from '@/api/reservation';
+import roomApi from '@/api/rooms';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
+    // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJzYW5naHVuX0BkYXVtLm5ldCJ9\.A3mhAUBy6BHEnpnnF8eqTTcQVvq5dvE6U_bSJ2va77c'
     initRenderRooms: [],
     reservationList: [],
     reservationSuccessMessage: '',
     reservationRemoveMeaaage: '',
     clickedAccommodationid: 0,
-    selectedCountry: '' || '시애틀',
+    selectedCountry: '' || '도시',
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
@@ -28,9 +30,12 @@ export default new Vuex.Store({
     childrenCount: 0,
     babyCount: 0,
     guestNumber: 0,
-    minPirce: 0,
-    maxPrice: 0,
+    minPrice: null,
+    maxPrice: null,
     selectGuestInfo: '',
+    renderSearchData: [],
+    selectedLocation: { lat: 0, lng: 0 },
+    isSearchWait: false,
   },
   getters: {
     isPayloadData(state) {
@@ -141,9 +146,36 @@ export default new Vuex.Store({
       state.childrenCount = 0;
       state.checkinDate = '';
       state.checkoutDate = '';
-      state.minPirce = 0;
-      state.maxPrice = 0;
+      state.minPrice = null;
+      state.maxPrice = null;
       state.selectGuestInfo = '';
+      state.selectedCountry = '' || '도시';
+    },
+
+    setRenderSearchData(state, value) {
+      state.renderSearchData = value;
+      roomApi.setRoomsData(value);
+    },
+
+    setPrice(state, { minValue, maxValue }) {
+      state.minPrice = minValue;
+      state.maxPrice = maxValue;
+    },
+    setLocation(state) {
+      switch (state.selectedCountry) {
+        case 'Seattle':
+          state.selectedLocation.lat = 47.637209;
+          state.selectedLocation.lng = -122.36207;
+          break;
+        case 'Boston':
+          state.selectedLocation.lat = 42.35843;
+          state.selectedLocation.lng = -71.05977;
+          break;
+        case 'NewYork':
+          state.selectedLocation.lat = 40.6643;
+          state.selectedLocation.lng = -73.9385;
+          break;
+      }
     },
   },
 
@@ -169,6 +201,7 @@ export default new Vuex.Store({
         state.clickedAccommodationid,
         setData,
       );
+      console.log(data);
       commit('setReservationMessage', data);
     },
 
@@ -180,8 +213,10 @@ export default new Vuex.Store({
       commit('setReservationRemoveMessage', data);
     },
 
-    async FILTERED_ROOMS({ commit }, payload) {
+    async FILTERED_ROOMS({ state, commit }, payload) {
       const { data } = await filterRooms(payload);
+      commit('setRenderSearchData', data.allData);
+      if (data.status === '200') state.isSearchWait = false;
       console.log(data);
     },
   },
