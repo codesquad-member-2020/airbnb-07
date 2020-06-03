@@ -6,26 +6,31 @@ function fetchPosts() {
 }
 
 function initMainRedner() {
-  return instance.get('mock/init');
+  return instance.get('mock/authorization/init');
   // return filter.get();
 }
 
 function setReservation(accommodationId, setData) {
-  return instance.post(`mock/${accommodationId}/guswns1659@gmail.com`, setData);
+  return instance.post(
+    `mock/authorization/${accommodationId}/guswns1659@gmail.com`,
+    setData,
+  );
 }
 
 function removeReservation(accommodationId, reservationId) {
   return instance.delete(
-    `mock/${accommodationId}/${reservationId}/guswns1659@gmail.com`,
+    `mock/authorization/${accommodationId}/${reservationId}/guswns1659@gmail.com`,
   );
 }
 
 function reservationInfo() {
-  return instance.get('mock/reservationInfo/guswns1659@gmail.com');
+  return instance.get(
+    'mock/authorization/reservationInfo/guswns1659@gmail.com',
+  );
 }
 
 function filterRooms(filterData) {
-  return instance.post('mock/filter', filterData);
+  return instance.post('mock/authorization/filter', filterData);
 }
 
 export {
