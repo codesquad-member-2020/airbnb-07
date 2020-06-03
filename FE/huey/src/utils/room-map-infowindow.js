@@ -5,7 +5,7 @@ const createSlideHtml = marker => {
     .map(image => {
       return `
         <a href="#">
-          <img src="${image.url}" alt="${marker.room.name}"/>
+          <img style="width: 100%" src="${image.url}" alt="${marker.room.hotelName}"/>
         </a>
        `;
     })
@@ -14,7 +14,7 @@ const createSlideHtml = marker => {
 
 const createRatingHtml = marker => {
   const maxRating = 5;
-  const rating = marker.room.hotelRating;
+  const rating = parseInt(marker.room.hotelRating);
   const fullStars = Array.from(new Array(rating), (val, index) => index + 1);
   const emptyStars = Array.from(
     new Array(maxRating - rating),
@@ -49,7 +49,9 @@ const infoWindow = {
     return `
       <div class="info-window border border-grey rounded" style="width:280px;">
         <div class="siema-container">
-          <div class="siema">${createSlideHtml(marker)}</div>
+          <div class="siema" style="height: 200px">${createSlideHtml(
+            marker,
+          )}</div>
           <div class="indicators">${createSlideIndicatorHtml(marker)}</div>
           <button class="prev">&#x2039;</button>
           <button class="next">&#x203A;</button>
