@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { numberComma } from 'utils/util';
+import { numberComma, getCookie } from 'utils/util';
 import { cancelReservation } from 'store/modules/reservation/reservationAction';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
+import { MAIN } from 'constants/constant';
 
 const ReservationCard = ({ reservationInfo, index }) => {
     const dispatch = useDispatch();
@@ -13,7 +14,8 @@ const ReservationCard = ({ reservationInfo, index }) => {
 
     const handleCancelClick = () => {
         setCancel(true);
-        dispatch(cancelReservation({ accommodationId, reservationId: id }));
+        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
+        dispatch(cancelReservation({ accommodationId, reservationId: id, token }));
     }
 
     return (

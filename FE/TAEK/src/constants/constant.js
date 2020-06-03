@@ -32,6 +32,7 @@ const MAIN = {
         MAX_CHARGE: 1000000,
     },
     RESERVATION: {
+        TOKEN_KEY: 'token',
         CLEAN_UP_COST: 15000,
         SERVICE_COST: 2000,
         TAX_RATE: 0.05,

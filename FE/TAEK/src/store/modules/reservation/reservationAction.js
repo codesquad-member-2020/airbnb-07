@@ -15,6 +15,7 @@ const requestReservation = data => async dispatch => {
     const response = await fetch(URL.RESERVATION(data.id), {
         method: 'POST',
         headers: {
+            'Authorization': data.token,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data.reservationData),
@@ -24,10 +25,14 @@ const requestReservation = data => async dispatch => {
     dispatch(modalToggle());
 }
 
-const getReservationInfoData = () => async dispatch => {
+const getReservationInfoData = data => async dispatch => {
     try {
         dispatch({ type: GET_RESERVATION_INFO_DATA });
-        const response = await fetch(URL.RESERVATION_INFO);
+        const response = await fetch(URL.RESERVATION_INFO, {
+            headers: {
+                'Authorization': data.token,
+            }
+        });
         if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
@@ -39,7 +44,10 @@ const getReservationInfoData = () => async dispatch => {
 
 const cancelReservation = data => async dispatch => {
     const response = await fetch(URL.RESERVATION_DELETE(data.accommodationId, data.reservationId), {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Authorization': data.token,
+        }
     });
     const json = await response.json();
     alert(json.message);

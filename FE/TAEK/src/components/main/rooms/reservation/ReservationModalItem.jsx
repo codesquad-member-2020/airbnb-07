@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { numberComma, dayCounter, formatDate } from 'utils/util';
+import { numberComma, dayCounter, formatDate, getCookie } from 'utils/util';
 import ReservationFilterInfo from './ReservationFilterInfo';
 import ReservationChargeInfo from './ReservationChargeInfo';
 import { MAIN } from 'constants/constant';
@@ -111,13 +111,14 @@ const ReservationModalItem = ({ handleModalToggle, roomData, reservation, setRes
 
     const handleReservationClick = () => {
         setReservation(true);
+        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
         const reservationData = {
             startDate: checkInDateInfoText,
             endDate: checkOutDateInfoText,
             people: totalCount,
             totalPrice: totalCharge
         }
-        dispatch(requestReservation({ id, reservationData }));
+        dispatch(requestReservation({ id, reservationData, token }));
     }
 
     return (

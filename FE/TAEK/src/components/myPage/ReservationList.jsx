@@ -5,6 +5,8 @@ import ReservationCard from './ReservationCard';
 import LoadingSpiner from '@/components/common/LoadingSpiner';
 import PageTop from '@/components/common/PageTop';
 import { getReservationInfoData } from 'store/modules/reservation/reservationAction';
+import { getCookie } from 'utils/util';
+import { MAIN } from 'constants/constant';
 
 const ReservationListWrap = styled.div`
     padding: 40px 15%;
@@ -92,7 +94,8 @@ const ReservationList = () => {
     const { loading, reservationData, error } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getReservationInfoData());
+        const token = getCookie(MAIN.RESERVATION.TOKEN_KEY);
+        dispatch(getReservationInfoData({ token }));
     }, [dispatch]);
 
     if (loading) return <LoadingSpiner />;
@@ -114,7 +117,7 @@ const ReservationList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reservationData.allData.reverse().map((reservationInfo, index) => {
+                        {reservationData.allData.map((reservationInfo, index) => {
                             return (
                                 <ReservationCard
                                     key={reservationInfo.reservation.id}
