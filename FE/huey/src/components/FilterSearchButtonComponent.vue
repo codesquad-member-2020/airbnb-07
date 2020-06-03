@@ -36,6 +36,8 @@ export default {
       'checkinDate',
       'checkoutDate',
       'guestNumber',
+      'minPrice',
+      'maxPrice',
     ]),
   },
   methods: {
@@ -50,15 +52,18 @@ export default {
       )
         return alert('필수 사항을 입력해주세요');
 
+      this.$store.commit('setLocation');
       // 아래부분 데이터 하드코딩되어있음 filter API완성되면 수정할 예정
-      this.$store.dispatch('FILTERED_ROOMS', {
-        location: 'Seattle',
-        startDate: '2020-05-28',
-        endDate: '2020-05-30',
-        people: 5,
-        min: 100000,
-        max: 200000,
-      });
+      const filterData = {
+        location: this.selectedCountry,
+        startDate: this.checkinDate,
+        endDate: this.checkoutDate,
+        people: this.guestNumber,
+        min: this.minPrice,
+        max: this.maxPrice,
+      };
+      this.$store.state.isSearchWait = true;
+      this.$store.dispatch('FILTERED_ROOMS', filterData);
       if (this.$route.path == '/rooms') return;
       this.$router.push('/rooms');
     },
