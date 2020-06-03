@@ -1,30 +1,29 @@
-import { instance, filter } from './index';
+import { instance, authoriztion } from './index';
 
 // API를 추가할 예정
 function fetchPosts() {
-  return filter.get('/');
+  return authoriztion.get('/');
 }
 
 function initMainRedner() {
-  return instance.get('mock/init');
+  return instance.get('/init');
+  // return filter.get();
 }
 
 function setReservation(accommodationId, setData) {
-  return instance.post(`mock/${accommodationId}/guswns1659@gmail.com`, setData);
+  return authoriztion.post(`${accommodationId}`, setData);
 }
 
 function removeReservation(accommodationId, reservationId) {
-  return instance.delete(
-    `mock/${accommodationId}/${reservationId}/guswns1659@gmail.com`,
-  );
+  return authoriztion.delete(`${accommodationId}/${reservationId}`);
 }
 
 function reservationInfo() {
-  return instance.get('mock/reservationInfo/guswns1659@gmail.com');
+  return authoriztion.get('reservationInfo');
 }
 
 function filterRooms(filterData) {
-  return instance.post('mock/filter', filterData);
+  return instance.post('filter', filterData);
 }
 
 export {

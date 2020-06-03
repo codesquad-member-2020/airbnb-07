@@ -1,11 +1,11 @@
 import { initSlides } from './siema-slide';
 
 const createSlideHtml = marker => {
-  return marker.room.images
+  return marker.room.urls
     .map(image => {
       return `
         <a href="#">
-          <img src="${image}" alt="${marker.room.name}"/>
+          <img style="width: 100%" src="${image.url}" alt="${marker.room.hotelName}"/>
         </a>
        `;
     })
@@ -14,7 +14,7 @@ const createSlideHtml = marker => {
 
 const createRatingHtml = marker => {
   const maxRating = 5;
-  const rating = marker.room.rating;
+  const rating = parseInt(marker.room.hotelRating);
   const fullStars = Array.from(new Array(rating), (val, index) => index + 1);
   const emptyStars = Array.from(
     new Array(maxRating - rating),
@@ -37,7 +37,7 @@ const createRatingHtml = marker => {
 };
 
 const createSlideIndicatorHtml = marker => {
-  return marker.room.images
+  return marker.room.urls
     .map(image => {
       return `<span>&#x25cf;</span>`;
     })
@@ -47,16 +47,18 @@ const createSlideIndicatorHtml = marker => {
 const infoWindow = {
   getContentHtml(marker) {
     return `
-      <div class="info-window border border-grey rounded">
+      <div class="info-window border border-grey rounded" style="width:280px;">
         <div class="siema-container">
-          <div class="siema">${createSlideHtml(marker)}</div>
+          <div class="siema" style="height: 200px">${createSlideHtml(
+            marker,
+          )}</div>
           <div class="indicators">${createSlideIndicatorHtml(marker)}</div>
           <button class="prev">&#x2039;</button>
           <button class="next">&#x203A;</button>
         </div>
         <div class="info">
-          <div class="title">${marker.room.name}</div>
-          <div class="price">$${marker.room.price} CAD per month</div>
+          <div class="title">${marker.room.hotelName}</div>
+          <div class="price">$${marker.room.currentPrice} CAD per month</div>
           ${createRatingHtml(marker)}
         </div>
       </div>`;

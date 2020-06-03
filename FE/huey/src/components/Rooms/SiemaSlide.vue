@@ -40,6 +40,7 @@ export default {
 <style lang="scss" scoped>
 .slide-container {
   position: relative;
+  // z-index: -1;
   .slide {
     width: 100%;
   }
