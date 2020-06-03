@@ -13,7 +13,7 @@ const addFakerRooms = number => {
       ...rooms,
       {
         id: i,
-        name: faker.address.streetAddress() + ' ' + faker.address.city(),
+        hotelName: faker.address.streetAddress() + ' ' + faker.address.city(),
         lat:
           center.lat +
           Number(Math.random().toFixed(7)) *
@@ -22,11 +22,11 @@ const addFakerRooms = number => {
           center.lng +
           Number(Math.random().toFixed(7)) *
             [-1, 1][Math.floor(Math.random() * 2)],
-        price: Number(Math.random() * 2000).toFixed(2),
+        currentPrice: Number(Math.random() * 2000).toFixed(2),
         images: [1, 2, 3, 4, 5].map(
           x => `https://placeimg.com/280/186/arch?time=${Math.random()}`,
         ),
-        rating: Math.floor(Math.random() * 5),
+        hotelRating: Math.floor(Math.random() * 5),
       },
     ];
   }
@@ -49,7 +49,6 @@ export default {
     center.lat = location.lat;
     center.lng = location.lng;
     addFakerRooms(100);
-    console.log(center);
   },
 
   getAll(url) {

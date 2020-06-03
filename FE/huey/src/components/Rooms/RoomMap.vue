@@ -137,7 +137,7 @@ export default {
         icon: ' ',
         draggable: false,
         raiseOnDrag: true,
-        labelContent: `<div class="${lableContentClass}"><span>$${room.price}</span></div>`,
+        labelContent: `<div class="${lableContentClass}"><span>$${room.currentPrice}</span></div>`,
         labelClass: 'map-price-container',
       };
     },

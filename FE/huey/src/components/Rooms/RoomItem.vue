@@ -7,15 +7,15 @@
     <siema-slide :total-items="room.images.length">
       <template slot="slide">
         <a href="#" v-for="(img, index) in room.images" :key="index">
-          <img :src="img" :alt="room.name" class="rounded w-full" />
+          <img :src="img" :alt="room.hotelName" class="rounded w-full" />
         </a>
       </template>
 
       <div slot="info" class="w-1/2">
-        <div class="font-semibold py-1">{{ room.name }}</div>
-        <div class="text-sm">${{ room.price }} CAD per month</div>
+        <div class="font-semibold py-1">{{ room.hotelName }}</div>
+        <div class="text-sm">${{ room.currentPrice }} CAD per month</div>
         <div class="py-2">
-          <star-rating :rating="room.rating"></star-rating>
+          <star-rating :rating="room.hotelRating"></star-rating>
         </div>
       </div>
     </siema-slide>

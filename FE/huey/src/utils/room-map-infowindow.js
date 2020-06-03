@@ -14,7 +14,7 @@ const createSlideHtml = marker => {
 
 const createRatingHtml = marker => {
   const maxRating = 5;
-  const rating = marker.room.rating;
+  const rating = marker.room.hotelRating;
   const fullStars = Array.from(new Array(rating), (val, index) => index + 1);
   const emptyStars = Array.from(
     new Array(maxRating - rating),
@@ -55,8 +55,8 @@ const infoWindow = {
           <button class="next">&#x203A;</button>
         </div>
         <div class="info">
-          <div class="title">${marker.room.name}</div>
-          <div class="price">$${marker.room.price} CAD per month</div>
+          <div class="title">${marker.room.hotelName}</div>
+          <div class="price">$${marker.room.currentPrice} CAD per month</div>
           ${createRatingHtml(marker)}
         </div>
       </div>`;
