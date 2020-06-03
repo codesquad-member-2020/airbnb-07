@@ -13,9 +13,9 @@
 
       <div slot="info" class="w-1/2">
         <div class="font-semibold py-1">{{ room.hotelName }}</div>
-        <div class="text-sm">${{ room.currentPrice }} CAD per month</div>
+        <div class="text-sm">&#8361;{{ room.currentPrice }} CAD per month</div>
         <div class="py-2">
-          <star-rating :rating="room.hotelRating"></star-rating>
+          <star-rating :rating="parseInt(room.hotelRating)"></star-rating>
         </div>
       </div>
     </siema-slide>
