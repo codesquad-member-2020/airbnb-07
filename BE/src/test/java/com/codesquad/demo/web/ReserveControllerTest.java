@@ -6,17 +6,16 @@ import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,14 +29,16 @@ public class ReserveControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private Logger logger = LoggerFactory.getLogger(ReserveControllerTest.class);
+
     @Test
     public void reserveTest() {
 
         // given
         int id = 1;
         String url = "http://localhost:" + port +  "/authorization/" + id;
-        LocalDate startDate = LocalDate.parse("2020-09-05");
-        LocalDate endDate = LocalDate.parse("2020-09-09");
+        LocalDate startDate = LocalDate.parse("2020-01-05");
+        LocalDate endDate = LocalDate.parse("2020-01-09");
         int people = 5;
         int totalPrice = 100000;
         String ok = "200";
@@ -90,13 +91,14 @@ public class ReserveControllerTest {
         assertThat(responseEntity.getBody().getAllData().get(0).getAccommodationId()).isEqualTo(id);
         assertThat(responseEntity.getBody().getAllData().get(0).getUrls().get(0).getUrl()).isEqualTo(pictureUrl);
         assertThat(responseEntity.getBody().getAllData().get(0).getReservation().getPeople()).isEqualTo(people);
+
     }
 
     @Test
     public void deleteTest() {
 
         // given
-        long accommodationId = 5L;
+        long accommodationId = 1L;
         long reservationId = 6L;
         String url = "http://localhost:" + port + "/authorization/" + accommodationId + "/" + reservationId;
         String ok = "200";

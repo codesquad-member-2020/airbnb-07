@@ -31,7 +31,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api/github/**")
+                .excludePathPatterns("/github/**")
                 .excludePathPatterns("/githublogin")
-                .excludePathPatterns("/github/**");
+                .excludePathPatterns("/api/mock/**")
+                .excludePathPatterns("/mock/**")
+                .excludePathPatterns("/api/init")
+                .excludePathPatterns("/api/filter")
+                .excludePathPatterns("/init")
+                .excludePathPatterns("/filter");
     }
 }

@@ -19,11 +19,8 @@ public class MockController {
 
     private final MockService mockService;
 
-    private final ReserveService reserveService;
-
-    public MockController(MockService mockService, ReserveService reserveService) {
+    public MockController(MockService mockService) {
         this.mockService = mockService;
-        this.reserveService = reserveService;
     }
 
     @GetMapping("init")
