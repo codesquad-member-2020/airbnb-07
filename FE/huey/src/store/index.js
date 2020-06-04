@@ -15,6 +15,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
+    loginUser: null,
     initRenderRooms: [],
     reservationList: [],
     reservationSuccessMessage: '',
@@ -189,6 +190,21 @@ export default new Vuex.Store({
 
     toggleLoadingStatus(state) {
       state.isLoading = !state.isLoading;
+    },
+    setInitToken(state) {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token'))
+        .split('=')[1];
+      state.token = cookieValue;
+    },
+
+    setLoginUser(state) {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('userEmail'))
+        .split('=')[1];
+      state.loginUser = cookieValue;
     },
   },
 
