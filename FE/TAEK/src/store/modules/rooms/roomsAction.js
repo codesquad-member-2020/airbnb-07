@@ -11,9 +11,9 @@ const APPLY_CHARGE_FILTER = 'rooms/APPLY_CHARGE_FILTER';
 const CHANGE_PAGE = 'rooms/CHANGE_PAGE';
 
 const getRoomsInitData = data => async dispatch => {
-    const cacheData = JSON.parse(localStorage.getItem(COMMON.INIT_ROOMS_DATA_KEY));
-    if (cacheData) {
-        dispatch({ type: GET_ROOMS_SUCCESS, payload: cacheData });
+    const _cacheData = JSON.parse(localStorage.getItem(COMMON.INIT_ROOMS_DATA_KEY));
+    if (_cacheData) {
+        dispatch({ type: GET_ROOMS_SUCCESS, payload: _cacheData });
         dispatch(applyChargeFilter(data.min, data.max));
         return;
     }
@@ -33,10 +33,10 @@ const getRoomsInitData = data => async dispatch => {
 };
 
 const getRoomsFilterData = data => async dispatch => {
-    const cacheData = JSON.parse(localStorage.getItem(COMMON.FILTER_ROOMS_DATA_KEY));
-    const filterInfo = localStorage.getItem(COMMON.FILTER_DATA_KEY)
-    if (cacheData && filterInfo === JSON.stringify(data.filterData)) {
-        dispatch({ type: GET_ROOMS_SUCCESS, payload: cacheData });
+    const _cacheData = JSON.parse(localStorage.getItem(COMMON.FILTER_ROOMS_DATA_KEY));
+    const _filterData = localStorage.getItem(COMMON.FILTER_DATA_KEY)
+    if (_cacheData && _filterData === JSON.stringify(data.filterData)) {
+        dispatch({ type: GET_ROOMS_SUCCESS, payload: _cacheData });
         dispatch(applyChargeFilter(data.min, data.max));
         dispatch(saveFilterData(data.filterData));
         return;
