@@ -45,46 +45,6 @@ const ReservationListWrap = styled.div`
             to { opacity: 1 }
         }
     }
-    .reservation-card-container {
-        .hotel-container {
-        width: 300px;
-        padding: 20px;
-            img {
-                width: 100%;
-                height: auto;
-                border-radius: 5px;
-                box-shadow: ${props => props.theme.boxShadow};
-            }
-            .hotel-name-title {
-                margin-top: 10px;
-            }
-        }
-        .date-info {
-            display: flex;
-            flex-direction: column;
-            .date-arrow {
-                margin: 12.5px 0;
-                transform: rotate(90deg);
-            }
-        }
-        .reservation-cancel-btn {
-            width: 45%;
-            height: 35px;
-            color: #fff;
-            border: none;
-            outline: none;
-            background-color: ${props => props.theme.brandColor};
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 600;
-            font-family: 'Noto Sans KR', sans-serif;
-            box-shadow: ${props => props.theme.boxShadow};
-            cursor: pointer;
-        }
-        .cancel-btn-container {
-            width: 100px;
-        }
-    }
 `;
 
 const ReservationList = () => {

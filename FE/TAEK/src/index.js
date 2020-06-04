@@ -6,7 +6,6 @@ import rootReducer from './store/modules';
 import App from './App';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import 'intersection-observer';
 
 const middleware = process.env.NODE_ENV === 'development' ? composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk);
 
