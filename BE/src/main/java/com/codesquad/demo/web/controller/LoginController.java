@@ -1,7 +1,7 @@
 package com.codesquad.demo.web.controller;
 
 import com.codesquad.demo.service.LoginService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +30,11 @@ public class LoginController {
     public ResponseEntity<Void> login2(@RequestParam("code") String code,
                                        HttpServletResponse response) {
         return loginService.login2(code, response);
+    }
+
+    @GetMapping("/oauth3")
+    public ResponseEntity<String> loginTest() {
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 
 }

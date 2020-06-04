@@ -11,7 +11,8 @@ import java.time.LocalDate;
 @Builder
 public class ReservationRequestDto {
 
-    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Integer people;
+    private Integer totalPrice;
 }

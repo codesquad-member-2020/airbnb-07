@@ -4,10 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 
 public class LoginIntercepter extends HandlerInterceptorAdapter {
 
@@ -25,22 +23,19 @@ public class LoginIntercepter extends HandlerInterceptorAdapter {
         }
 
         try {
-            Cookie[] cookies = request.getCookies();
-            if (cookies == null) throw new IllegalStateException("no cookie");
 
-            Cookie cookie = Arrays.stream(cookies)
-                    .filter(each -> each.getName().equals("userEmail"))
-                    .findFirst()
-                    .orElseThrow(IllegalStateException::new);
+            String userEmailInHeader = request.getHeader("Authorization");
 
-            String token = cookie.getValue();
-            String jwtUserEmail = JwtUtils.jwtParsing(token);
+            logger.info("Authorization : {}", userEmailInHeader);
+
+            String jwtUserEmail = JwtUtils.jwtParsing(userEmailInHeader);
             request.setAttribute("userEmail", jwtUserEmail);
 
+            return true;
         } catch (Exception e) {
+
             response.setStatus(401);
             return false;
         }
-        return true;
     }
 }

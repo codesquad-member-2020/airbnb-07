@@ -18,8 +18,8 @@ public class EachAccommodationResponseDto {
     private String description;
     private String location;
     private String street;
-    private String latitude;
-    private String longitude;
+    private Double lat;
+    private Double lng;
     private Integer availableGuest;
     private Integer currentPrice;
     private Integer previousPrice;
@@ -38,8 +38,8 @@ public class EachAccommodationResponseDto {
                 .previousPrice(accommodation.getPrevious_price())
                 .description(accommodation.getDescription())
                 .hotelRating(accommodation.getHotelRating())
-                .latitude(accommodation.getLatitude())
-                .longitude(accommodation.getLongitude())
+                .lat(accommodation.getLatitude())
+                .lng(accommodation.getLongitude())
                 .location(accommodation.getLocation())
                 .street(accommodation.getStreet())
                 .urls(urls)

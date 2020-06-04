@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div class="flex nav">
-      <div class="flex w-full bg-white search-container fixed items-center">
+    <!-- <div class="flex nav">
+      <div class="flex w-full bg-white search-container items-center">
         <div class="search-input lg:w-1/2 w-full">
           <address-autocomplete
             v-model="place"
@@ -9,9 +9,9 @@
           ></address-autocomplete>
         </div>
       </div>
-    </div>
+    </div> -->
     <div
-      class="flex w-full p-6 items-center border-t border-b border-grey-light fixed filter-container"
+      class="flex w-full p-6 items-center border-b border-grey-light filter-container"
     >
       <div class="flex items-center ml-auto">
         <span class="mr-2">Show Map</span>
@@ -29,7 +29,7 @@
           :rooms="rooms"
           @room:hovered="handleRoomHovered"
           @room:unhovered="handleRoomUnhovered"
-          :grid-class="showMap ? 'w-1/3' : 'w-1/5'"
+          :grid-class="showMap ? 'w-full' : 'w-1/2'"
         ></room-list>
         <div class="flex mt-4 h-32 justify-center">
           <simple-paginator
@@ -69,7 +69,7 @@ export default {
     RoomList,
     ToggleSwitch,
     SimplePaginator,
-    AddressAutocomplete,
+    // AddressAutocomplete,
   },
   props: {
     defaultLat: {
@@ -174,12 +174,13 @@ export default {
     z-index: 10;
   }
   .filter-container {
+    margin-top: 80px;
     top: 80px;
     background: white;
     z-index: 10;
   }
   .room-map-container {
-    margin-top: 140px;
+    // overflow: hidden;
   }
   .map-before {
     position: absolute;

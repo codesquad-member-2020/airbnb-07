@@ -6,6 +6,8 @@ import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
+import com.codesquad.demo.web.dto.response.DeleteReservationResponseDto;
 import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -13,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,25 +22,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class MockService {
 
     private final AirbnbRepository airbnbRepository;
 
     private final Logger logger = LoggerFactory.getLogger(MockService.class);
 
-    public AllAccommodationResponseDto getAll() {
+    public MockService(AirbnbRepository airbnbRepository) {
+        this.airbnbRepository = airbnbRepository;
+    }
+
+    public AllAccommodationResponseDto getInit() {
 
         Long id = 1L;
         String status = "200";
 
-        Airbnb airbnb = airbnbRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("No Airbnb, id = "+id));
+        Airbnb airbnb = findAirbnbById(id);
 
         List<EachAccommodationResponseDto> eachAccommodationResponseDtos
                 = new ArrayList<>();
 
-        for (int index = 0; index < 10; index++) {
+        for (int index = 0; index < 30; index++) {
             Accommodation accommodation = airbnb.getAccommodations().get(index);
 
             EachAccommodationResponseDto each = new EachAccommodationResponseDto().toEntity(accommodation);
@@ -47,9 +50,12 @@ public class MockService {
             eachAccommodationResponseDtos.add(each);
         }
 
+        List<PriceRangeResponseDto> prices = getPrices(airbnb.getAccommodations());
+
         return AllAccommodationResponseDto.builder()
                 .status(status)
                 .allData(eachAccommodationResponseDtos)
+                .prices(prices)
                 .build();
     }
 
@@ -63,19 +69,14 @@ public class MockService {
         List<Accommodation> reservableAccommodations
                 = filteringForReservation(filterRequestDto, airbnb);
 
-        List<PriceRangeResponseDto> prices = getPrices(reservableAccommodations);
-
         List<EachAccommodationResponseDto> eachAccommodationResponseDtos
                 = getEachAccommodationResponseDtos(reservableAccommodations);
 
         return AllAccommodationResponseDto.builder()
                 .status(status)
                 .allData(eachAccommodationResponseDtos)
-                .prices(prices)
                 .build();
     }
-
-
 
     private List<PriceRangeResponseDto> initPriceRangeResponseDto() {
         List<PriceRangeResponseDto> priceRangeResponseDtos = new ArrayList<>();
@@ -109,53 +110,49 @@ public class MockService {
 
     private List<Accommodation> filteringForReservation(FilterRequestDto filterRequestDto, Airbnb airbnb) {
 
-        LocalDate requestStart = LocalDate.parse(filterRequestDto.getStartDate());
-        LocalDate requestEnd = LocalDate.parse(filterRequestDto.getEndDate());
+        String requestLocation = filterRequestDto.getLocation();
+        LocalDate requestStart = filterRequestDto.getStartDate();
+        LocalDate requestEnd = filterRequestDto.getEndDate();
+        int requestPeople = filterRequestDto.getPeople();
+        Integer requestMinPrice = filterRequestDto.getMin();
+        Integer requestMaxPrice = filterRequestDto.getMax();
 
-        String requestPeople = filterRequestDto.getPeople();
-        String requestMinPrice = filterRequestDto.getMin();
-        String requestMaxPrice = filterRequestDto.getMax();
+        List<Accommodation> accommodations = new ArrayList<>();
 
-        // 예약이 없는 숙박업소
-        List<Accommodation> accommodations = airbnb.getAccommodations().stream()
-                .filter(each -> each.getReservationDates().size() == 0)
+        // location에 따라 숙박업소 리스트업하기
+        List<Accommodation> accommodationsByLocation = airbnb.getAccommodations().stream()
+                .filter(each -> each.getLocation().equals(requestLocation))
                 .collect(Collectors.toList());
 
         // 예약이 있는 숙박업소
-        List<Accommodation> reservedAccommodations = airbnb.getAccommodations().stream()
-                .filter(each -> each.getReservationDates().size() != 0)
+        List<Accommodation> reservedAccommodations = accommodationsByLocation.stream()
+                .filter(each -> each.getReservations().size() != 0)
                 .collect(Collectors.toList());
 
         // 예약이 있는 숙박업소에서 사용자의 예약에 맞는 숙박업소를 찾는 과정
         for (Accommodation accommodation : reservedAccommodations) {
 
-            boolean ok = true;
-            for (ReservationDate each : accommodation.getReservationDates()) {
-                if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
-                        || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
-                    ok = false;
-                    break;
-                }
-                if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
-                        || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
-                    ok = false;
-                    break;
-                }
-            }
+            boolean ok = isReservable(accommodation, requestStart, requestEnd);
+
             if (ok) accommodations.add(accommodation);
         }
 
         // 예약 인원보다 수용 인원이 큰 숙박 업소 추리기
         accommodations = accommodations.stream()
-                .filter(each -> each.getAvailableGuest() >= Integer.parseInt(requestPeople))
+                .filter(each -> each.getAvailableGuest() >= requestPeople)
                 .collect(Collectors.toList());
 
         // 예약 금액 사이에 있는 숙박 업소 추리기
         if (requestMinPrice != null) {
             accommodations = accommodations.stream()
-                    .filter(each -> (each.getCurrent_price() >= Integer.parseInt(requestMinPrice) && each.getCurrent_price() <= Integer.parseInt(requestMaxPrice)))
+                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
                     .collect(Collectors.toList());
         }
+
+        // 예약이 없는 숙박업소
+        accommodations.addAll(accommodationsByLocation.stream()
+                .filter(each -> each.getReservations().size() == 0)
+                .collect(Collectors.toList()));
 
         return accommodations;
     }
@@ -232,55 +229,125 @@ public class MockService {
     }
 
     public ReservationResponseDto reserve(ReservationRequestDto reservationRequestDto,
+                                          Long accommodationId,
+                                          String userEmail,
                                           HttpServletRequest request) {
 
         try {
+            String successMessage = "예약에 성공했습니다.";
 //            String userEmail = (String) request.getAttribute("userEmail");
-            String userEmail = "guswns1659@gmail.com";
             Long id = 1L;
-
-            Long accommodationId = reservationRequestDto.getId();
-            LocalDate startDate = reservationRequestDto.getStartDate();
-            LocalDate endDate = reservationRequestDto.getEndDate();
 
             Airbnb airbnb = findAirbnbById(id);
 
-            User user = User.builder()
-                    .email("zmdk1127@naver.com")
-                    .build();
+            Accommodation accommodation = airbnb.getAccommodations().stream()
+                    .filter(each -> each.getId().equals(accommodationId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("해당 accommodation이 없습니다. id = " + accommodationId));
 
-            airbnb.getUsers().add(user);
+            LocalDate requestStart = reservationRequestDto.getStartDate();
+            LocalDate requestEnd = reservationRequestDto.getEndDate();
 
-//            User user = airbnb.getUsers().stream()
-//                    .filter(each -> each.getEmail().equals(userEmail))
-//                    .findFirst()
-//                    .orElseThrow(() -> new IllegalStateException("해당 user는 없습니다. id = "+ id));
-//
-//            Accommodation accommodation = airbnb.getAccommodations().stream()
-//                    .filter(each -> each.getId().equals(accommodationId))
-//                    .findFirst()
-//                    .orElseThrow(() -> new IllegalStateException("해당 accommodation은 없습니다. id = " + id));
+            if (!isReservable(accommodation, requestStart, requestEnd)) {
+                throw new IllegalStateException("해당 날짜엔 이미 예약이 있습니다.");
+            }
 
-//            Reservation reservation = new Reservation();
+            airbnb.reservationSaveToUser(userEmail, reservationRequestDto);
 
-//            user.addReservation(reservation);
-//            accommodation.addReservationDate(startDate, endDate);
-//            accommodation.addReservation(reservation);
-
-            airbnb.reservationSave(userEmail, accommodationId, startDate, endDate);
+            airbnb.reservationSaveToAccommodation(accommodationId, reservationRequestDto);
 
             airbnbRepository.save(airbnb);
 
             return ReservationResponseDto.builder()
                     .status("200")
+                    .message(successMessage)
                     .build();
 
-        } catch (Exception e) {
+        } catch(IllegalStateException e) {
+
+            String failMessage = "해당 날짜엔 이미 예약이 있습니다.";
+
             e.printStackTrace();
 
             return ReservationResponseDto.builder()
-                    .status("404")
+                    .status("202")
+                    .message(failMessage)
+                    .build();
+
+        } catch (Exception e) {
+            String failMessage = "예약에 실패했습니다.";
+
+            e.printStackTrace();
+
+            return ReservationResponseDto.builder()
+                    .status("202")
+                    .message(failMessage)
                     .build();
         }
     }
+
+    private boolean isReservable(Accommodation accommodation, LocalDate requestStart, LocalDate requestEnd) {
+
+        for (AccommodationReservation each : accommodation.getReservations()) {
+            if ((each.getStartDate().isBefore(requestStart) && each.getEndDate().isAfter(requestStart)
+                    || (each.getStartDate().isBefore(requestEnd) && each.getEndDate().isAfter(requestEnd)))) {
+                return false;
+            }
+            if ((each.getStartDate().isEqual(requestStart) || each.getEndDate().isEqual(requestStart))
+                    || (each.getStartDate().isEqual(requestEnd) || each.getEndDate().isEqual(requestEnd))) {
+
+                return false;
+
+            }
+            if ((requestStart.isBefore(each.getStartDate()) && requestEnd.isAfter(each.getStartDate()))
+                    || (requestStart.isBefore(each.getEndDate()) && requestEnd.isAfter(each.getEndDate()))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public DeleteReservationResponseDto delete(Long accommodationId, Long reservationId, String userEmail, HttpServletRequest request) {
+
+        try {
+//        String userEmail = request.getAttribute("userEmail");
+
+            String successMessage = "예약 취소에 성공했습니다.";
+
+            Airbnb airbnb = findAirbnbById(1L);
+
+            airbnb.deleteReservation(accommodationId, reservationId, userEmail);
+
+            airbnbRepository.save(airbnb);
+
+            return DeleteReservationResponseDto.builder()
+                    .status("200")
+                    .message(successMessage)
+                    .build();
+
+        } catch (Exception e) {
+            String failMessage = "예약 취소에 실패했습니다.";
+
+            e.printStackTrace();
+
+            return DeleteReservationResponseDto.builder()
+                    .status("202")
+                    .message(failMessage)
+                    .build();
+        }
+
+    }
+
+    public AllReservationInfoResponseDto getReservationInfo(String userEmail, HttpServletRequest request) {
+
+        Airbnb airbnb = findAirbnbById(1L);
+
+        User user = airbnb.findUserByUserEmail(userEmail);
+
+        return user.showReservationInfos(airbnb.getAccommodations());
+    }
+
+
 }

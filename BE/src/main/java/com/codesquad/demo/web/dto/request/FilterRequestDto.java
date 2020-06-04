@@ -2,6 +2,8 @@ package com.codesquad.demo.web.dto.request;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @ToString
 @NoArgsConstructor
@@ -9,9 +11,10 @@ import lombok.*;
 @Builder
 public class FilterRequestDto {
 
-    private String startDate;
-    private String endDate;
-    private String people;
-    private String min;
-    private String max;
+    private String location;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Integer people;
+    private Integer min;
+    private Integer max;
 }

@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from '@/routes/index';
+import store from '@/store/index';
 import AirBnbStyleDatepicker from '@/utils/index';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import Trend from 'vuetrend';
+require('./directives/Index.js');
 
 Vue.config.productionTip = false;
 
@@ -52,5 +54,6 @@ Vue.use(AirBnbStyleDatepicker, {
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app');

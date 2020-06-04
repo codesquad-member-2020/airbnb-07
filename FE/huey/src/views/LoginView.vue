@@ -1,7 +1,11 @@
 <template>
   <div class="login-wrap">
     <div class="img-wrap">
-      <img class="vue-logo logo" alt="Vue logo" src="@/assets/vue-logo.png" />
+      <img
+        class="vue-logo logo"
+        alt="Vue logo"
+        src="@/assets/portal-logo.gif"
+      />
       <img class="and-logo logo" alt="And logo" src="@/assets/and-logo.png" />
       <img
         class="airbnb-logo logo"
@@ -14,7 +18,7 @@
 </template>
 
 <script>
-import LoginComponent from '@/components/LoginComponent';
+import LoginComponent from '@/components/login/LoginComponent';
 
 export default {
   components: {
@@ -36,7 +40,8 @@ export default {
 
 .img-wrap {
   display: flex;
-  margin: 0 auto;
+  justify-content: center;
+  margin-right: 120px;
 }
 
 .logo {
@@ -44,7 +49,7 @@ export default {
 }
 
 .vue-logo {
-  animation-name: bingle;
+  // animation-name: bingle;
   animation-duration: 3s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -58,11 +63,12 @@ export default {
 .airbnb-logo {
   width: 200px;
   height: 200px;
+  margin: 80px;
 }
 
 .and-logo {
   width: 85px;
   height: 85px;
-  margin: 0px 45px 130px;
+  margin: 170px 45px 0px 45px;
 }
 </style>

@@ -23,16 +23,20 @@ const router = new VueRouter({
       component: () => import('@/views/MainView.vue'),
     },
     {
-      path: '/github/oauth/callback',
+      path: '/githublogin',
       redirect: 'main',
-    },
-    {
-      path: '*',
-      component: () => import('@/views/NotFoundView.vue'),
     },
     {
       path: '/rooms',
       component: () => import('@/views/SearchRoomsView.vue'),
+    },
+    {
+      path: '/reservation',
+      component: () => import('@/views/ReservationView.vue'),
+    },
+    {
+      path: '*',
+      component: () => import('@/views/NotFoundView.vue'),
     },
   ],
 });

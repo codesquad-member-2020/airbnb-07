@@ -1,5 +1,8 @@
 package com.codesquad.demo.service;
 
+import com.codesquad.demo.domain.Airbnb;
+import com.codesquad.demo.domain.AirbnbRepository;
+import com.codesquad.demo.domain.User;
 import com.codesquad.demo.utils.GithubProperties;
 import com.codesquad.demo.utils.JwtUtils;
 import com.codesquad.demo.web.dto.login.AccessTokenRequestDto;
@@ -12,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @Service
 public class LoginService {
@@ -19,14 +23,15 @@ public class LoginService {
     private final RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(LoginService.class);
     private final GithubProperties githubProperties;
+    private final AirbnbRepository airbnbRepository;
 
-    public LoginService(RestTemplate restTemplate, GithubProperties githubProperties) {
+    public LoginService(RestTemplate restTemplate, GithubProperties githubProperties, AirbnbRepository airbnbRepository) {
         this.restTemplate = restTemplate;
         this.githubProperties = githubProperties;
+        this.airbnbRepository = airbnbRepository;
     }
 
     public ResponseEntity<Void> login(String code, HttpServletResponse response) {
-        logger.info("code : {}", code);
 
         try {
             String url = githubProperties.getUrl();
@@ -48,6 +53,8 @@ public class LoginService {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("Authorization", "token " +accessToken);
 
+            logger.info("accessToken : {}", accessToken);
+
             HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
 
             ResponseEntity<String> responseEntity
@@ -56,6 +63,20 @@ public class LoginService {
             String userDataList = responseEntity.getBody();
             String[] split1 = userDataList.split(",");
             String userEmail = split1[0].split(":")[1];
+
+            if (userEmail.contains("\"")) {
+                userEmail = userEmail.replaceAll("\"", "");
+            }
+
+            Airbnb airbnb = airbnbRepository.findById(1L).orElseThrow(() ->
+                    new IllegalStateException("해당 airbnb가 없습니다. id = " + 1L));
+
+            airbnb.getUsers().add(User.builder()
+            .email(userEmail)
+            .reservations(new ArrayList<>())
+            .build());
+
+            airbnbRepository.save(airbnb);
 
             logger.info("userEmail : {}", userEmail);
 
@@ -88,7 +109,6 @@ public class LoginService {
     }
 
     public ResponseEntity<Void> login2(String code, HttpServletResponse response) {
-        logger.info("code : {}", code);
 
         try {
             String url = githubProperties.getUrl();
@@ -119,7 +139,19 @@ public class LoginService {
             String[] split1 = userDataList.split(",");
             String userEmail = split1[0].split(":")[1];
 
-            logger.info("userEmail : {}", userEmail);
+            if (userEmail.contains("\"")) {
+                userEmail = userEmail.replaceAll("\"", "");
+            }
+
+            Airbnb airbnb = airbnbRepository.findById(1L).orElseThrow(() ->
+                    new IllegalStateException("해당 airbnb가 없습니다. id = " + 1L));
+
+            airbnb.getUsers().add(User.builder()
+                    .email(userEmail)
+                    .reservations(new ArrayList<>())
+                    .build());
+
+            airbnbRepository.save(airbnb);
 
             String jwt = JwtUtils.jwtCreate(userEmail);
 

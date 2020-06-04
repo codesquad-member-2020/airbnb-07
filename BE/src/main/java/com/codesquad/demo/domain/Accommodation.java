@@ -3,7 +3,7 @@ package com.codesquad.demo.domain;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,27 +21,27 @@ public class Accommodation {
     private String description;
     private String location;
     private String street;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private Integer availableGuest;
     private Integer current_price;
     private Integer previous_price;
     private Integer discount_price;
     private String hotelRating;
-    private Reservation reservation;
-    private List<ReservationDate> reservationDates;
-    private List<Picture> pictures;
+    private List<AccommodationReservation> reservations = new ArrayList<>();
+    private List<Picture> pictures = new ArrayList<>();
 
-    public void addReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void addReservationDate(AccommodationReservation reservation) {
+        this.getReservations().add(reservation);
     }
 
-    public void addReservationDate(LocalDate startDate, LocalDate endDate) {
-        ReservationDate reservationDate = ReservationDate.builder()
-                .startDate(startDate)
-                .endDate(endDate)
-                .build();
+    public void deleteReservation(Long reservationId) {
 
-        this.getReservationDates().add(reservationDate);
+        AccommodationReservation willDelete = this.reservations.stream()
+                .filter(reservation -> reservation.getId().equals(reservationId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("해당 reservation이 없습니다. reservationId = " + reservationId));
+
+        this.reservations.remove(willDelete);
     }
 }
