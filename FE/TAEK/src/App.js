@@ -9,6 +9,8 @@ import Main from '@/components/main/Main';
 import MyPage from '@/components/myPage/Mypage';
 
 const App = () => {
+    localStorage.clear();
+
     return (
         <ThemeProvider theme={theme}>
             <Router>
