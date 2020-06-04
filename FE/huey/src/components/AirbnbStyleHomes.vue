@@ -22,7 +22,9 @@
     <div class="flex pt-4 room-map-container">
       <div class="h-12 py-2" :class="[showMap ? 'w-1/2' : 'w-full']">
         <div class="pl-2 mb-2">
-          <div class="font-semibold text-2xl">{{ roomListTitle }}</div>
+          <div class="text-2xl" style="color: #ff385c;">
+            {{ roomListTitle }}
+          </div>
         </div>
         <room-list
           :rooms="rooms"
@@ -124,13 +126,13 @@ export default {
           title = 'loading ...';
           break;
         case this.roomMeta.total === 0:
-          title = 'No results';
+          title = '숙소가 없어요 😱';
           break;
         case this.roomMeta.total === 1:
-          title = '1 result';
+          title = '숙소가 하나 있네요! 🤩';
           break;
         default:
-          title = `${this.roomMeta.total} results`;
+          title = `${this.roomMeta.total} 개의 숙소가 있네요! 🥳`;
           break;
       }
       return title;
@@ -177,6 +179,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.result-img-container {
+  display: inline-block;
+  width: 80px;
+}
+
 .loading-container {
   position: absolute;
   top: 50%;
@@ -185,7 +192,7 @@ export default {
 }
 
 .map-base-container {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: inherit, 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
