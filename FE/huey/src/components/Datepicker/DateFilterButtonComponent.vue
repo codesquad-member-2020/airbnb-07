@@ -3,7 +3,7 @@
     <div class="datepicker-container with-button">
       <div class="datepicker-trigger">
         <button id="datepicker-button-trigger">
-          {{ formatDates(buttonDateOne, buttonDateTwo) || '체크인 / 체크아웃' }}
+          {{ formatDates(checkinDate, checkoutDate) || '체크인 / 체크아웃' }}
         </button>
         <airbnb-style-datepicker
           :trigger-element-id="'datepicker-button-trigger'"
@@ -40,11 +40,13 @@ export default {
     };
   },
   computed: {
+    ...mapState(['checkinDate', 'checkoutDate']),
     ...mapMutations(['setCheckInDate', 'setCheckOutDate']),
   },
   methods: {
     formatDates(dateOne, dateTwo) {
       let formattedDates = '';
+      if (dateOne === null && dateTwo === null) return null;
       if (dateOne) {
         formattedDates = format(dateOne, this.dateFormat);
       }
