@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from 'utils/util';
-import { COMMON } from 'constants/constant';
-import { login } from 'store/modules/login/loginAction';
+import { checkLogin } from 'store/modules/login/loginAction';
 import MainHeader from '@/components/header/MainHeader';
 import ReservationList from './ReservationList';
 
@@ -11,8 +9,7 @@ const MyPage = () => {
     const { bLogin } = useSelector(({ login }) => login);
 
     useEffect(() => {
-        const token = getCookie(COMMON.TOKEN_KEY);
-        if (token) dispatch(login(token));
+        dispatch(checkLogin());
     }, [dispatch]);
 
     return (

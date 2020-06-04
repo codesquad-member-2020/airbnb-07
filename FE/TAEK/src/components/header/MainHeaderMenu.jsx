@@ -31,21 +31,15 @@ const MainHeaderMenu = () => {
     let history = useHistory();
 
     const handleMyPageClick = () => {
-        if (!bLogin) {
-            alert(COMMON.NOT_LOGIN_MEASSAGE);
-            history.push('/login');
-        }
-        else history.push('/mypage');
+        if (bLogin) return history.push('/mypage');
+        alert(COMMON.NOT_LOGIN_MEASSAGE);
+        history.push('/login');
     };
 
     const handleLoginClick = () => {
-        if (!bLogin) history.push('/login');
-        else {
-            dispatch(logout());
-            deleteCookie(COMMON.TOKEN_KEY);
-            history.push('/');
-            location.reload();
-        }
+        if (!bLogin) return history.push('/login');
+        dispatch(logout());
+        history.push('/');
     }
 
     return (

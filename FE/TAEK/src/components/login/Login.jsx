@@ -68,7 +68,8 @@ const LoginBtn = styled.div`
 `;
 
 const Login = () => {
-    const testLoginClick = () => setCookie(COMMON.TOKEN_KEY, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs', 14);
+    // 개발 단계 테스트용 임시 로그인 cookie
+    const tempSetCookie = () => setCookie(COMMON.TOKEN_KEY, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs', 14);
 
     return (
         <LoginWrap>
@@ -77,7 +78,7 @@ const Login = () => {
                 <AndLogo src={andLogo} alt='and-logo' />
                 <AirbnbLogo src={airbnbLogo} alt='airbnb-logo' />
             </LogoWrap>
-            <LoginBtn onClick={testLoginClick}>
+            <LoginBtn onClick={tempSetCookie}>
                 <Link to='/'>Git Login</Link>
             </LoginBtn>
             {/* <LoginBtn>
