@@ -149,6 +149,10 @@ export default {
 }
 
 .room-text-info-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
   white-space: nowrap;
   padding: 10px 10px;
   letter-spacing: -0.03rem;
@@ -191,6 +195,7 @@ export default {
     }
   }
   .info-bottom {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
