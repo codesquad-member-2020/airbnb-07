@@ -23,7 +23,7 @@ const createRatingHtml = marker => {
 
   const fullStarsHtml = fullStars
     .map(start => {
-      return `<span title="rating">&#9733;</span>`;
+      return `<span title="rating" style="color: #ff385c">&#9733;</span>`;
     })
     .join('');
 
@@ -47,19 +47,30 @@ const createSlideIndicatorHtml = marker => {
 const infoWindow = {
   getContentHtml(marker) {
     return `
-      <div class="info-window border border-grey rounded" style="width:280px;">
+      <div class="info-window border border-grey rounded" style="width:280px; font-family: 'Regular';">
         <div class="siema-container">
-          <div class="siema" style="height: 200px">${createSlideHtml(
-            marker,
-          )}</div>
-          <div class="indicators">${createSlideIndicatorHtml(marker)}</div>
+          <div class="siema" style="height: 100%">
+            ${createSlideHtml(marker)}
+          </div>
           <button class="prev">&#x2039;</button>
+          <div class="indicators" style="display:inline-block; font-size: 10px;">
+            ${createSlideIndicatorHtml(marker)}
+          </div>
           <button class="next">&#x203A;</button>
         </div>
         <div class="info">
-          <div class="title">${marker.room.hotelName}</div>
-          <div class="price">$${marker.room.currentPrice} CAD per month</div>
-          ${createRatingHtml(marker)}
+          <div>
+            ${createRatingHtml(marker)}
+          </div>
+          <div class="title" style="white-space: normal; margin: 0px 10px;">
+            ${marker.room.hotelName}
+          </div>
+          <div class="price-container">
+            <span class="currentPrice" style="color: #ff385c;">&#8361; 
+              ${marker.room.currentPrice}
+            </span>
+            <span> / 1박</span>
+          </div>
         </div>
       </div>`;
   },
