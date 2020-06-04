@@ -12,7 +12,7 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      redirect: '/login',
+      redirect: '/main',
     },
     {
       path: '/login',
