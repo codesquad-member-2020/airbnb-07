@@ -26,3 +26,23 @@ export const formatDate = (year, month, day, gap) => {
     if ((day + '').length < 2) day = '0' + day;
     return [year, month, day].join(gap);
 }
+
+export const setCookie = (key, value, days) => {
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + days);
+
+    var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
+    document.cookie = key + '=' + cookie_value;
+}
+
+export const getCookie = (key) => {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + key + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+};
+
+export const deleteCookie = (key) => {
+    document.cookie = key + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+};
+
+export const checkResponseData = response => response.ok && (response.status >= 200 && response.status <= 207);

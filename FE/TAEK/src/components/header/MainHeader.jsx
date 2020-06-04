@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { changePage } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
-import miniMenu from 'public/images/mini-menu.svg';
 import MainHeaderMenu from './MainHeaderMenu';
+import MainHeaderMiniMenu from './MainHeaderMiniMenu';
+import { MAIN } from 'constants/constant';
 
 const MainHeaderArea = styled.div`
     position: relative;
@@ -25,94 +26,51 @@ const MainHeaderWrap = styled.div`
     padding: 0 15%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
+    transition: .4s ease;
+    &.hide {
+        box-shadow: 0;
+        transform: translateY(-80px);
+    }
     .main-airbnb-logo {
         cursor: pointer;
-    }
-    .main-header-menu {
-        display: flex;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 600;
-        color: #484848;
-        li {
-            margin-right: 20px;
-            cursor: pointer;
-            :last-child {
-                margin-right: 0;
-            }
-        }
-        @media (max-width: 1180px) { display: none; }
-    }
-    .mini-menu {
-        position: relative;
-        width: 200px;
-        height: 30px;
-        display: none;
-        align-self: center;
-        img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
-        }
-        .main-header-menu {
-            position: absolute;
-            top: 30px;
-            right: 0;
-            display: block;
-            width: 200px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #484848;
-            background-color: #fff;
-            z-index: 7;
-            overflow: hidden;
-            animation-name: miniMenu;
-            animation-duration: .3s;
-            animation-timing-function:ease-in-out;
-            animation-fill-mode: both;
-            @keyframes miniMenu {
-                0% { height: 0; }
-                100% { height: 250px;}
-            }
-            border-radius: 5px;
-            box-shadow: ${props => props.theme.modalShadow};
-            box-sizing: border-box;
-            li {
-                display: block;
-                line-height: 30px;
-                padding: 10px 20px;
-                margin-right: 0;
-                cursor: pointer;
-            }
-        }
-        @media (max-width: 1180px) { display: block; }
     }
 `;
 
 const MainHeader = () => {
     const dispatch = useDispatch();
-    const [isOpen, setOpen] = useState(false);
-    const handleMiniMenuOpen = () => setOpen(!isOpen);
-    const handleMiniMenuLeave = () => setOpen(false);
+    const [hide, setHide] = useState(false);
+    const [pageY, setPageY] = useState(0);
+    const documentRef = useRef(document);
 
     let history = useHistory();
     const handleLogoClick = () => {
-        dispatch(changePage(1));
+        dispatch(changePage(MAIN.PAGE.DEFAULT_PAGE));
         window.scrollTo(0, 0);
-        history.push('/main');
+        history.push('/');
     }
+
+    const handleScroll = () => {
+        const { pageYOffset } = window;
+        const deltaY = pageYOffset - pageY;
+        const hide = pageYOffset !== 0 && deltaY >= 0;
+
+        setHide(hide);
+        setPageY(pageYOffset);
+    }
+
+    useEffect(() => {
+        documentRef.current.addEventListener('scroll', handleScroll);
+        return () => documentRef.current.removeEventListener('scroll', handleScroll);
+    }, [pageY]);
 
     return (
         <MainHeaderArea>
-            <MainHeaderWrap>
+            <MainHeaderWrap className={hide && 'hide'}>
                 <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
                 <MainHeaderMenu />
-                <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
-                    <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
-                    {isOpen && <MainHeaderMenu />}
-                </div>
+                <MainHeaderMiniMenu />
             </MainHeaderWrap>
         </MainHeaderArea>
     )

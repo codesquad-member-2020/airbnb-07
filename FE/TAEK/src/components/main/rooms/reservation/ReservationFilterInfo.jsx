@@ -5,10 +5,14 @@ import ratingStar from 'public/images/rating-star.svg';
 const ReservationFilterInfo = ({ hotelRating, checkInDateInfoText, checkOutDateInfoText, person }) => {
     const { adultCount, childCount, babyCount } = person;
 
-    const personInfoText = [];
-    if (adultCount) personInfoText.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
-    if (childCount) personInfoText.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
-    if (babyCount) personInfoText.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+    const personInfoTextArr = [];
+    if (adultCount) personInfoTextArr.push(`${MAIN.PERSON.ADULT.TEXT} ${adultCount}명`);
+    if (childCount) personInfoTextArr.push(`${MAIN.PERSON.CHILD.TEXT} ${childCount}명`);
+    if (babyCount) personInfoTextArr.push(`${MAIN.PERSON.BABY.TEXT} ${babyCount}명`);
+
+    const startDateText = checkInDateInfoText.replace(/-/g, '. ');
+    const endDateText = checkOutDateInfoText.replace(/-/g, '. ');
+    const personInfoText = personInfoTextArr.join(', ')
 
     return (
         <>
@@ -18,11 +22,11 @@ const ReservationFilterInfo = ({ hotelRating, checkInDateInfoText, checkOutDateI
             </div>
             <div className='date-info-wrap'>
                 <div>날짜</div>
-                <div className='date-info'>{checkInDateInfoText.replace(/-/g, '. ')}. ➜ {checkOutDateInfoText.replace(/-/g, '. ')}.</div>
+                <div className='date-info'>{startDateText}. ➜ {endDateText}.</div>
             </div>
             <div className='person-info-wrap'>
                 <div>인원</div>
-                <div className='person-info'>{personInfoText.join(', ')}</div>
+                <div className='person-info'>{personInfoText}</div>
             </div>
         </>
     )

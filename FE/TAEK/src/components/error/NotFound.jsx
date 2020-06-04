@@ -47,7 +47,7 @@ const NotFound = () => {
     return (
         <NotFoundWrap>
             <NotFoundInner>
-                {wait ? <Title>존재하지 않는 페이지 입니다. 로그인 페이지로 이동 합니다.</Title> : <Redirect to='/' />}
+                {wait ? <Title>존재하지 않는 페이지 입니다. 메인 페이지로 이동 합니다.</Title> : <Redirect to='/' />}
             </NotFoundInner>
             <Background src={bonobono} alt='bonobono' />
         </NotFoundWrap>

@@ -35,11 +35,16 @@ const MAIN = {
         CLEAN_UP_COST: 15000,
         SERVICE_COST: 2000,
         TAX_RATE: 0.05,
+    },
+    PAGE: {
+        DEFAULT_PAGE: 1,
     }
 }
 
 const COMMON = {
+    TOKEN_KEY: 'token',
     LOADING: '잠시 기다려 주세요.',
+    NOT_LOGIN_MEASSAGE: '로그인 정보가 없습니다. 로그인 페이지로 이동합니다.',
     NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
     NOT_INPUT_CHECKOUT_MESSAGE: '체크아웃 날짜를 선택하세요.',
     GET_DATA_ERROR: '조회에 실패했습니다. 다시 시도해주세요.',

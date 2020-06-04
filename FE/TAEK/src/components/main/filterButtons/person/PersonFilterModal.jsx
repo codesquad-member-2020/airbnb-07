@@ -12,7 +12,7 @@ const Background = styled.div`
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 5;
+    z-index: 105;
 `;
 
 const PersonFilterModalWrap = styled.div`
@@ -21,7 +21,7 @@ const PersonFilterModalWrap = styled.div`
     left: 0;
     width: 370px;
     background-color: #fff;
-    z-index: 10;
+    z-index: 110;
     overflow: hidden;
     animation-name: personModal;
     animation-duration: .2s;

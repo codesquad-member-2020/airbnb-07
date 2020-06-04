@@ -22,18 +22,18 @@ const RoomInfo = styled.div`
 `;
 
 const ReservationModalMap = ({ roomData }) => {
-    const { hotelName, latitude, longitude } = roomData;
+    const { hotelName, lat, lng } = roomData;
 
     const rooms = [
         {
             name: hotelName,
-            latitude: latitude,
-            longitude: longitude,
+            latitude: lat,
+            longitude: lng,
             color: '#000',
         },
     ];
 
-    const bounds = [[latitude, longitude]];
+    const bounds = [[lat, lng]];
 
     return (
         <ReservationModalMapWrap>

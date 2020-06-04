@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ReservationCard from './ReservationCard';
@@ -36,6 +36,14 @@ const ReservationListWrap = styled.div`
         border-radius: 5px;
         margin-top: 35px;
         width: 100%;
+        opacity: 0;
+        animation-name: reservationTable;
+        animation-duration: .6s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        @keyframes reservationTable{
+            to { opacity: 1 }
+        }
     }
     .reservation-card-container {
         .hotel-container {
@@ -81,10 +89,11 @@ const ReservationListWrap = styled.div`
 
 const ReservationList = () => {
     const dispatch = useDispatch();
+    const { token } = useSelector(({ login }) => login);
     const { loading, reservationData, error } = useSelector(({ reservation }) => reservation);
 
     useEffect(() => {
-        dispatch(getReservationInfoData());
+        dispatch(getReservationInfoData({ token }));
     }, [dispatch]);
 
     if (loading) return <LoadingSpiner />;
@@ -106,7 +115,7 @@ const ReservationList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reservationData.allData.reverse().map((reservationInfo, index) => {
+                        {reservationData.allData.map((reservationInfo, index) => {
                             return (
                                 <ReservationCard
                                     key={reservationInfo.reservation.id}
@@ -121,4 +130,4 @@ const ReservationList = () => {
     )
 }
 
-export default memo(ReservationList)
+export default ReservationList
