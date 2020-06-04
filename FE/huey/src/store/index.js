@@ -75,6 +75,7 @@ export default new Vuex.Store({
       state.reservationRemoveMeaaage = removeMessage;
     },
     setOpenModal(state, payload) {
+      if (state.isLoading) return;
       state.isOpenModal = !state.isOpenModal;
       if (payload === 'undefined') return;
       state.payloadDate = payload;
@@ -152,6 +153,8 @@ export default new Vuex.Store({
       state.maxPrice = null;
       state.selectGuestInfo = '';
       state.selectedCountry = '' || '도시';
+      state.isPayload = false;
+      state.isOpenModal = false;
     },
 
     setRenderSearchData(state, value) {
@@ -211,15 +214,18 @@ export default new Vuex.Store({
       if (data.status !== '200') {
         alert(`${data.message}`);
         commit('setOpenModal');
+        commit('toggleLoadingStatus');
       } else {
         let result = confirm(
           '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
         );
         if (result) {
+          commit('toggleLoadingStatus');
           commit('setOpenModal');
           commit('initState');
           router.push('/reservation');
         } else {
+          commit('toggleLoadingStatus');
           commit('setOpenModal');
         }
       }
