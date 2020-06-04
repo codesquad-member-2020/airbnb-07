@@ -4,6 +4,7 @@ import person from './person/personReducer';
 import charge from './charge/chargeReducer';
 import rooms from './rooms/roomsReducer';
 import reservation from './reservation/reservationReducer';
+import loaction from './location/locationReducer';
 
 export default combineReducers({
     date,
@@ -11,4 +12,5 @@ export default combineReducers({
     charge,
     rooms,
     reservation,
+    loaction,
 });

@@ -1,4 +1,7 @@
 const MAIN = {
+    LOCATION: {
+        DEFAULT_LOCATION: 'Seattle',
+    },
     DATE: {
         START_DATE_ID: 'airbnb-start-date',
         END_DATE_ID: 'airbnb-end-date',
@@ -20,6 +23,9 @@ const MAIN = {
             DESC: '2세 미만',
             COUNT_TYPE: { countType: 'babyCount' },
         },
+    },
+    ROOMS: {
+        MAXIMUM_VIEW_ITEM_COUNT: 12,
     },
     CHARGE: {
         MIN_CHARGE: 10000,

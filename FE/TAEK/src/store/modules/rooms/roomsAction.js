@@ -7,12 +7,14 @@ const GET_ROOMS_SUCCESS = 'rooms/GET_ROOMS_SUCCESS';
 const GET_ROOMS_ERROR = 'rooms/GET_ROOMS_ERROR';
 const SAVE_FILTER_DATA = 'rooms/SAVE_FILTER_DATA';
 const APPLY_CHARGE_FILTER = 'rooms/APPLY_CHARGE_FILTER';
+const CHANGE_PAGE = 'rooms/CHANGE_PAGE';
 
 const getRoomsInitData = data => async dispatch => {
-    dispatch({ type: GET_ROOMS_INIT_DATA });
     try {
+        dispatch({ type: GET_ROOMS_INIT_DATA });
         const response = await fetch(URL.ROOMS_INIT);
         if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
@@ -22,8 +24,8 @@ const getRoomsInitData = data => async dispatch => {
 };
 
 const getRoomsFilterData = data => async dispatch => {
-    dispatch({ type: GET_ROOMS_FILTER_DATA });
     try {
+        dispatch({ type: GET_ROOMS_FILTER_DATA });
         const response = await fetch(URL.ROOMS_FILTER, {
             method: 'POST',
             headers: {
@@ -32,6 +34,7 @@ const getRoomsFilterData = data => async dispatch => {
             body: JSON.stringify(data.filterData),
         });
         if (response.status !== 200) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
+
         const json = await response.json();
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
@@ -43,6 +46,7 @@ const getRoomsFilterData = data => async dispatch => {
 
 const saveFilterData = filterData => ({ type: SAVE_FILTER_DATA, payload: filterData });
 const applyChargeFilter = (min, max) => ({ type: APPLY_CHARGE_FILTER, payload: { min, max } });
+const changePage = page => ({ type: CHANGE_PAGE, payload: page });
 
 export {
     GET_ROOMS_INIT_DATA,
@@ -51,8 +55,10 @@ export {
     GET_ROOMS_ERROR,
     SAVE_FILTER_DATA,
     APPLY_CHARGE_FILTER,
+    CHANGE_PAGE,
     getRoomsInitData,
     getRoomsFilterData,
     saveFilterData,
     applyChargeFilter,
+    changePage,
 }

@@ -1,5 +1,7 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { changeLocation } from 'store/modules/location/locationAction';
 
 const LocationFilterWrap = styled.div`
     position: relative;
@@ -44,12 +46,18 @@ const LocationFilterBtn = styled.div`
 `;
 
 const LocationFilter = () => {
+    const dispatch = useDispatch();
+
+    const handleLocationChange = ({ target }) => dispatch(changeLocation(target.value));
+
     return (
         <LocationFilterWrap>
             <HighlightBorder />
             <LocationFilterBtn>
-                <select name='지역'>
+                <select onChange={handleLocationChange} name='지역'>
                     <option value='Seattle'>Seattle</option>
+                    <option value='New York'>New York</option>
+                    <option value='Boston'>Boston</option>
                 </select>
             </LocationFilterBtn>
         </LocationFilterWrap>

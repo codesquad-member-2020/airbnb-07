@@ -10,7 +10,7 @@
           :mode="'range'"
           :date-one="buttonDateOne"
           :date-two="buttonDateTwo"
-          :min-date="'2018-04-18'"
+          :min-date="'2020-06-03'"
           :fullscreen-mobile="true"
           :months-to-show="2"
           :trigger="trigger"

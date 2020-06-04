@@ -78,7 +78,9 @@ export default {
   },
   methods: {
     toReservationPage() {
-      this.$router.push('/reservation');
+      if (this.$route.path !== '/reservation') {
+        this.$router.push('/reservation');
+      }
     },
 
     toMainPage() {
@@ -92,6 +94,7 @@ export default {
 
 <style lang="scss" scoped>
 .header-container {
+  z-index: 1;
   position: fixed;
   top: 0;
   height: 80px;

@@ -4,7 +4,7 @@
       <ul class="default_option">
         <li>
           <div class="option">
-            <p>도시</p>
+            <p>{{ this.selectedCountry || '도시' }}</p>
           </div>
         </li>
       </ul>
@@ -31,9 +31,9 @@ export default {
   data() {
     return {
       countryOptions: [
-        { value: '뉴욕' },
-        { value: '보스턴' },
-        { value: '시애틀' },
+        { value: 'NewYork' },
+        { value: 'Boston' },
+        { value: 'Seattle' },
       ],
     };
   },

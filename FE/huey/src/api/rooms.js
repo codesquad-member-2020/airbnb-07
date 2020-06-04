@@ -1,7 +1,11 @@
 import faker from 'faker';
 
 let rooms = [];
-let center = { lat: 49.166592, lng: -123.133568 };
+let center = { lat: 40.6643, lng: -73.9385 };
+
+// const setCenter = location => {
+//   console.log(location);
+// };
 
 const addFakerRooms = number => {
   for (let i = 1; i <= number; i++) {
@@ -9,7 +13,7 @@ const addFakerRooms = number => {
       ...rooms,
       {
         id: i,
-        name: faker.address.streetAddress() + ' ' + faker.address.city(),
+        hotelName: faker.address.streetAddress() + ' ' + faker.address.city(),
         lat:
           center.lat +
           Number(Math.random().toFixed(7)) *
@@ -18,11 +22,13 @@ const addFakerRooms = number => {
           center.lng +
           Number(Math.random().toFixed(7)) *
             [-1, 1][Math.floor(Math.random() * 2)],
-        price: Number(Math.random() * 2000).toFixed(2),
-        images: [1, 2, 3, 4, 5].map(
-          x => `https://placeimg.com/280/186/arch?time=${Math.random()}`,
-        ),
-        rating: Math.floor(Math.random() * 5),
+        currentPrice: Number(Math.random() * 2000).toFixed(2),
+        urls: [1, 2, 3, 4, 5].map(x => {
+          return {
+            url: `https://placeimg.com/280/186/arch?time=${Math.random()}`,
+          };
+        }),
+        hotelRating: Math.floor(Math.random() * 5),
       },
     ];
   }
@@ -40,9 +46,18 @@ const queryStringToObj = queryString => {
   return obj;
 };
 
-addFakerRooms(100);
-
 export default {
+  setCenter(location) {
+    center.lat = location.lat;
+    center.lng = location.lng;
+    // addFakerRooms(100);
+  },
+
+  setRoomsData(roomsData) {
+    rooms = roomsData;
+    console.log(rooms);
+  },
+
   getAll(url) {
     let query = url.match(/\?(.+)/);
     let queryString = query ? query[0] : '';

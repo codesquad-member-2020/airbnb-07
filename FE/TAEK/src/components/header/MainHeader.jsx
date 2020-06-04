@@ -1,11 +1,23 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { changePage } from 'store/modules/rooms/roomsAction';
 import styled from 'styled-components';
 import mainAirbnbLogo from 'public/images/main-airbnb-logo.png';
 import miniMenu from 'public/images/mini-menu.svg';
 import MainHeaderMenu from './MainHeaderMenu';
 
+const MainHeaderArea = styled.div`
+    position: relative;
+    width: 100%;
+    height: 80px;
+`;
+
 const MainHeaderWrap = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
     box-shadow: 0 4px 6px #32325d1c, 0 1px 3px #00000014;
     width: 100%;
     height: 80px;
@@ -80,22 +92,29 @@ const MainHeaderWrap = styled.div`
 `;
 
 const MainHeader = () => {
+    const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
     const handleMiniMenuOpen = () => setOpen(!isOpen);
     const handleMiniMenuLeave = () => setOpen(false);
 
     let history = useHistory();
-    const handleLogoClick = () => history.push('/main');
+    const handleLogoClick = () => {
+        dispatch(changePage(1));
+        window.scrollTo(0, 0);
+        history.push('/main');
+    }
 
     return (
-        <MainHeaderWrap>
-            <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
-            <MainHeaderMenu />
-            <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
-                <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
-                {isOpen && <MainHeaderMenu />}
-            </div>
-        </MainHeaderWrap>
+        <MainHeaderArea>
+            <MainHeaderWrap>
+                <img className='main-airbnb-logo' src={mainAirbnbLogo} alt="airbnb-logo" onClick={handleLogoClick} />
+                <MainHeaderMenu />
+                <div className='mini-menu' onMouseLeave={handleMiniMenuLeave}>
+                    <img src={miniMenu} alt="mini-menu" onClick={handleMiniMenuOpen} />
+                    {isOpen && <MainHeaderMenu />}
+                </div>
+            </MainHeaderWrap>
+        </MainHeaderArea>
     )
 }
 

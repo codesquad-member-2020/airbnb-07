@@ -4,9 +4,9 @@
     <div class="room-text-info-wrap">
       <div class="info-top">
         <div class="location">{{ propsData.location }}</div>
-        <span class="person-number"
+        <!-- <span class="person-number"
           >최대 인원수: {{ propsData.availableGuest }}명</span
-        >
+        > -->
         <div class="rating-wrap">
           <img
             class="rating-star-icon"
@@ -55,7 +55,13 @@ import { mapState } from 'vuex';
 export default {
   props: ['propsData'],
   computed: {
-    ...mapState(['clickedAccommodationid']),
+    ...mapState([
+      'clickedAccommodationid',
+      'selectedCountry',
+      'checkinDate',
+      'checkoutDate',
+      'guestNumber',
+    ]),
   },
   methods: {
     openReservationModal({
@@ -63,6 +69,15 @@ export default {
         dataset: { accommodationid },
       },
     }) {
+      if (
+        !(
+          this.selectedCountry &&
+          this.checkinDate &&
+          this.checkoutDate &&
+          this.guestNumber
+        )
+      )
+        return alert('필수 사항을 입력해주세요');
       this.$store.commit('setOpenModal', this.propsData);
       this.$store.commit('setAccommodationId', accommodationid);
     },

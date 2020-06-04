@@ -68,12 +68,14 @@
 
 <script>
 import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     PersonFilterButtonComponent,
   },
   computed: {
+    ...mapState(['guestNumber']),
     setTaxPrice() {
       let result = this.$store.getters.sumPrice;
       result += 0.05 * result;
@@ -83,6 +85,7 @@ export default {
 
   methods: {
     onReservation() {
+      if (!this.guestNumber) return;
       this.$store.dispatch('SET_RESERVATION');
       let result = confirm(
         '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
@@ -92,7 +95,7 @@ export default {
         this.$store.commit('initState');
         setTimeout(() => {
           this.$router.push('/reservation');
-        }, 1000);
+        }, 2000);
       } else {
         this.$store.commit('setOpenModal');
       }

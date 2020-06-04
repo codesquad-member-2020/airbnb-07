@@ -1,15 +1,14 @@
 <template>
-  <div id="app">
-    <!-- <div class="flex nav">
-      <div class="flex w-full bg-white search-container items-center">
-        <div class="search-input lg:w-1/2 w-full">
-          <address-autocomplete
-            v-model="place"
-            custom-class="flex w-full shadow appearance-none border rounded text-grey-dark items-center"
-          ></address-autocomplete>
-        </div>
-      </div>
-    </div> -->
+  <div
+    v-if="
+      !this.$store.state.renderSearchData.length ||
+      this.$store.state.isSearchWait
+    "
+    class="loading-container"
+  >
+    <LoadingSpinner />
+  </div>
+  <div v-else class="map-base-container">
     <div
       class="flex w-full p-6 items-center border-b border-grey-light filter-container"
     >
@@ -21,7 +20,7 @@
       </div>
     </div>
     <div class="flex pt-4 room-map-container">
-      <div class="h-12 py-2 px-4" :class="[showMap ? 'w-2/3' : 'w-full']">
+      <div class="h-12 py-2" :class="[showMap ? 'w-1/2' : 'w-full']">
         <div class="pl-2 mb-2">
           <div class="font-semibold text-2xl">{{ roomListTitle }}</div>
         </div>
@@ -40,7 +39,7 @@
           ></simple-paginator>
         </div>
       </div>
-      <div class="w-1/3 py-2 pr-4 pin-r" :class="{ 'map-before': !showMap }">
+      <div class="w-1/2 py-2 pin-r" :class="{ 'map-before': !showMap }">
         <room-map
           @bounds:changed="handleBoundsChanged"
           :rooms="rooms"
@@ -61,35 +60,40 @@ import RoomList from '@/components/Rooms/RoomList';
 import ToggleSwitch from '@/components/Rooms/ToggleSwitch';
 import SimplePaginator from '@/components/Rooms/SimplePaginator';
 import AddressAutocomplete from '@/components/Rooms/AddressAutocomplete';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+import { mapState } from 'vuex';
 
 export default {
-  name: 'App',
   components: {
     RoomMap,
     RoomList,
     ToggleSwitch,
     SimplePaginator,
-    // AddressAutocomplete,
+    LoadingSpinner,
   },
   props: {
     defaultLat: {
       type: Number,
-      default: 49.16679,
+      default: 42.35843,
     },
     defaultLng: {
       type: Number,
-      default: -123.138385,
+      default: -71.05977,
     },
     defaultAddress: {
       type: String,
-      default: 'CF Richmond Centre, Number 3 Road, Richmond, BC, Canada',
+      default: 'Boston',
     },
+  },
+  created() {
+    this.setCenterLocation();
+    roomApi.setCenter({ lat: this.place.lat, lng: this.place.lng });
   },
   data() {
     return {
       place: {
-        lat: this.defaultLat,
-        lng: this.defaultLng,
+        lat: 0,
+        lng: 0,
         address: this.defaultAddress,
       },
       rooms: [],
@@ -99,7 +103,14 @@ export default {
       showMap: true,
     };
   },
+  watch: {
+    rooms: function () {
+      this.place.lat = this.selectedLocation.lat;
+      this.place.lng = this.selectedLocation.lng;
+    },
+  },
   computed: {
+    ...mapState(['selectedCountry', 'selectedLocation']),
     center() {
       return {
         lat: this.place.lat,
@@ -126,6 +137,10 @@ export default {
     },
   },
   methods: {
+    setCenterLocation() {
+      this.place.lat = this.selectedLocation.lat;
+      this.place.lng = this.selectedLocation.lng;
+    },
     handleBoundsChanged({ mapBounds }) {
       this.mapBounds = mapBounds;
       this.fetchRooms(1);
@@ -162,7 +177,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app {
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.map-base-container {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
