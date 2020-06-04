@@ -4,9 +4,6 @@
     <div class="room-text-info-wrap">
       <div class="info-top">
         <div class="location">{{ propsData.location }}</div>
-        <!-- <span class="person-number"
-          >최대 인원수: {{ propsData.availableGuest }}명</span
-        > -->
         <div class="rating-wrap">
           <img
             class="rating-star-icon"
@@ -77,7 +74,7 @@ export default {
           this.guestNumber
         )
       )
-        return alert('필수 사항을 입력해주세요');
+        return alert('필수 사항(도시, 날짜, 인원)을 입력해주세요');
       this.$store.commit('setOpenModal', this.propsData);
       this.$store.commit('setAccommodationId', accommodationid);
     },

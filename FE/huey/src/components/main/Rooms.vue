@@ -16,12 +16,13 @@ export default {
     return {};
   },
   created() {
+    this.$store.commit('setInitToken');
+    this.$store.commit('setLoginUser');
     this.$store.dispatch('INIT_RENDER');
   },
   components: {
     RoomLists,
   },
-  methods: {},
 };
 </script>
 

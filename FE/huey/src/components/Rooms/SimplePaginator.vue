@@ -8,7 +8,7 @@
         @click.prevent="prev"
       >
         <a
-          class="pb-1 text-3xl text-teal-dark border-teal-dark no-underline page-link border w-8 h-8 flex inline-block rounded-full justify-center items-center"
+          class="pb-1 text-3xl text-teal-dark border-teal-dark no-underline page-link w-8 h-8 flex inline-block justify-center items-center"
           href="#"
         >
           &#x2039;
@@ -21,11 +21,7 @@
       >
         <a
           class="text-xs no-underline page-link p-2 w-8 h-8 flex inline-block justify-center items-center"
-          :class="
-            meta.last_page === 1
-              ? 'border text-white bg-teal-dark rounded-full'
-              : 'text-teal-dark'
-          "
+          :class="meta.last_page === 1 ? 'bg-teal-dark' : 'text-teal-dark'"
           href="#"
           @click.prevent="toPage(1)"
         >
@@ -39,7 +35,7 @@
         @click.prevent="sections.prev"
       >
         <a
-          class="text-xs text-teal-dark no-underline page-link p-2 w-8 h-8 flex inline-block rounded-full justify-center items-center"
+          class="text-xs text-teal-dark no-underline page-link p-2 w-8 h-8 flex inline-block justify-center items-center"
           href="#"
         >
           ...
@@ -50,9 +46,7 @@
         <a
           class="text-xs no-underline page-link p-2 w-8 h-8 flex inline-block justify-center items-center"
           :class="
-            page === meta.current_page
-              ? 'border text-white bg-teal-dark rounded-full'
-              : 'text-teal-dark'
+            page === meta.current_page ? 'bg-teal-dark' : 'text-teal-dark'
           "
           href="#"
           @click.prevent="toPage(page)"
@@ -67,7 +61,7 @@
         @click.prevent="sections.next"
       >
         <a
-          class="text-teal-dark text-xs no-underline page-link p-2 w-8 h-8 flex inline-block rounded-full justify-center items-center"
+          class="text-teal-dark text-xs no-underline page-link p-2 w-8 h-8 flex inline-block justify-center items-center"
           href="#"
         >
           ...
@@ -82,7 +76,7 @@
           class="text-xs no-underline page-link p-2 w-8 h-8 flex inline-block justify-center items-center"
           :class="
             meta.last_page === meta.current_page
-              ? 'border text-white bg-teal-dark rounded-full'
+              ? 'bg-teal-dark'
               : 'text-teal-dark'
           "
           href="#"
@@ -99,7 +93,7 @@
         @click.prevent="next"
       >
         <a
-          class="text-teal-dark border-teal-dark pb-1 text-3xl no-underline page-link border w-8 h-8 flex inline-block rounded-full justify-center items-center"
+          class="text-teal-dark border-teal-dark pb-1 text-3xl no-underline page-link w-8 h-8 flex inline-block justify-center items-center"
           href="#"
           >&#x203A;
         </a>
@@ -188,3 +182,23 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.page-link {
+  padding: 0;
+  line-height: 0.75;
+  border: 0;
+}
+
+.page-item {
+  border-style: none;
+}
+
+.bg-teal-dark {
+  color: #ff385c;
+}
+
+.text-teal-dark {
+  color: #007bff;
+}
+</style>

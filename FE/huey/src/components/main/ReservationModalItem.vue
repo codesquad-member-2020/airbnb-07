@@ -1,5 +1,8 @@
 <template>
-  <div class="reservation-modal-item-wrap">
+  <div v-if="isLoading" class="loading-container">
+    <LoadingSpinner />
+  </div>
+  <div v-else class="reservation-modal-item-wrap">
     <div class="currentPrice-wrap">
       <img
         class="reservation-logo"
@@ -68,14 +71,16 @@
 
 <script>
 import PersonFilterButtonComponent from '@/components/PersonFilter/PersonFilterButtonComponent';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     PersonFilterButtonComponent,
+    LoadingSpinner,
   },
   computed: {
-    ...mapState(['guestNumber']),
+    ...mapState(['guestNumber', 'isLoading']),
     setTaxPrice() {
       let result = this.$store.getters.sumPrice;
       result += 0.05 * result;
@@ -86,25 +91,21 @@ export default {
   methods: {
     onReservation() {
       if (!this.guestNumber) return;
+      this.$store.commit('toggleLoadingStatus');
       this.$store.dispatch('SET_RESERVATION');
-      let result = confirm(
-        '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
-      );
-      if (result) {
-        this.$store.commit('setOpenModal');
-        this.$store.commit('initState');
-        setTimeout(() => {
-          this.$router.push('/reservation');
-        }, 2000);
-      } else {
-        this.$store.commit('setOpenModal');
-      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .reservation-logo {
   position: absolute;
   width: 74px;

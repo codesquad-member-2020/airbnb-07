@@ -55,7 +55,14 @@
         <button class="help-btn" @click="toReservationPage">마이 페이지</button>
       </div>
       <div class="sign-btn-container">
-        <button class="signup-btn">로그아웃</button>
+        <button
+          v-if="this.$store.state.token !== null"
+          class="signup-btn"
+          @click="setLogout"
+        >
+          로그아웃
+        </button>
+        <button v-else class="signup-btn" @click="setLogin">로그인</button>
       </div>
     </div>
   </div>
@@ -87,6 +94,12 @@ export default {
       if (this.$route.path !== '/main') {
         this.$router.push('/main');
       }
+    },
+    setLogout() {
+      this.$store.commit('removeToken');
+    },
+    setLogin() {
+      this.$router.push('login');
     },
   },
 };
@@ -125,9 +138,6 @@ export default {
   > div {
     padding: 14px 20px;
     border-right: 1px solid rgb(247, 247, 247);
-  }
-  :last-child {
-    // border-right: none;
   }
 }
 

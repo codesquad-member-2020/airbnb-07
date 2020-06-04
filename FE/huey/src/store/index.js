@@ -8,13 +8,14 @@ import {
   filterRooms,
 } from '@/api/reservation';
 import roomApi from '@/api/rooms';
+import router from '@/routes/index';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
-    // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJzYW5naHVuX0BkYXVtLm5ldCJ9\.A3mhAUBy6BHEnpnnF8eqTTcQVvq5dvE6U_bSJ2va77c'
+    loginUser: null,
     initRenderRooms: [],
     reservationList: [],
     reservationSuccessMessage: '',
@@ -24,8 +25,8 @@ export default new Vuex.Store({
     isOpenModal: false,
     payloadDate: [],
     isPayload: false,
-    checkinDate: '',
-    checkoutDate: '',
+    checkinDate: null,
+    checkoutDate: null,
     adultCount: 0,
     childrenCount: 0,
     babyCount: 0,
@@ -36,6 +37,8 @@ export default new Vuex.Store({
     renderSearchData: [],
     selectedLocation: { lat: 0, lng: 0 },
     isSearchWait: false,
+    isLoading: false,
+    chartInPrice: [],
   },
   getters: {
     isPayloadData(state) {
@@ -61,6 +64,7 @@ export default new Vuex.Store({
   mutations: {
     setInitRenderData(state, renderData) {
       state.initRenderRooms = renderData;
+      state.chartInPrice = renderData.prices;
     },
     setReservationInfo(state, reservationData) {
       state.reservationList = reservationData;
@@ -73,6 +77,7 @@ export default new Vuex.Store({
       state.reservationRemoveMeaaage = removeMessage;
     },
     setOpenModal(state, payload) {
+      if (state.isLoading) return;
       state.isOpenModal = !state.isOpenModal;
       if (payload === 'undefined') return;
       state.payloadDate = payload;
@@ -150,6 +155,8 @@ export default new Vuex.Store({
       state.maxPrice = null;
       state.selectGuestInfo = '';
       state.selectedCountry = '' || '도시';
+      state.isPayload = false;
+      state.isOpenModal = false;
     },
 
     setRenderSearchData(state, value) {
@@ -160,6 +167,9 @@ export default new Vuex.Store({
     setPrice(state, { minValue, maxValue }) {
       state.minPrice = minValue;
       state.maxPrice = maxValue;
+    },
+    removeToken(state) {
+      state.token = null;
     },
     setLocation(state) {
       switch (state.selectedCountry) {
@@ -175,6 +185,27 @@ export default new Vuex.Store({
           state.selectedLocation.lat = 40.6643;
           state.selectedLocation.lng = -73.9385;
           break;
+      }
+    },
+
+    toggleLoadingStatus(state) {
+      state.isLoading = !state.isLoading;
+    },
+    setInitToken(state) {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token'));
+      if (typeof cookieValue != 'undefined') {
+        state.token = cookieValue.split('=')[1];
+      }
+    },
+
+    setLoginUser(state) {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('userEmail'));
+      if (typeof cookieValue != 'undefined') {
+        state.loginUser = cookieValue.split('=')[1];
       }
     },
   },
@@ -201,8 +232,25 @@ export default new Vuex.Store({
         state.clickedAccommodationid,
         setData,
       );
-      console.log(data);
       commit('setReservationMessage', data);
+      if (data.status !== '200') {
+        alert(`${data.message}`);
+        commit('setOpenModal');
+        commit('toggleLoadingStatus');
+      } else {
+        let result = confirm(
+          '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+        );
+        if (result) {
+          commit('toggleLoadingStatus');
+          commit('setOpenModal');
+          commit('initState');
+          router.push('/reservation');
+        } else {
+          commit('toggleLoadingStatus');
+          commit('setOpenModal');
+        }
+      }
     },
 
     async REMOVE_RESERVATION({ commit }, payload) {
@@ -210,6 +258,13 @@ export default new Vuex.Store({
         payload.accommodationId,
         payload.reservationId,
       );
+      if (data.status !== '200') {
+        alert(`${data.message}`);
+        commit('toggleLoadingStatus');
+      } else {
+        alert(`${data.message}`);
+        location.reload(true);
+      }
       commit('setReservationRemoveMessage', data);
     },
 
@@ -217,7 +272,6 @@ export default new Vuex.Store({
       const { data } = await filterRooms(payload);
       commit('setRenderSearchData', data.allData);
       if (data.status === '200') state.isSearchWait = false;
-      console.log(data);
     },
   },
 });
