@@ -37,6 +37,7 @@ export default new Vuex.Store({
     selectedLocation: { lat: 0, lng: 0 },
     isSearchWait: false,
     isLoading: false,
+    chartInPrice: [],
   },
   getters: {
     isPayloadData(state) {
@@ -62,6 +63,7 @@ export default new Vuex.Store({
   mutations: {
     setInitRenderData(state, renderData) {
       state.initRenderRooms = renderData;
+      state.chartInPrice = renderData.prices;
     },
     setReservationInfo(state, reservationData) {
       state.reservationList = reservationData;
@@ -191,6 +193,7 @@ export default new Vuex.Store({
     async INIT_RENDER({ commit }) {
       const { data } = await initMainRedner();
       commit('setInitRenderData', data);
+      console.log(data.prices);
     },
 
     async RESERVATION_INFO({ commit }) {

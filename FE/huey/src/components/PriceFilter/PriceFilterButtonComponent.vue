@@ -10,7 +10,7 @@
       <div>
         <span> 평균 가격 : 100,000</span>
       </div>
-      <AirbnbStyleChartCount />
+      <AirbnbStyleChartCount :roomNumber="this.$store.state.chartInPrice" />
       <AirbnbStylePriceCount @chageValue="chagnePrice" />
     </b-modal>
   </div>
@@ -22,12 +22,6 @@ import AirbnbStylePriceCount from '@/components/PriceFilter/AirbnbStylePriceCoun
 import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      // minPrice: 120000,
-      // maxPrice: 1000000,
-    };
-  },
   computed: {
     ...mapState(['minPirce', 'maxPrice']),
   },
@@ -42,8 +36,6 @@ export default {
     },
     chagnePrice({ minValue, maxValue }) {
       this.$store.commit('setPrice', { minValue, maxValue });
-
-      console.log(this.$store.state.minPrice, this.$store.state.maxPrice);
     },
   },
 };
