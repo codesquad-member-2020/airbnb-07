@@ -50,7 +50,6 @@ export default {
 
   setRoomsData(roomsData) {
     rooms = roomsData;
-    console.log(rooms);
   },
 
   getAll(url) {

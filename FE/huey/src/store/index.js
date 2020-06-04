@@ -214,7 +214,6 @@ export default new Vuex.Store({
     async INIT_RENDER({ commit }) {
       const { data } = await initMainRedner();
       commit('setInitRenderData', data);
-      console.log(data.prices);
     },
 
     async RESERVATION_INFO({ commit }) {
@@ -273,7 +272,6 @@ export default new Vuex.Store({
       const { data } = await filterRooms(payload);
       commit('setRenderSearchData', data.allData);
       if (data.status === '200') state.isSearchWait = false;
-      console.log(data);
     },
   },
 });

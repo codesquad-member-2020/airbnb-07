@@ -53,7 +53,6 @@ export default {
 
       let result = confirm('예약을 취소하시겠습니까?');
       if (result) {
-        console.log(this.isLoading);
         this.$store.commit('toggleLoadingStatus');
         this.$store.dispatch('REMOVE_RESERVATION', roomData);
       } else {
