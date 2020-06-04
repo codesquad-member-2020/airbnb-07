@@ -18,14 +18,20 @@
         <result property="previous_price" column="previous_price"/>
         <result property="discount_price" column="discount_price"/>
         <result property="hotelRating" column="hotel_rating"/>
-<!--        <result property="picture" column="url"/>-->
+        <collection property="pictures" javaType="java.util.ArrayList" resultMap="picturesResultMap"/>
     </resultMap>
 
+    <resultMap id="picturesResultMap" type="com.codesquad.demo.domain.Picture">
+        <result property="id" column="id"/>
+        <result property="url" column="url"/>
+    </resultMap>
 
     <select id="initAccommodations" resultMap="accommodationResultMap">
     <![CDATA[
-        select a.id, hotel_name, description, location, street, latitude, longitude, available_guest, current_price, previous_price, discount_price, hotel_rating
-        from accommodation a limit 30;
+        select a.id, hotel_name, description, location, street, latitude, longitude, available_guest, current_price, previous_price, discount_price, hotel_rating, p.id, url
+        from accommodation a
+                 left join picture p
+                           on a.id = p.accommodation limit 30;
         ]]>
     </select>
 

@@ -1,5 +1,6 @@
 package com.codesquad.demo.web.controller;
 
+import com.codesquad.demo.service.AccommodationService;
 import com.codesquad.demo.service.MockService;
 import com.codesquad.demo.service.SearchService;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
@@ -14,8 +15,11 @@ public class SearchApiController {
 
     private final SearchService searchService;
 
-    public SearchApiController(SearchService searchService) {
+    private final AccommodationService accommodationService;
+
+    public SearchApiController(SearchService searchService, AccommodationService accommodationService) {
         this.searchService = searchService;
+        this.accommodationService = accommodationService;
     }
 
     @GetMapping("init")
