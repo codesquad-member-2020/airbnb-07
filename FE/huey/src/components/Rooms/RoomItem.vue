@@ -102,7 +102,7 @@ export default {
         )
       )
         return alert('필수 사항을 입력해주세요');
-      this.$store.commit('setOpenModal', this.propsData);
+      this.$store.commit('setOpenModal', this.room);
       this.$store.commit('setAccommodationId', accommodationid);
     },
   },
