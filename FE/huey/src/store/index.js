@@ -8,6 +8,7 @@ import {
   filterRooms,
 } from '@/api/reservation';
 import roomApi from '@/api/rooms';
+import router from '@/routes/index';
 
 Vue.use(Vuex);
 
@@ -201,8 +202,22 @@ export default new Vuex.Store({
         state.clickedAccommodationid,
         setData,
       );
-      console.log(data);
       commit('setReservationMessage', data);
+      if (data.status !== '200') {
+        alert(`${data.message}`);
+        commit('setOpenModal');
+      } else {
+        let result = confirm(
+          '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+        );
+        if (result) {
+          commit('setOpenModal');
+          commit('initState');
+          router.push('/reservation');
+        } else {
+          commit('setOpenModal');
+        }
+      }
     },
 
     async REMOVE_RESERVATION({ commit }, payload) {
@@ -210,6 +225,12 @@ export default new Vuex.Store({
         payload.accommodationId,
         payload.reservationId,
       );
+      if (data.status !== '200') {
+        alert(`${data.message}`);
+      } else {
+        alert(`${data.message}`);
+        location.reload(true);
+      }
       commit('setReservationRemoveMessage', data);
     },
 
