@@ -1,26 +1,28 @@
 <template>
-  <div class="filter-wrap">
-    <date-filter-button-component></date-filter-button-component>
-    <person-filter-button-component></person-filter-button-component>
+  <div>
+    <HeaderComponent />
+    <Rooms />
+    <div class="filter-wrap"></div>
   </div>
 </template>
 
 <script>
-import DateFilterButtonComponent from '@/components/DateFilterButtonComponent';
-import PersonFilterButtonComponent from '@/components/PersonFilterButtonComponent';
+import HeaderComponent from '@/components/HeaderComponent';
+import Rooms from '@/components/main/Rooms';
 
 export default {
   components: {
-    DateFilterButtonComponent,
-    PersonFilterButtonComponent,
+    HeaderComponent,
+    Rooms,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .filter-wrap {
+  margin-top: 50px;
   display: flex;
   justify-content: space-around;
-  width: 400px;
+  width: 650px;
 }
 </style>

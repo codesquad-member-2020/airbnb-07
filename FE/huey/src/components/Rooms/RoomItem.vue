@@ -1,0 +1,41 @@
+<template>
+  <div
+    class="flex flex-col p-1 mb-4"
+    @mouseover="$emit('room:hovered', room)"
+    @mouseleave="$emit('room:unhovered')"
+  >
+    <siema-slide :total-items="room.urls.length">
+      <template slot="slide">
+        <a href="#" v-for="(img, index) in room.urls" :key="index">
+          <img :src="img.url" :alt="room.hotelName" class="rounded w-full" />
+        </a>
+      </template>
+
+      <div slot="info" class="w-1/2">
+        <div class="font-semibold py-1">{{ room.hotelName }}</div>
+        <div class="text-sm">&#8361;{{ room.currentPrice }} CAD per month</div>
+        <div class="py-2">
+          <star-rating :rating="parseInt(room.hotelRating)"></star-rating>
+        </div>
+      </div>
+    </siema-slide>
+  </div>
+</template>
+
+<script>
+import SiemaSlide from './SiemaSlide';
+import StarRating from './StarRating';
+
+export default {
+  components: {
+    SiemaSlide,
+    StarRating,
+  },
+  props: {
+    room: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>

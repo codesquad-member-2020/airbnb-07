@@ -1,10 +1,9 @@
 const path = require("path");
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-    entry: './src/index.js',
+    entry: ['@babel/polyfill', './src/index.js'],
 
     module: {
         rules: [
@@ -17,16 +16,16 @@ module.exports = {
                 use: ['babel-loader'],
             },
             {
-                test: /\.(jpg|png|svg)$/,
-                loader: "file-loader",
-                options: {
-                    publicPath: "./",
-                    name: "public/images/[name].[ext]?[hash]",
-                },
-            },
-            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader',
+                options: {
+                    name: '[hash].[ext]',
+                    limit: 10000,
+                },
             },
         ],
     },
@@ -34,8 +33,13 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
+            '@': path.resolve(__dirname, "src/"),
             'store': path.resolve(__dirname, "src/store/"),
             'utils': path.resolve(__dirname, "src/utils/"),
+            'hooks': path.resolve(__dirname, "src/hooks/"),
+            'constants': path.resolve(__dirname, "src/constants/"),
+            'mock': path.resolve(__dirname, "src/mock"),
+            'public': path.resolve(__dirname, "public/"),
         }
     },
 
@@ -45,8 +49,7 @@ module.exports = {
             filename: 'index.html',
             template: 'public/index.html',
         }),
-        new Dotenv({
-            path: path.resolve(__dirname, "./.env.development"),
-        }),
     ],
+
+    devtool: 'cheap-eval-source-map',
 }

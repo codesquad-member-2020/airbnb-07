@@ -1,0 +1,10 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.gm-style .gm-style-iw-t::after {
+    top: auto;
+    bottom: -55px !important;
+}
