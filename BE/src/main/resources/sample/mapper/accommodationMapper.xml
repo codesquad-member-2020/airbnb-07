@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sample.mapper.accommodationMapper">
+
+    <resultMap id="accommodationResultMap" type="com.codesquad.demo.domain.Accommodation">
+        <result property="id" column="id"/>
+        <result property="hotelName" column="hotel_name"/>
+        <result property="description" column="description"/>
+        <result property="location" column="location"/>
+        <result property="street" column="street"/>
+        <result property="latitude" column="latitude"/>
+        <result property="longitude" column="longitude"/>
+        <result property="availableGuest" column="available_guest"/>
+        <result property="current_price" column="current_price"/>
+        <result property="previous_price" column="previous_price"/>
+        <result property="discount_price" column="discount_price"/>
+        <result property="hotelRating" column="hotel_rating"/>
+<!--        <result property="picture" column="url"/>-->
+    </resultMap>
+
+
+    <select id="initAccommodations" resultMap="accommodationResultMap">
+    <![CDATA[
+        select a.id, hotel_name, description, location, street, latitude, longitude, available_guest, current_price, previous_price, discount_price, hotel_rating
+        from accommodation a limit 30;
+        ]]>
+    </select>
+
+</mapper>
