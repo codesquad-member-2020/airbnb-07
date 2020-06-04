@@ -194,17 +194,19 @@ export default new Vuex.Store({
     setInitToken(state) {
       const cookieValue = document.cookie
         .split('; ')
-        .find(row => row.startsWith('token'))
-        .split('=')[1];
-      state.token = cookieValue;
+        .find(row => row.startsWith('token'));
+      if (typeof cookieValue != 'undefined') {
+        state.token = cookieValue.split('=')[1];
+      }
     },
 
     setLoginUser(state) {
       const cookieValue = document.cookie
         .split('; ')
-        .find(row => row.startsWith('userEmail'))
-        .split('=')[1];
-      state.loginUser = cookieValue;
+        .find(row => row.startsWith('userEmail'));
+      if (typeof cookieValue != 'undefined') {
+        state.loginUser = cookieValue.split('=')[1];
+      }
     },
   },
 
