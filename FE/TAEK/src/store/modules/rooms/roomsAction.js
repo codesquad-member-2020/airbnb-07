@@ -11,12 +11,20 @@ const APPLY_CHARGE_FILTER = 'rooms/APPLY_CHARGE_FILTER';
 const CHANGE_PAGE = 'rooms/CHANGE_PAGE';
 
 const getRoomsInitData = data => async dispatch => {
+    const cacheData = JSON.parse(localStorage.getItem(COMMON.INIT_ROOMS_DATA_KEY));
+    if (cacheData) {
+        dispatch({ type: GET_ROOMS_SUCCESS, payload: cacheData });
+        dispatch(applyChargeFilter(data.min, data.max));
+        return;
+    }
+
     try {
         dispatch({ type: GET_ROOMS_INIT_DATA });
         const response = await fetch(URL.ROOMS_INIT);
         if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
+        localStorage.setItem(COMMON.INIT_ROOMS_DATA_KEY, JSON.stringify(json));
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
     } catch (e) {
@@ -25,6 +33,15 @@ const getRoomsInitData = data => async dispatch => {
 };
 
 const getRoomsFilterData = data => async dispatch => {
+    const cacheData = JSON.parse(localStorage.getItem(COMMON.FILTER_ROOMS_DATA_KEY));
+    const filterInfo = localStorage.getItem(COMMON.FILTER_DATA_KEY)
+    if (cacheData && filterInfo === JSON.stringify(data.filterData)) {
+        dispatch({ type: GET_ROOMS_SUCCESS, payload: cacheData });
+        dispatch(applyChargeFilter(data.min, data.max));
+        dispatch(saveFilterData(data.filterData));
+        return;
+    }
+
     try {
         dispatch({ type: GET_ROOMS_FILTER_DATA });
         const response = await fetch(URL.ROOMS_FILTER, {
@@ -37,6 +54,8 @@ const getRoomsFilterData = data => async dispatch => {
         if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
+        localStorage.setItem(COMMON.FILTER_DATA_KEY, JSON.stringify(data.filterData));
+        localStorage.setItem(COMMON.FILTER_ROOMS_DATA_KEY, JSON.stringify(json));
         dispatch({ type: GET_ROOMS_SUCCESS, payload: json });
         dispatch(applyChargeFilter(data.min, data.max));
         dispatch(saveFilterData(data.filterData));

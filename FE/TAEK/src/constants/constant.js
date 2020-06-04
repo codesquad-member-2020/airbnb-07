@@ -43,6 +43,9 @@ const MAIN = {
 
 const COMMON = {
     TOKEN_KEY: 'token',
+    INIT_ROOMS_DATA_KEY: 'init_rooms',
+    FILTER_DATA_KEY: 'filter',
+    FILTER_ROOMS_DATA_KEY: 'filter_rooms',
     LOADING: '잠시 기다려 주세요.',
     NOT_LOGIN_MEASSAGE: '로그인 정보가 없습니다. 로그인 페이지로 이동합니다.',
     NOT_ENOUGH_CONDITION_MESSAGE: '날짜와 인원을 선택하세요.',
