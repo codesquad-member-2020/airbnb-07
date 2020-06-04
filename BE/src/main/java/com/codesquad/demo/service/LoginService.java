@@ -71,10 +71,19 @@ public class LoginService {
             Airbnb airbnb = airbnbRepository.findById(1L).orElseThrow(() ->
                     new IllegalStateException("해당 airbnb가 없습니다. id = " + 1L));
 
-            airbnb.getUsers().add(User.builder()
-            .email(userEmail)
-            .reservations(new ArrayList<>())
-            .build());
+            String finalUserEmail = userEmail;
+            logger.info("finaluserEmail : {}", finalUserEmail);
+            boolean isExist = airbnb.getUsers().stream()
+                    .anyMatch(each -> each.getEmail().equals(finalUserEmail));
+
+            logger.info("isExist:{}", isExist);
+
+            if (!isExist) {
+                airbnb.getUsers().add(User.builder()
+                        .email(userEmail)
+                        .reservations(new ArrayList<>())
+                        .build());
+            }
 
             airbnbRepository.save(airbnb);
 
@@ -146,10 +155,21 @@ public class LoginService {
             Airbnb airbnb = airbnbRepository.findById(1L).orElseThrow(() ->
                     new IllegalStateException("해당 airbnb가 없습니다. id = " + 1L));
 
-            airbnb.getUsers().add(User.builder()
-                    .email(userEmail)
-                    .reservations(new ArrayList<>())
-                    .build());
+            String finalUserEmail = userEmail;
+
+            logger.info("finalUserEmail : {}", finalUserEmail);
+
+            boolean isExist = airbnb.getUsers().stream()
+                    .anyMatch(each -> each.getEmail().equals(finalUserEmail));
+
+            logger.info("isExist: {}", isExist);
+
+            if (!isExist) {
+                airbnb.getUsers().add(User.builder()
+                        .email(userEmail)
+                        .reservations(new ArrayList<>())
+                        .build());
+            }
 
             airbnbRepository.save(airbnb);
 
