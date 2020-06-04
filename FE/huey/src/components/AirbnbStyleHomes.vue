@@ -97,6 +97,8 @@ export default {
     },
   },
   created() {
+    this.$store.commit('setInitToken');
+    this.$store.commit('setLoginUser');
     this.setCenterLocation();
     roomApi.setCenter({ lat: this.place.lat, lng: this.place.lng });
   },

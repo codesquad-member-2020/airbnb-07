@@ -49,6 +49,8 @@ export default {
     },
   },
   created() {
+    this.$store.commit('setInitToken');
+    this.$store.commit('setLoginUser');
     this.$store.dispatch('RESERVATION_INFO');
   },
   components: {
