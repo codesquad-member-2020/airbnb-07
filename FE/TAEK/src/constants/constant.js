@@ -44,7 +44,7 @@ const MAIN = {
 const COMMON = {
     TOKEN_KEY: 'token',
     INIT_ROOMS_DATA_KEY: 'init_rooms',
-    FILTER_DATA_KEY: 'filter',
+    FILTER_DATA_KEY: 'filter_data',
     FILTER_ROOMS_DATA_KEY: 'filter_rooms',
     RESERVATION_INFO_DATA_KEY: 'reservation_info',
     LOADING: '잠시 기다려 주세요.',

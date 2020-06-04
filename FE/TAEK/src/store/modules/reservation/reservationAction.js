@@ -27,8 +27,8 @@ const requestReservation = data => async dispatch => {
 }
 
 const getReservationInfoData = data => async dispatch => {
-    const cacheData = JSON.parse(localStorage.getItem(COMMON.RESERVATION_INFO_DATA_KEY));
-    if (cacheData) return dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: cacheData });
+    const _cacheData = JSON.parse(localStorage.getItem(COMMON.RESERVATION_INFO_DATA_KEY));
+    if (_cacheData) return dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: _cacheData });
 
     try {
         dispatch({ type: GET_RESERVATION_INFO_DATA });
