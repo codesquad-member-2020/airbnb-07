@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,15 +111,27 @@ public class SearchService {
         Integer requestMinPrice = filterRequestDto.getMin();
         Integer requestMaxPrice = filterRequestDto.getMax();
 
-        List<Accommodation> accommodations = new ArrayList<>();
+        List<Accommodation> accommodationByFilter = new ArrayList<>();
 
         // location에 따라 숙박업소 리스트업하기
-        List<Accommodation> accommodationsByLocation = airbnb.getAccommodations().stream()
+        List<Accommodation> accommodationsByFiltering = airbnb.getAccommodations().stream()
                 .filter(each -> each.getLocation().equals(requestLocation))
                 .collect(Collectors.toList());
 
+        // 수용인원이 가능한 숙박 남기기
+        accommodationsByFiltering = accommodationsByFiltering.stream()
+                .filter(each -> each.getAvailableGuest() >= requestPeople)
+                .collect(Collectors.toList());
+
+        // 예약 금액 사이에 있는 숙박 업소 추리기
+        if (requestMinPrice != null) {
+            accommodationsByFiltering = accommodationsByFiltering.stream()
+                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
+                    .collect(Collectors.toList());
+        }
+
         // 예약이 있는 숙박업소
-        List<Accommodation> reservedAccommodations = accommodationsByLocation.stream()
+        List<Accommodation> reservedAccommodations = accommodationsByFiltering.stream()
                 .filter(each -> each.getReservations().size() != 0)
                 .collect(Collectors.toList());
 
@@ -127,27 +140,17 @@ public class SearchService {
 
             boolean ok = isReservable(accommodation, requestStart, requestEnd);
 
-            if (ok) accommodations.add(accommodation);
-        }
-
-        // 예약 인원보다 수용 인원이 큰 숙박 업소 추리기
-        accommodations = accommodations.stream()
-                .filter(each -> each.getAvailableGuest() >= requestPeople)
-                .collect(Collectors.toList());
-
-        // 예약 금액 사이에 있는 숙박 업소 추리기
-        if (requestMinPrice != null) {
-            accommodations = accommodations.stream()
-                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
-                    .collect(Collectors.toList());
+            if (ok) accommodationByFilter.add(accommodation);
         }
 
         // 예약이 없는 숙박업소
-        accommodations.addAll(accommodationsByLocation.stream()
+        accommodationByFilter.addAll(accommodationsByFiltering.stream()
                 .filter(each -> each.getReservations().size() == 0)
                 .collect(Collectors.toList()));
 
-        return accommodations;
+//        accommodationByFilter.sort(Comparator.comparing(Accommodation::getId))
+
+        return accommodationByFilter;
     }
 
     private boolean isReservable(Accommodation accommodation, LocalDate requestStart, LocalDate requestEnd) {

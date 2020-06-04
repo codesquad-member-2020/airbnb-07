@@ -62,15 +62,15 @@ public class SearchControllerTest {
         // given
         String localUrl = "http://localhost:" + port + "/filter";
 //        String realUrl = "http://15.164.35.235/api/mock/filter";
-        Long id = 1L;
-        String hotelName = "Bright & Airy Queen Anne Apartment";
+        Long id = 73L;
+//        String hotelName = "Bright & Airy Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
         LocalDate startDate = LocalDate.parse("2020-08-05");
         LocalDate endDate = LocalDate.parse("2020-08-09");
         int people = 3;
-        Integer min = 50000;
-        Integer max = 200000;
+        Integer min = 0;
+        Integer max = 50000;
 
         FilterRequestDto filterRequestDto = FilterRequestDto.builder()
                 .location(location)
@@ -88,9 +88,9 @@ public class SearchControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getStatus()).isEqualTo(status);
-        assertThat(responseEntity.getBody().getAllData().get(0).getId()).isEqualTo(id);
+        assertThat(responseEntity.getBody().getAllData().get(2).getId()).isEqualTo(id);
 //        assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
-        assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
+        assertThat(responseEntity.getBody().getAllData().get(2).getLocation()).isEqualTo(location);
         assertThat(responseEntity.getBody().getPrices()).isNull();
     }
 }
