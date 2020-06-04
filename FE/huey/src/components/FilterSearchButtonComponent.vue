@@ -50,7 +50,7 @@ export default {
           this.guestNumber
         )
       )
-        return alert('필수 사항을 입력해주세요');
+        return alert('필수 사항(도시, 날짜, 인원)을 입력해주세요');
 
       this.$store.commit('setLocation');
       const filterData = {
