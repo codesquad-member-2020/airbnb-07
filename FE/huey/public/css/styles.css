@@ -820,6 +820,7 @@ button,
 }
 
 .bg-teal-dark {
+  color: #ff385c;
   background-color: #38a89d;
 }
 
@@ -3760,7 +3761,7 @@ button,
 }
 
 .text-teal-dark {
-  color: #38a89d;
+  color: #991a1a;
 }
 
 .text-teal {
