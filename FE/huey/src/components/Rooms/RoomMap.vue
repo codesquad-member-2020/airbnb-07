@@ -47,7 +47,6 @@ export default {
       this.clearMarkers();
       this.addMarkers();
       this.createInfoWindow();
-      // this.initMap();
     },
     center: {
       deep: true,

@@ -53,7 +53,6 @@ export default {
         return alert('필수 사항을 입력해주세요');
 
       this.$store.commit('setLocation');
-      // 아래부분 데이터 하드코딩되어있음 filter API완성되면 수정할 예정
       const filterData = {
         location: this.selectedCountry,
         startDate: this.checkinDate,

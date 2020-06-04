@@ -69,25 +69,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .datepicker-container {
-//   padding: 0 30px 20px;
-//   border: 1px solid rgba(0, 0, 0, 0.2);
-//   background: rgba(0, 0, 0, 0.01);
-//   max-width: 600px;
-//   margin: 0 auto 30px;
-//   border-radius: 12px;
-// }
-
 #datepicker-button-trigger {
-  // background: #41b883;
-  // border: 1px solid #41b883;
-  // color: white;
-  // padding: 6px 10px;
-  // font-weight: bold;
-  // font-size: 15px;
-  // border-radius: 4px;
   text-align: center;
-  // min-width: 160px;
 }
 
 .with-button {

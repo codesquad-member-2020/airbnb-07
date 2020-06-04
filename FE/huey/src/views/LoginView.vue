@@ -31,7 +31,6 @@ export default {
 .login-wrap {
   margin: 0 auto;
   width: 1000px;
-  /* background-color: #41b883; */
   transform: translate(-50%, -50%);
   position: absolute;
   top: 50%;
@@ -49,7 +48,6 @@ export default {
 }
 
 .vue-logo {
-  // animation-name: bingle;
   animation-duration: 3s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

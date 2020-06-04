@@ -158,15 +158,7 @@ export default {
 }
 
 .btn-secondary {
-  // background: #41b883;
-  // border: 1px solid #41b883;
   color: #2c3e50;
-  // padding: 6px 10px;
-  // border-radius: 4px;
-  // font-size: 15px;
-  // font-weight: bold;
-  // text-align: center;
-  // min-width: 160px;
   border-color: white;
   background-color: white;
 }

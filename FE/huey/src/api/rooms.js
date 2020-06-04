@@ -3,10 +3,6 @@ import faker from 'faker';
 let rooms = [];
 let center = { lat: 40.6643, lng: -73.9385 };
 
-// const setCenter = location => {
-//   console.log(location);
-// };
-
 const addFakerRooms = number => {
   for (let i = 1; i <= number; i++) {
     rooms = [
@@ -50,7 +46,6 @@ export default {
   setCenter(location) {
     center.lat = location.lat;
     center.lng = location.lng;
-    // addFakerRooms(100);
   },
 
   setRoomsData(roomsData) {

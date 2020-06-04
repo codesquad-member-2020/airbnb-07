@@ -15,7 +15,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
-    // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJzYW5naHVuX0BkYXVtLm5ldCJ9\.A3mhAUBy6BHEnpnnF8eqTTcQVvq5dvE6U_bSJ2va77c'
     initRenderRooms: [],
     reservationList: [],
     reservationSuccessMessage: '',
@@ -242,7 +241,6 @@ export default new Vuex.Store({
       } else {
         alert(`${data.message}`);
         location.reload(true);
-        // commit('toggleLoadingStatus');
       }
       commit('setReservationRemoveMessage', data);
     },

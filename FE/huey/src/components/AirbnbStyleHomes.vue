@@ -220,9 +220,6 @@ export default {
     background: white;
     z-index: 10;
   }
-  .room-map-container {
-    // overflow: hidden;
-  }
   .map-before {
     position: absolute;
     left: -1000%;

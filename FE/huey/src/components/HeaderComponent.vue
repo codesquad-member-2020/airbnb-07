@@ -126,9 +126,6 @@ export default {
     padding: 14px 20px;
     border-right: 1px solid rgb(247, 247, 247);
   }
-  :last-child {
-    // border-right: none;
-  }
 }
 
 .header-menu {
