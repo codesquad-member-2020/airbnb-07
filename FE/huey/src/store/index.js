@@ -167,6 +167,9 @@ export default new Vuex.Store({
       state.minPrice = minValue;
       state.maxPrice = maxValue;
     },
+    removeToken(state) {
+      state.token = null;
+    },
     setLocation(state) {
       switch (state.selectedCountry) {
         case 'Seattle':
