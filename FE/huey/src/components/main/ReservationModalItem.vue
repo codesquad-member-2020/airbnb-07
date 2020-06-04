@@ -87,18 +87,6 @@ export default {
     onReservation() {
       if (!this.guestNumber) return;
       this.$store.dispatch('SET_RESERVATION');
-      let result = confirm(
-        '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
-      );
-      if (result) {
-        this.$store.commit('setOpenModal');
-        this.$store.commit('initState');
-        setTimeout(() => {
-          this.$router.push('/reservation');
-        }, 2000);
-      } else {
-        this.$store.commit('setOpenModal');
-      }
     },
   },
 };
