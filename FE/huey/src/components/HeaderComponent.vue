@@ -55,7 +55,10 @@
         <button class="help-btn" @click="toReservationPage">마이 페이지</button>
       </div>
       <div class="sign-btn-container">
-        <button class="signup-btn">로그아웃</button>
+        <button v-if="this.$store.state.token !== null" class="signup-btn">
+          로그아웃
+        </button>
+        <button v-else class="signup-btn">로그인</button>
       </div>
     </div>
   </div>
