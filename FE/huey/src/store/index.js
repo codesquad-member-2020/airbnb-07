@@ -37,6 +37,7 @@ export default new Vuex.Store({
     renderSearchData: [],
     selectedLocation: { lat: 0, lng: 0 },
     isSearchWait: false,
+    isLoading: false,
   },
   getters: {
     isPayloadData(state) {
@@ -178,6 +179,10 @@ export default new Vuex.Store({
           break;
       }
     },
+
+    toggleLoadingStatus(state) {
+      state.isLoading = !state.isLoading;
+    },
   },
 
   actions: {
@@ -227,9 +232,11 @@ export default new Vuex.Store({
       );
       if (data.status !== '200') {
         alert(`${data.message}`);
+        commit('toggleLoadingStatus');
       } else {
         alert(`${data.message}`);
         location.reload(true);
+        // commit('toggleLoadingStatus');
       }
       commit('setReservationRemoveMessage', data);
     },

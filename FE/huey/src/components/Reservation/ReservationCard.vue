@@ -1,5 +1,8 @@
 <template>
-  <Fragment>
+  <div v-if="isLoading" class="loading-container">
+    <LoadingSpinner />
+  </div>
+  <Fragment v-else>
     <td>{{ keyIndex + 1 }}</td>
     <td class="hotel-container">
       <div>
@@ -27,11 +30,16 @@
 </template>
 
 <script>
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+import { mapState } from 'vuex';
 import { Fragment } from 'vue-fragment';
 
 export default {
   props: ['propsData', 'keyIndex'],
-  components: { Fragment },
+  computed: {
+    ...mapState(['isLoading']),
+  },
+  components: { Fragment, LoadingSpinner },
   methods: {
     removeReservation({
       target: {
@@ -45,6 +53,8 @@ export default {
 
       let result = confirm('예약을 취소하시겠습니까?');
       if (result) {
+        console.log(this.isLoading);
+        this.$store.commit('toggleLoadingStatus');
         this.$store.dispatch('REMOVE_RESERVATION', roomData);
       } else {
         return;
@@ -55,6 +65,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .hotel-container {
   width: 300px;
   padding: 20px 20px 8px 20px;
