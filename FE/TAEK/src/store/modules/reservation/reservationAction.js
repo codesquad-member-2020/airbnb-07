@@ -22,10 +22,14 @@ const requestReservation = data => async dispatch => {
     });
     const json = await response.json();
     alert(json.message);
+    localStorage.removeItem(COMMON.RESERVATION_INFO_DATA_KEY);
     dispatch(modalToggle());
 }
 
 const getReservationInfoData = data => async dispatch => {
+    const cacheData = JSON.parse(localStorage.getItem(COMMON.RESERVATION_INFO_DATA_KEY));
+    if (cacheData) return dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: cacheData });
+
     try {
         dispatch({ type: GET_RESERVATION_INFO_DATA });
         const response = await fetch(URL.RESERVATION_INFO, {
@@ -36,6 +40,7 @@ const getReservationInfoData = data => async dispatch => {
         if (!checkResponseData(response)) throw (`${response.status}Error! ${COMMON.GET_DATA_ERROR}`);
 
         const json = await response.json();
+        localStorage.setItem(COMMON.RESERVATION_INFO_DATA_KEY, JSON.stringify(json));
         dispatch({ type: GET_RESERVATION_INFO_SUCCESS, payload: json });
     } catch (e) {
         dispatch({ type: GET_RESERVATION_INFO_ERROR, payload: e });
@@ -51,6 +56,7 @@ const cancelReservation = data => async dispatch => {
     });
     const json = await response.json();
     alert(json.message);
+    localStorage.removeItem(COMMON.RESERVATION_INFO_DATA_KEY);
     dispatch(getReservationInfoData({ token: data.token }));
 }
 

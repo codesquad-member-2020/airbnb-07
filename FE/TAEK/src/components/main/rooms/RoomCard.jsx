@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useInView } from "react-intersection-observer";
 import styled from 'styled-components';
 import { numberComma } from 'utils/util';
 import ratingStar from 'public/images/rating-star.svg';
@@ -104,6 +105,10 @@ const RoomCard = ({ roomData }) => {
     const person = useSelector(({ person }) => person);
     const { hotelName, location, currentPrice, previousPrice, hotelRating, street, urls } = roomData;
     const [titleImgUrl] = urls;
+    const [ref, inView] = useInView({
+        threshold: 0,
+        triggerOnce: true,
+    });
 
     const handleReservationClick = () => {
         if (!date.isSave || !person.isSave) return alert(COMMON.NOT_ENOUGH_CONDITION_MESSAGE);
@@ -118,8 +123,8 @@ const RoomCard = ({ roomData }) => {
 
     return (
         <>
-            <RoomCardWrap>
-                <RoomImg src={titleImgUrl.url} alt='room-image' />
+            <RoomCardWrap ref={ref}>
+                <RoomImg src={inView ? titleImgUrl.url : ''} alt='room-image' />
                 <RoomTextInfoWrap>
                     <div className='info-top'>
                         <div className='location'>{location}</div>
