@@ -1,5 +1,6 @@
 package com.codesquad.demo.web.controller;
 
+import com.codesquad.demo.domain.mybatis.TblUser;
 import com.codesquad.demo.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/userAll")
-    public List getUserAll() {
+    public List<TblUser> getUserAll() {
 
         return userService.getUserAll();
 

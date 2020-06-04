@@ -5,10 +5,10 @@
 
 <mapper namespace="sample.mapper.userMapper">
 
-    <resultMap id="userResultMap" type="info.thecodinglive.model.UserVO">
+    <resultMap id="userResultMap" type="com.codesquad.demo.domain.mybatis.TblUser">
         <result property="id" column="id"/>
-        <result property="userName" column="username"/>
-        <result property="passWord" column="password"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
     </resultMap>
 
 

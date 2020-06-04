@@ -1,5 +1,6 @@
-package com.codesquad.demo.domain;
+package com.codesquad.demo.repository;
 
+import com.codesquad.demo.domain.mybatis.TblUser;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class UserRepository {
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
-    public List getUserInfoAll() {
+    public List<TblUser> getUserAll() {
         return sqlSessionTemplate.selectList(MAPPER_NAME_SPACE + "selectUserInfoAll");
     }
 }

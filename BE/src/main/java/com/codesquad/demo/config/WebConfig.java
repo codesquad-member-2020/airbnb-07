@@ -21,23 +21,23 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(MAX_AGE_SECS);
     }
 
-    @Bean
-    public LoginIntercepter loginInterceptor() {
-        return new LoginIntercepter();
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/api/github/**")
-                .excludePathPatterns("/github/**")
-                .excludePathPatterns("/githublogin")
-                .excludePathPatterns("/api/mock/**")
-                .excludePathPatterns("/mock/**")
-                .excludePathPatterns("/api/init")
-                .excludePathPatterns("/api/filter")
-                .excludePathPatterns("/init")
-                .excludePathPatterns("/filter");
-    }
+//    @Bean
+//    public LoginIntercepter loginInterceptor() {
+//        return new LoginIntercepter();
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/api/github/**")
+//                .excludePathPatterns("/github/**")
+//                .excludePathPatterns("/githublogin")
+//                .excludePathPatterns("/api/mock/**")
+//                .excludePathPatterns("/mock/**")
+//                .excludePathPatterns("/api/init")
+//                .excludePathPatterns("/api/filter")
+//                .excludePathPatterns("/init")
+//                .excludePathPatterns("/filter");
+//    }
 }
