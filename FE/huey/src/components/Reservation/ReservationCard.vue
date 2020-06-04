@@ -46,9 +46,6 @@ export default {
       let result = confirm('예약을 취소하시겠습니까?');
       if (result) {
         this.$store.dispatch('REMOVE_RESERVATION', roomData);
-        setTimeout(() => {
-          location.reload(true);
-        }, 1000);
       } else {
         return;
       }
