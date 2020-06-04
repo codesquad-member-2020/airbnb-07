@@ -21,8 +21,8 @@ public class Accommodation {
     private String description;
     private String location;
     private String street;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private Integer availableGuest;
     private Integer current_price;
     private Integer previous_price;

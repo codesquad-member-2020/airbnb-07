@@ -18,8 +18,8 @@ public class EachAccommodationResponseDto {
     private String description;
     private String location;
     private String street;
-    private String lat;
-    private String lng;
+    private Double lat;
+    private Double lng;
     private Integer availableGuest;
     private Integer currentPrice;
     private Integer previousPrice;

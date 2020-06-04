@@ -52,7 +52,7 @@ public class ReserveControllerTest {
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs");
+        headers.add("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJcImRuc25ndUBnbWFpbC5jb21cIiJ9.-x95B_s_KCM5XMbxgjOJsCYN6bujrnB0q8JjOpNLki0");
 
         HttpEntity<ReservationRequestDto> entity = new HttpEntity<>(reservationRequestDto, headers);
 
