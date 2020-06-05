@@ -56,7 +56,7 @@
       </div>
       <div class="sign-btn-container">
         <button
-          v-if="this.$store.state.token !== null"
+          v-if="this.$store.state.token !== ''"
           class="signup-btn"
           @click="setLogout"
         >
@@ -96,6 +96,18 @@ export default {
       }
     },
     setLogout() {
+      function setCookie(c_name, value, exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value =
+          escape(value) +
+          (exdays == null
+            ? ''
+            : ';                                    expires=' +
+              exdate.toUTCString());
+        document.cookie = c_name + '=' + c_value;
+      }
+      setCookie('token', '');
       this.$store.commit('removeToken');
     },
     setLogin() {

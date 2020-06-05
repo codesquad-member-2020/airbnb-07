@@ -14,7 +14,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs`,
+    token: '',
     loginUser: null,
     initRenderRooms: [],
     reservationList: [],
@@ -60,6 +60,16 @@ export default new Vuex.Store({
       const result =
         state.payloadDate.currentPrice * getters.dateCount * state.guestNumber;
       return result;
+    },
+
+    taxTotalPrice(state, getters) {
+      const totalPrice = getters.sumPrice + getters.sumPrice * 0.05;
+      return parseInt(totalPrice);
+    },
+
+    totalCost(state, getters) {
+      const totalResult = getters.taxTotalPrice + 15000 + 2000;
+      return totalResult;
     },
   },
 
@@ -176,7 +186,7 @@ export default new Vuex.Store({
       state.maxPrice = maxValue;
     },
     removeToken(state) {
-      state.token = null;
+      state.token = '';
     },
     setLocation(state) {
       switch (state.selectedCountry) {
@@ -244,7 +254,7 @@ export default new Vuex.Store({
           startDate: state.checkinDate,
           endDate: state.checkoutDate,
           people: state.guestNumber,
-          totalPrice: getters.sumPrice,
+          totalPrice: getters.totalCost,
         };
         const { data } = await setReservation(
           state.clickedAccommodationid,
