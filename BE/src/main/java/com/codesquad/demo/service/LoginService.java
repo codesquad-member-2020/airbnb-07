@@ -182,7 +182,7 @@ public class LoginService {
             userEmailCookie.setPath("/");
             response.addCookie(tokenCookie);
             response.addCookie(userEmailCookie);
-            response.setHeader("Location", "http://15.164.35.235/githublogin");
+            response.setHeader("Location", "http://15.165.174.20/githublogin");
 
             return new ResponseEntity<>(HttpStatus.FOUND);
 

@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="2eb20777-41f1-4efc-bb42-fd5a8c01766c" name="taek">
+        <fileTransfer rootFolder="/home/ubuntu/airbnb-07/BE/src/main/java/com/codesquad/demo" accessType="SFTP" host="15.165.174.20" port="22" sshConfigId="84517a44-8959-4c4a-9810-02f41afa96f5" sshConfig="ubuntu@15.165.174.20:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
