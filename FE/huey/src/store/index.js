@@ -219,67 +219,90 @@ export default new Vuex.Store({
 
   actions: {
     async INIT_RENDER({ state, commit }) {
-      state.isinfiniteScroll = true;
-      const { data } = await initMainRedner();
-      commit('setInitRenderData', data);
+      try {
+        state.isinfiniteScroll = true;
+        const { data } = await initMainRedner();
+        commit('setInitRenderData', data);
+      } catch (e) {
+        console.log(e);
+      }
     },
 
     async RESERVATION_INFO({ commit }) {
-      const { data } = await reservationInfo();
-      commit('setReservationInfo', data);
+      try {
+        const { data } = await reservationInfo();
+        commit('setReservationInfo', data);
+      } catch (error) {
+        alert('로그인이 필요합니다');
+        router.push('/login');
+      }
     },
 
     async SET_RESERVATION({ state, getters, commit }) {
-      const setData = {
-        startDate: state.checkinDate,
-        endDate: state.checkoutDate,
-        people: state.guestNumber,
-        totalPrice: getters.sumPrice,
-      };
-      const { data } = await setReservation(
-        state.clickedAccommodationid,
-        setData,
-      );
-      commit('setReservationMessage', data);
-      if (data.status !== '200') {
-        alert(`${data.message}`);
-        commit('setOpenModal');
-        commit('toggleLoadingStatus');
-      } else {
-        let result = confirm(
-          '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+      try {
+        const setData = {
+          startDate: state.checkinDate,
+          endDate: state.checkoutDate,
+          people: state.guestNumber,
+          totalPrice: getters.sumPrice,
+        };
+        const { data } = await setReservation(
+          state.clickedAccommodationid,
+          setData,
         );
-        if (result) {
-          commit('toggleLoadingStatus');
+        commit('setReservationMessage', data);
+        if (data.status !== '200') {
+          alert(`${data.message}`);
           commit('setOpenModal');
-          commit('initState');
-          router.push('/reservation');
+          commit('toggleLoadingStatus');
         } else {
-          commit('toggleLoadingStatus');
-          commit('setOpenModal');
+          let result = confirm(
+            '예약이 완료되었습니다! 예약 페이지로 이동하시겠습니까?',
+          );
+          if (result) {
+            commit('toggleLoadingStatus');
+            commit('setOpenModal');
+            commit('initState');
+            router.push('/reservation');
+          } else {
+            commit('toggleLoadingStatus');
+            commit('setOpenModal');
+          }
         }
+      } catch (e) {
+        alert('로그인이 필요합니다');
+        router.push('/login');
       }
     },
 
     async REMOVE_RESERVATION({ commit }, payload) {
-      const { data } = await removeReservation(
-        payload.accommodationId,
-        payload.reservationId,
-      );
-      if (data.status !== '200') {
-        alert(`${data.message}`);
-        commit('toggleLoadingStatus');
-      } else {
-        alert(`${data.message}`);
-        location.reload(true);
+      try {
+        const { data } = await removeReservation(
+          payload.accommodationId,
+          payload.reservationId,
+        );
+        if (data.status !== '200') {
+          alert(`${data.message}`);
+          commit('toggleLoadingStatus');
+        } else {
+          alert(`${data.message}`);
+          location.reload(true);
+        }
+        commit('setReservationRemoveMessage', data);
+      } catch (error) {
+        alert('로그인이 필요합니다');
+        router.push('/login');
       }
-      commit('setReservationRemoveMessage', data);
     },
 
     async FILTERED_ROOMS({ state, commit }, payload) {
-      const { data } = await filterRooms(payload);
-      commit('setRenderSearchData', data.allData);
-      if (data.status === '200') state.isSearchWait = false;
+      try {
+        const { data } = await filterRooms(payload);
+        commit('setRenderSearchData', data.allData);
+        if (data.status === '200') state.isSearchWait = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });
