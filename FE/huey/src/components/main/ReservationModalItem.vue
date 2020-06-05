@@ -53,12 +53,12 @@
       </div>
       <div class="charge-info-item">
         <span>③ 숙박세와 수수료(0.05%)</span>
-        <span>&#8361; {{ this.setTaxPrice }}</span>
+        <span>&#8361; {{ this.$store.getters.taxTotalPrice }}</span>
       </div>
       <div class="charge-info-item">
         <span>합계(①+②+③)</span>
         <span class="final-price"
-          >&#8361; {{ this.setTaxPrice + 15000 + 2000 }}</span
+          >&#8361; {{ this.$store.getters.taxTotalPrice + 15000 + 2000 }}</span
         >
       </div>
     </div>
