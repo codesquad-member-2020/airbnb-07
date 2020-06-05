@@ -9,6 +9,7 @@ require('./directives/Index.js');
 
 Vue.config.productionTip = false;
 
+Vue.use(infiniteScroll);
 Vue.use(Trend);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

@@ -39,6 +39,8 @@ export default new Vuex.Store({
     isSearchWait: false,
     isLoading: false,
     chartInPrice: [],
+    isinfiniteScroll: false,
+    limitScroll: 5,
   },
   getters: {
     isPayloadData(state) {
@@ -67,7 +69,12 @@ export default new Vuex.Store({
       state.chartInPrice = renderData.prices;
     },
     setReservationInfo(state, reservationData) {
-      state.reservationList = reservationData;
+      const append = reservationData.allData.slice(
+        state.reservationList.length,
+        state.reservationList.length + state.limitScroll,
+      );
+      state.reservationList = state.reservationList.concat(append);
+      state.isinfiniteScroll = false;
     },
     setReservationMessage(state, resReservationMessage) {
       state.reservationSuccessMessage = resReservationMessage;
@@ -211,7 +218,8 @@ export default new Vuex.Store({
   },
 
   actions: {
-    async INIT_RENDER({ commit }) {
+    async INIT_RENDER({ state, commit }) {
+      state.isinfiniteScroll = true;
       const { data } = await initMainRedner();
       commit('setInitRenderData', data);
     },

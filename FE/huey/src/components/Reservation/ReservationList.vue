@@ -1,13 +1,18 @@
 <template>
-  <div v-if="this.isReservationData" class="loading-container">
+  <!-- <div v-if="isReservationData" class="loading-container">
     <LoadingSpinner />
-  </div>
-  <div v-else>
+  </div> -->
+  <div>
     <h3 class="reservation-title">
       <img class="res-logo" src="../../assets/res-page-logo.svg" alt="" />
       예약 정보
     </h3>
-    <table class="table-container">
+    <table
+      class="table-container"
+      v-infinite-scroll="loadMore"
+      :infinite-scroll-disabled="this.isinfiniteScroll"
+      :infinite-scroll-distance="this.limitScroll"
+    >
       <thead>
         <tr>
           <th width="5%"></th>
@@ -19,11 +24,14 @@
         </tr>
       </thead>
       <tbody
-        v-for="(resData, index) in reservationList.allData"
-        :key="resData.index"
+        v-for="(post, index) in this.reservationList"
+        data-aos="slide-up"
+        data-aos-offset="100"
+        data-aos-easing="ease-out-back"
+        :key="post.index"
       >
         <tr class="reservation-card-container">
-          <ReservationCard :propsData="resData" :keyIndex="index" />
+          <ReservationCard :propsData="post" :keyIndex="index" />
         </tr>
       </tbody>
     </table>
@@ -33,29 +41,43 @@
 <script>
 import ReservationCard from '@/components/Reservation/ReservationCard';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
+import axios from 'axios';
 import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
-      testArr: [],
+      posts: [],
+      limit: 5,
+      busy: false,
     };
   },
   computed: {
-    ...mapState(['reservationList']),
-    isReservationData() {
-      if (this.reservationList.hasOwnProperty('allData')) return false;
-      return true;
+    ...mapState(['isinfiniteScroll', 'reservationList', 'limitScroll']),
+    // 예약페이지 리팩토링 : loading spinner 추가
+    // isReservationData() {
+    //   if (
+    //     this.reservationList.length > 0
+    //     // this.$store.state.reservationList[0].hasOwnProperty('accommodationId')
+    //   )
+    //     return false;
+    //   return true;
+    // },
+  },
+  methods: {
+    loadMore() {
+      this.$store.dispatch('RESERVATION_INFO');
     },
   },
   created() {
     this.$store.commit('setInitToken');
     this.$store.commit('setLoginUser');
-    this.$store.dispatch('RESERVATION_INFO');
+    this.loadMore();
+    AOS.init();
   },
   components: {
     ReservationCard,
-    LoadingSpinner,
+    // LoadingSpinner,
   },
 };
 </script>
