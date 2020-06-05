@@ -181,7 +181,7 @@ export default new Vuex.Store({
       state.maxPrice = maxValue;
     },
     removeToken(state) {
-      state.token = null;
+      state.token = '';
     },
     setLocation(state) {
       switch (state.selectedCountry) {
@@ -249,7 +249,7 @@ export default new Vuex.Store({
           startDate: state.checkinDate,
           endDate: state.checkoutDate,
           people: state.guestNumber,
-          totalPrice: getters.sumPrice,
+          totalPrice: getters.taxTotalPrice,
         };
         const { data } = await setReservation(
           state.clickedAccommodationid,
