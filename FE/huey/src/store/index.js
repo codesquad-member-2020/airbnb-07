@@ -66,6 +66,11 @@ export default new Vuex.Store({
       const totalPrice = getters.sumPrice + getters.sumPrice * 0.05;
       return parseInt(totalPrice);
     },
+
+    totalCost(state, getters) {
+      const totalResult = getters.taxTotalPrice + 15000 + 2000;
+      return totalResult;
+    },
   },
 
   mutations: {
@@ -249,7 +254,7 @@ export default new Vuex.Store({
           startDate: state.checkinDate,
           endDate: state.checkoutDate,
           people: state.guestNumber,
-          totalPrice: getters.taxTotalPrice,
+          totalPrice: getters.totalCost,
         };
         const { data } = await setReservation(
           state.clickedAccommodationid,

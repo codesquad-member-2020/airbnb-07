@@ -58,7 +58,7 @@
       <div class="charge-info-item">
         <span>합계(①+②+③)</span>
         <span class="final-price"
-          >&#8361; {{ this.$store.getters.taxTotalPrice + 15000 + 2000 }}</span
+          >&#8361; {{ this.$store.getters.totalCost }}</span
         >
       </div>
     </div>
