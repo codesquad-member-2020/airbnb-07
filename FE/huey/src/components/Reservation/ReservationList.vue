@@ -1,13 +1,18 @@
 <template>
-  <div v-if="this.isReservationData" class="loading-container">
+  <!-- <div v-if="isTestLoading" class="loading-container">
     <LoadingSpinner />
-  </div>
-  <div v-else>
+  </div> -->
+  <div>
     <h3 class="reservation-title">
       <img class="res-logo" src="../../assets/res-page-logo.svg" alt="" />
       예약 정보
     </h3>
-    <table class="table-container">
+    <table
+      class="table-container"
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="busy"
+      infinite-scroll-distance="limit"
+    >
       <thead>
         <tr>
           <th width="5%"></th>
@@ -19,11 +24,14 @@
         </tr>
       </thead>
       <tbody
-        v-for="(resData, index) in reservationList.allData"
-        :key="resData.index"
+        v-for="(post, index) in posts"
+        data-aos="slide-up"
+        data-aos-offset="100"
+        data-aos-easing="ease-out-back"
+        :key="post.index"
       >
         <tr class="reservation-card-container">
-          <ReservationCard :propsData="resData" :keyIndex="index" />
+          <ReservationCard :propsData="post" :keyIndex="index" />
         </tr>
       </tbody>
     </table>
@@ -33,29 +41,56 @@
 <script>
 import ReservationCard from '@/components/Reservation/ReservationCard';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
+import axios from 'axios';
 import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
-      testArr: [],
+      posts: [],
+      limit: 5,
+      busy: false,
     };
   },
-  computed: {
-    ...mapState(['reservationList']),
-    isReservationData() {
-      if (this.reservationList.hasOwnProperty('allData')) return false;
-      return true;
+  // computed: {
+  //   ...mapState(['reservationList']),
+  //   isReservationData() {
+  //     if (this.reservationList.hasOwnProperty('allData')) return false;
+  //     return true;
+  //   },
+  // },
+  methods: {
+    loadMore() {
+      console.log('Adding 5 more data results');
+      this.busy = true;
+      axios
+        .get('http://15.164.35.235/api/authorization/reservationInfo', {
+          headers: {
+            Authorization:
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs',
+          },
+        })
+        .then(response => {
+          console.log(response.data.allData);
+          const append = response.data.allData.slice(
+            this.posts.length,
+            this.posts.length + this.limit,
+          );
+          this.posts = this.posts.concat(append);
+          this.busy = false;
+        });
     },
   },
   created() {
     this.$store.commit('setInitToken');
     this.$store.commit('setLoginUser');
-    this.$store.dispatch('RESERVATION_INFO');
+    this.loadMore();
+    AOS.init();
+    // this.$store.dispatch('RESERVATION_INFO');
   },
   components: {
     ReservationCard,
-    LoadingSpinner,
+    // LoadingSpinner,
   },
 };
 </script>
