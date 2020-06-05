@@ -1,5 +1,5 @@
 <template>
-  <!-- <div v-if="isTestLoading" class="loading-container">
+  <!-- <div v-if="isReservationData" class="loading-container">
     <LoadingSpinner />
   </div> -->
   <div>
@@ -10,8 +10,8 @@
     <table
       class="table-container"
       v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="busy"
-      infinite-scroll-distance="limit"
+      :infinite-scroll-disabled="this.isinfiniteScroll"
+      :infinite-scroll-distance="this.limitScroll"
     >
       <thead>
         <tr>
@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody
-        v-for="(post, index) in posts"
+        v-for="(post, index) in this.reservationList"
         data-aos="slide-up"
         data-aos-offset="100"
         data-aos-easing="ease-out-back"
@@ -52,33 +52,21 @@ export default {
       busy: false,
     };
   },
-  // computed: {
-  //   ...mapState(['reservationList']),
-  //   isReservationData() {
-  //     if (this.reservationList.hasOwnProperty('allData')) return false;
-  //     return true;
-  //   },
-  // },
+  computed: {
+    ...mapState(['isinfiniteScroll', 'reservationList', 'limitScroll']),
+    // 예약페이지 리팩토링 : loading spinner 추가
+    // isReservationData() {
+    //   if (
+    //     this.reservationList.length > 0
+    //     // this.$store.state.reservationList[0].hasOwnProperty('accommodationId')
+    //   )
+    //     return false;
+    //   return true;
+    // },
+  },
   methods: {
     loadMore() {
-      console.log('Adding 5 more data results');
-      this.busy = true;
-      axios
-        .get('http://15.164.35.235/api/authorization/reservationInfo', {
-          headers: {
-            Authorization:
-              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJ1c2VyRW1haWwiOiJcImd1c3duczE2NTlAZ21haWwuY29tXCIifQ\.Vv1Wok3UbMpF4ghbB2i6aGdh53HoazhVznmKAQnuijs',
-          },
-        })
-        .then(response => {
-          console.log(response.data.allData);
-          const append = response.data.allData.slice(
-            this.posts.length,
-            this.posts.length + this.limit,
-          );
-          this.posts = this.posts.concat(append);
-          this.busy = false;
-        });
+      this.$store.dispatch('RESERVATION_INFO');
     },
   },
   created() {
@@ -86,7 +74,6 @@ export default {
     this.$store.commit('setLoginUser');
     this.loadMore();
     AOS.init();
-    // this.$store.dispatch('RESERVATION_INFO');
   },
   components: {
     ReservationCard,
