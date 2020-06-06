@@ -2,14 +2,15 @@ package com.codesquad.demo.web;
 
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
+import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -89,5 +90,40 @@ public class AccommodationControllerTest {
         assertThat(responseEntity.getBody().getAllData().get(0).getHotelName()).isEqualTo(hotelName);
         assertThat(responseEntity.getBody().getAllData().get(0).getLocation()).isEqualTo(location);
         assertThat(responseEntity.getBody().getPrices()).isNull();
+    }
+
+    @Test
+    public void reserveTest() {
+
+        // given
+        int id = 1;
+        String url = "http://localhost:" + port +  "/mybatis/" + id;
+        LocalDate startDate = LocalDate.parse("2020-04-05");
+        LocalDate endDate = LocalDate.parse("2020-04-09");
+        int people = 5;
+        int totalPrice = 100000;
+        String ok = "200";
+        String successMessage = "예약에 성공했습니다.";
+
+        ReservationRequestDto reservationRequestDto = ReservationRequestDto.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .people(people)
+                .totalPrice(totalPrice)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyRW1haWwiOiJndXN3bnMxNjU5QGdtYWlsLmNvbSJ9.mUVGWC2ohuckXlHwV3Ih8hjODqpTKeYMudwdIU2bYa8");
+
+        HttpEntity<ReservationRequestDto> entity = new HttpEntity<>(reservationRequestDto, headers);
+
+        // when
+        ResponseEntity<ReservationResponseDto> responseEntity
+                =restTemplate.exchange(url, HttpMethod.POST, entity, ReservationResponseDto.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getStatus()).isEqualTo(ok);
+        assertThat(responseEntity.getBody().getMessage()).isEqualTo(successMessage);
     }
 }

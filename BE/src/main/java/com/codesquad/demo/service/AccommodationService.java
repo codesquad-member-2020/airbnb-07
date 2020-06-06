@@ -3,13 +3,18 @@ package com.codesquad.demo.service;
 import com.codesquad.demo.domain.Accommodation;
 import com.codesquad.demo.domain.Airbnb;
 import com.codesquad.demo.domain.AirbnbRepository;
+import com.codesquad.demo.domain.User;
 import com.codesquad.demo.repository.AccommodationRepository;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
 import com.codesquad.demo.web.dto.request.FilterRequestDto;
+import com.codesquad.demo.web.dto.request.ReservationRequestDto;
+import com.codesquad.demo.web.dto.response.ReservationResponseDto;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -162,6 +167,7 @@ public class AccommodationService {
                     .status("200")
                     .allData(eachAccommodationResponseDtos)
                     .build();
+
         } catch (Exception e) {
             return AllAccommodationResponseDto.builder()
                     .status("500")
@@ -171,7 +177,10 @@ public class AccommodationService {
 
     private void checkReservationValidation(FilterRequestDto filterRequestDto, List<Accommodation> reservableAccommodations, List<Accommodation> reservedAccommodations) {
         for (Accommodation accommodation : reservedAccommodations) {
-            int count = accommodationRepository.isReservable(filterRequestDto, accommodation.getId());
+            int count = accommodationRepository.isReservable(filterRequestDto.getStartDate(),
+                    filterRequestDto.getEndDate(),
+                    accommodation.getId());
+
             if (count == 0) {
                 reservableAccommodations.add(accommodation);
             }
@@ -199,5 +208,69 @@ public class AccommodationService {
             eachAccommodationResponseDtos.add(each);
         }
         return eachAccommodationResponseDtos;
+    }
+
+    public ReservationResponseDto reserve(Long accommodationId,
+                                          ReservationRequestDto reservationRequestDto,
+                                          HttpServletRequest request) {
+        try {
+            String successMessage = "예약에 성공했습니다.";
+            String userEmail = (String) request.getAttribute("userEmail");
+            Long id = 1L;
+
+            Airbnb airbnb = findAirbnbById(id);
+
+            int accommodationSize = airbnb.getAccommodations().stream()
+                    .filter(accommodation -> accommodation.getId().equals(accommodationId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("해당 accommodation이 없습니다 . accommoation : " + accommodationId))
+                    .getReservations()
+                    .size();
+
+            User searchedUser = airbnb.getUsers().stream()
+                    .filter(user -> user.getEmail().equals(userEmail))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("해당 user가 없습니다 .userEmail : " + userEmail));
+
+            Long userId = searchedUser.getId();
+            int userReservationSize = searchedUser.getReservations().size();
+
+            LocalDate requestStart = reservationRequestDto.getStartDate();
+            LocalDate requestEnd = reservationRequestDto.getEndDate();
+
+            int count = accommodationRepository.isReservable(requestStart, requestEnd, accommodationId);
+            if (count != 0) {
+                throw new IllegalStateException();
+            }
+
+            accommodationRepository.addAccommodationReservation(accommodationId, accommodationSize, reservationRequestDto);
+            accommodationRepository.addUserReservation(userId, userReservationSize, reservationRequestDto);
+
+            return ReservationResponseDto.builder()
+                    .status("200")
+                    .message(successMessage)
+                    .build();
+
+        } catch(IllegalStateException e) {
+
+            String failMessage = "해당 날짜엔 이미 예약이 있습니다.";
+
+            e.printStackTrace();
+
+            return ReservationResponseDto.builder()
+                    .status("202")
+                    .message(failMessage)
+                    .build();
+
+        } catch (Exception e) {
+            String failMessage = "예약에 실패했습니다.";
+
+            e.printStackTrace();
+
+            return ReservationResponseDto.builder()
+                    .status("202")
+                    .message(failMessage)
+                    .build();
+        }
     }
 }

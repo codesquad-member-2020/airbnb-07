@@ -84,4 +84,12 @@
         ]]>
     </select>
 
+    <insert id="addAccommodationReservation">
+        insert into accommodation_reservation values (default, #{startDate}, #{endDate}, #{people}, #{totalPrice}, #{accommodationId}, #{index});
+    </insert>
+
+    <insert id="addUserReservation">
+        insert into user_reservation values (default, #{startDate}, #{endDate}, #{people}, #{totalPrice}, #{userId}, #{index});
+    </insert>
+
 </mapper>
