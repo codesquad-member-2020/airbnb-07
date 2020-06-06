@@ -2,8 +2,15 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="73b4b07d-326e-4d0d-a590-17cb8dac3a12" name="airbnb">
+      <webServer id="73b4b07d-326e-4d0d-a590-17cb8dac3a12" name="huey">
         <fileTransfer rootFolder="/home/ubuntu/airbnb-07/BE/src/main/java/com/codesquad/demo" accessType="SFTP" host="15.164.35.235" port="22" sshConfigId="0b24301e-ddb1-4c09-a9c6-32aaf346a037" sshConfig="ubuntu@15.164.35.235:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="f8efe620-b865-4ade-875d-0f9fb63451d6" name="taek">
+        <fileTransfer rootFolder="/home/ubuntu/airbnb-07/BE/src/main/java/com/codesquad/demo" accessType="SFTP" host="15.165.174.20" port="22" sshConfigId="5ab66a37-f32b-42c6-90f0-59f1376b7030" sshConfig="ubuntu@15.165.174.20:22 key" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

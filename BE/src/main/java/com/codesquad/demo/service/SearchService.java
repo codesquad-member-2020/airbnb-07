@@ -122,12 +122,17 @@ public class SearchService {
                 .filter(each -> each.getAvailableGuest() >= requestPeople)
                 .collect(Collectors.toList());
 
+//        List<Accommodation> accommodationsByFiltering = airbnbRepository.getAccommodationByFiltering();
+
         // 예약 금액 사이에 있는 숙박 업소 추리기
         if (requestMinPrice != null) {
             accommodationsByFiltering = accommodationsByFiltering.stream()
                     .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
                     .collect(Collectors.toList());
         }
+
+//        List<Accommodation> reservedAccommodations = airbnbRepository.getReservedAccommodations();
+//        int count = airbnbRepository.isReservable();
 
         // 예약이 있는 숙박업소
         List<Accommodation> reservedAccommodations = accommodationsByFiltering.stream()

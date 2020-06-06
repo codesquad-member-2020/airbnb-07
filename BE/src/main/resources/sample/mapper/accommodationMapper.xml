@@ -19,6 +19,7 @@
         <result property="discount_price" column="discount_price"/>
         <result property="hotelRating" column="hotel_rating"/>
         <collection property="pictures" javaType="java.util.ArrayList" resultMap="picturesResultMap"/>
+        <collection property="reservations" javaType="java.util.ArrayList" resultMap="accommodationReservationResultMap"/>
     </resultMap>
 
     <resultMap id="picturesResultMap" type="com.codesquad.demo.domain.Picture">
@@ -26,12 +27,60 @@
         <result property="url" column="url"/>
     </resultMap>
 
+    <resultMap id="accommodationReservationResultMap" type="com.codesquad.demo.domain.AccommodationReservation">
+        <result property="id" column="id"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="people" column="people"/>
+        <result property="totalPrice" column="total_price"/>
+    </resultMap>
+
     <select id="initAccommodations" resultMap="accommodationResultMap">
     <![CDATA[
-        select a.id, hotel_name, description, location, street, latitude, longitude, available_guest, current_price, previous_price, discount_price, hotel_rating, p.id, url
+        select a.id, hotel_name, description, location, street, latitude, longitude, available_guest, current_price,
+               previous_price, discount_price, hotel_rating, p.id, url
         from accommodation a
                  left join picture p
                            on a.id = p.accommodation limit 30;
+        ]]>
+    </select>
+
+    <select id="accommodationsByFiltering" resultMap="accommodationResultMap">
+    <![CDATA[
+        select * from accommodation a
+                          left join picture p
+                                    on p.accommodation = a.id
+        where a.id not in(
+            select a.id from accommodation a
+                                 inner join accommodation_reservation r
+                                            on a.id = r.accommodation)
+          and location = #{location}
+          and available_guest >= #{people}
+        ]]>
+    </select>
+
+    <select id="getReservedAccommodations" resultMap="accommodationResultMap">
+    <![CDATA[
+        select * from accommodation a
+        left join picture p
+        on a.id = p.accommodation
+        inner join accommodation_reservation r
+        on a.id = r.accommodation
+        ]]>
+    </select>
+
+    <select id="isReservable" resultType="java.lang.Integer">
+    <![CDATA[
+        select count(*) from accommodation a
+        left join picture p
+        on a.id = p.accommodation
+        inner join accommodation_reservation r
+        on a.id = r.accommodation
+        where a.id = #{accommodationId}
+          and (#{startDate} between start_date and end_date
+            or #{endDate} between start_date and end_date
+            or start_date between #{startDate} and #{endDate}
+            or end_date between #{endDate} and #{endDate});
         ]]>
     </select>
 

@@ -7,11 +7,13 @@ import com.codesquad.demo.repository.AccommodationRepository;
 import com.codesquad.demo.web.dto.AllAccommodationResponseDto;
 import com.codesquad.demo.web.dto.EachAccommodationResponseDto;
 import com.codesquad.demo.web.dto.PriceRangeResponseDto;
+import com.codesquad.demo.web.dto.request.FilterRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccommodationService {
@@ -139,5 +141,53 @@ public class AccommodationService {
             }
         }
         return init;
+    }
+
+    public AllAccommodationResponseDto getFiltering(FilterRequestDto filterRequestDto) {
+
+        Integer requestMinPrice = filterRequestDto.getMin();
+        Integer requestMaxPrice = filterRequestDto.getMax();
+
+        List<Accommodation> reservableAccommodations = new ArrayList<>();
+
+        // location, 수용인원 통과하고 예약이 없는 숙박업소 구하는 메소드.
+        List<Accommodation> accommodationsByFiltering = accommodationRepository.getFiltering(filterRequestDto);
+
+        // 예약 금액 사이에 있는 숙박 업소 추리기
+        if (requestMinPrice != null) {
+            accommodationsByFiltering = accommodationsByFiltering.stream()
+                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
+                    .collect(Collectors.toList());
+        }
+
+        // 예약이 있는 숙박업소 구하는 메서드
+        List<Accommodation> reservedAccommodations = accommodationRepository.getReservedAccommodations();
+
+        for (Accommodation accommodation : reservedAccommodations) {
+            int count = accommodationRepository.isReservable(filterRequestDto, accommodation.getId());
+            if (count == 0) {
+                reservableAccommodations.add(accommodation);
+            }
+        }
+
+        reservableAccommodations.addAll(accommodationsByFiltering);
+
+        List<EachAccommodationResponseDto> eachAccommodationResponseDtos
+                = getEachAccommodationResponseDtos(reservableAccommodations);
+
+        return AllAccommodationResponseDto.builder()
+                .status("200")
+                .allData(eachAccommodationResponseDtos)
+                .build();
+    }
+
+    private List<EachAccommodationResponseDto> getEachAccommodationResponseDtos(List<Accommodation> reservableAccommodations) {
+        List<EachAccommodationResponseDto> eachAccommodationResponseDtos = new ArrayList<>();
+
+        for (Accommodation accommodation : reservableAccommodations) {
+            EachAccommodationResponseDto each = new EachAccommodationResponseDto().toEntity(accommodation);
+            eachAccommodationResponseDtos.add(each);
+        }
+        return eachAccommodationResponseDtos;
     }
 }
