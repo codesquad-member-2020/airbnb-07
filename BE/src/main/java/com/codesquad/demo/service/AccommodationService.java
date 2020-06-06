@@ -145,40 +145,50 @@ public class AccommodationService {
 
     public AllAccommodationResponseDto getFiltering(FilterRequestDto filterRequestDto) {
 
-        Integer requestMinPrice = filterRequestDto.getMin();
-        Integer requestMaxPrice = filterRequestDto.getMax();
-
         List<Accommodation> reservableAccommodations = new ArrayList<>();
 
-        // location, 수용인원 통과하고 예약이 없는 숙박업소 구하는 메소드.
-        List<Accommodation> accommodationsByFiltering = accommodationRepository.getFiltering(filterRequestDto);
+        try {
+            List<Accommodation> reservedAccommodations = accommodationRepository.getReservedAccommodations();
+            checkReservationValidation(filterRequestDto, reservableAccommodations, reservedAccommodations);
 
-        // 예약 금액 사이에 있는 숙박 업소 추리기
-        if (requestMinPrice != null) {
-            accommodationsByFiltering = accommodationsByFiltering.stream()
-                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
-                    .collect(Collectors.toList());
+            List<Accommodation> accommodationsByFiltering = accommodationRepository.getFiltering(filterRequestDto);
+            accommodationsByFiltering = accommodationsFilteringByPrices(accommodationsByFiltering, filterRequestDto);
+            reservableAccommodations.addAll(accommodationsByFiltering);
+
+            List<EachAccommodationResponseDto> eachAccommodationResponseDtos
+                    = getEachAccommodationResponseDtos(reservableAccommodations);
+
+            return AllAccommodationResponseDto.builder()
+                    .status("200")
+                    .allData(eachAccommodationResponseDtos)
+                    .build();
+        } catch (Exception e) {
+            return AllAccommodationResponseDto.builder()
+                    .status("500")
+                    .build();
         }
+    }
 
-        // 예약이 있는 숙박업소 구하는 메서드
-        List<Accommodation> reservedAccommodations = accommodationRepository.getReservedAccommodations();
-
+    private void checkReservationValidation(FilterRequestDto filterRequestDto, List<Accommodation> reservableAccommodations, List<Accommodation> reservedAccommodations) {
         for (Accommodation accommodation : reservedAccommodations) {
             int count = accommodationRepository.isReservable(filterRequestDto, accommodation.getId());
             if (count == 0) {
                 reservableAccommodations.add(accommodation);
             }
         }
+    }
 
-        reservableAccommodations.addAll(accommodationsByFiltering);
+    private List<Accommodation> accommodationsFilteringByPrices(List<Accommodation> accommodationsByFiltering, FilterRequestDto filterRequestDto) {
 
-        List<EachAccommodationResponseDto> eachAccommodationResponseDtos
-                = getEachAccommodationResponseDtos(reservableAccommodations);
+        Integer requestMinPrice = filterRequestDto.getMin();
+        Integer requestMaxPrice = filterRequestDto.getMax();
 
-        return AllAccommodationResponseDto.builder()
-                .status("200")
-                .allData(eachAccommodationResponseDtos)
-                .build();
+        if (requestMinPrice != null) {
+            return accommodationsByFiltering.stream()
+                    .filter(each -> (each.getCurrent_price() >= requestMinPrice && each.getCurrent_price() <= requestMaxPrice))
+                    .collect(Collectors.toList());
+        }
+        return accommodationsByFiltering;
     }
 
     private List<EachAccommodationResponseDto> getEachAccommodationResponseDtos(List<Accommodation> reservableAccommodations) {

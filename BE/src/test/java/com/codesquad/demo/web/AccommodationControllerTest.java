@@ -59,12 +59,12 @@ public class AccommodationControllerTest {
         // given
         String localUrl = "http://localhost:" + port + "/mybatis/filter";
 //        String realUrl = "http://15.164.35.235/api/mock/filter";
-        Long id = 1L;
+        Long id = 2L;
         String hotelName = "Bright & Airy Queen Anne Apartment";
         String location = "Seattle";
         String status = "200";
-        LocalDate startDate = LocalDate.parse("2020-07-05");
-        LocalDate endDate = LocalDate.parse("2020-07-09");
+        LocalDate startDate = LocalDate.parse("2020-08-05");
+        LocalDate endDate = LocalDate.parse("2020-08-09");
         int people = 3;
         Integer min = 0;
         Integer max = 500000;
