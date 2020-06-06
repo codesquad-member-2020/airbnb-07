@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig host="15.164.35.235" id="0b24301e-ddb1-4c09-a9c6-32aaf346a037" keyPath="$USER_HOME$/다운로드/AirbnbProject/huey/airbnb07.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
+      <sshConfig host="15.164.35.235" id="0b24301e-ddb1-4c09-a9c6-32aaf346a037" keyPath="$USER_HOME$/다운로드/AirbnbProject/airbnb07.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
       <sshConfig host="15.165.174.20" id="5ab66a37-f32b-42c6-90f0-59f1376b7030" keyPath="$USER_HOME$/다운로드/AirbnbProject/taek/taek-airbnb.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
     </configs>
   </component>

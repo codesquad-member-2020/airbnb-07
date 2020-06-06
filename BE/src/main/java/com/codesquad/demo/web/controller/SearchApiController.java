@@ -25,13 +25,13 @@ public class SearchApiController {
     @GetMapping("init")
     public AllAccommodationResponseDto getInit() {
 
-        return searchService.getInit();
+        return accommodationService.getInit();
     }
 
     @PostMapping("filter")
     public AllAccommodationResponseDto getFiltering(@RequestBody FilterRequestDto filterRequestDto) {
 
-        return searchService.getFiltering(filterRequestDto);
+        return accommodationService.getFiltering(filterRequestDto);
     }
 
 }
