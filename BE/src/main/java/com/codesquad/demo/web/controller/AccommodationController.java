@@ -33,6 +33,7 @@ public class AccommodationController {
     public ReservationResponseDto reserve(@PathVariable Long accommodationId,
                                           @RequestBody ReservationRequestDto reservationRequestDto,
                                           HttpServletRequest request) {
-        return accommodationService.reserve(accommodationId, reservationRequestDto, request);
+
+        return accommodationService.reserve(reservationRequestDto, accommodationId, request);
     }
 }

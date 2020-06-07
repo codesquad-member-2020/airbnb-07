@@ -210,8 +210,8 @@ public class AccommodationService {
         return eachAccommodationResponseDtos;
     }
 
-    public ReservationResponseDto reserve(Long accommodationId,
-                                          ReservationRequestDto reservationRequestDto,
+    public ReservationResponseDto reserve(ReservationRequestDto reservationRequestDto,
+                                          Long accommodationId,
                                           HttpServletRequest request) {
         try {
             String successMessage = "예약에 성공했습니다.";

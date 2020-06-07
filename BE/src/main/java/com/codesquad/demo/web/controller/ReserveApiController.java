@@ -1,5 +1,6 @@
 package com.codesquad.demo.web.controller;
 
+import com.codesquad.demo.service.AccommodationService;
 import com.codesquad.demo.service.ReserveService;
 import com.codesquad.demo.web.dto.request.ReservationRequestDto;
 import com.codesquad.demo.web.dto.response.AllReservationInfoResponseDto;
@@ -14,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 public class ReserveApiController {
 
     private final ReserveService reserveService;
+    private final AccommodationService accommodationService;
 
-    public ReserveApiController(ReserveService reserveService) {
+    public ReserveApiController(ReserveService reserveService, AccommodationService accommodationService) {
         this.reserveService = reserveService;
+        this.accommodationService = accommodationService;
     }
 
     @PostMapping("{accommodationId}")
@@ -24,7 +27,7 @@ public class ReserveApiController {
                                           @PathVariable Long accommodationId,
                                           HttpServletRequest request) {
 
-        return reserveService.reserve(reservationRequestDto, accommodationId, request);
+        return accommodationService.reserve(reservationRequestDto, accommodationId, request);
     }
 
     @GetMapping("reservationInfo")

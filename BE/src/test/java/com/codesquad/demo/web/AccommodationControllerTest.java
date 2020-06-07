@@ -98,8 +98,8 @@ public class AccommodationControllerTest {
         // given
         int id = 1;
         String url = "http://localhost:" + port +  "/mybatis/" + id;
-        LocalDate startDate = LocalDate.parse("2020-04-05");
-        LocalDate endDate = LocalDate.parse("2020-04-09");
+        LocalDate startDate = LocalDate.parse("2020-03-05");
+        LocalDate endDate = LocalDate.parse("2020-03-09");
         int people = 5;
         int totalPrice = 100000;
         String ok = "200";
